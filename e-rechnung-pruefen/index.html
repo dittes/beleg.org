@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <!-- meta: generiert von tools/site.py -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>E-Rechnung prüfen &amp; anzeigen – XRechnung und ZUGFeRD online öffnen</title>
+  <meta name="description" content="XRechnung, ZUGFeRD und Factur-X kostenlos online öffnen, lesbar anzeigen und prüfen. Summen, Pflichtangaben und IBAN werden kontrolliert – ohne Upload.">
+  <link rel="canonical" href="https://beleg.org/e-rechnung-pruefen/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="beleg.org">
+  <meta property="og:locale" content="de_DE">
+  <meta property="og:title" content="E-Rechnung prüfen &amp; anzeigen – XRechnung und ZUGFeRD online öffnen">
+  <meta property="og:description" content="XRechnung, ZUGFeRD und Factur-X kostenlos online öffnen, lesbar anzeigen und prüfen. Summen, Pflichtangaben und IBAN werden kontrolliert – ohne Upload.">
+  <meta property="og:url" content="https://beleg.org/e-rechnung-pruefen/">
+  <meta property="og:image" content="https://beleg.org/assets/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#0c2582">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+  <link rel="preload" href="../assets/fonts/Newsreader-normal-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../assets/fonts/fonts.css">
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "E-Rechnung prüfen", "url": "https://beleg.org/e-rechnung-pruefen/", "description": "XRechnung, ZUGFeRD und Factur-X kostenlos online öffnen, lesbar anzeigen und prüfen. Summen, Pflichtangaben und IBAN werden kontrolliert – ohne Upload.", "applicationCategory": "BusinessApplication", "operatingSystem": "Web", "inLanguage": "de-DE", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "EUR"}}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Wie öffne ich eine XRechnung?", "acceptedAnswer": {"@type": "Answer", "text": "Zieh die XML-Datei in das Ablagefeld oben oder wähle sie über „Datei auswählen“ aus. Die Rechnung erscheint sofort als lesbares Dokument. Du kannst sie drucken oder die Positionen als CSV exportieren."}}, {"@type": "Question", "name": "Ist eine PDF-Rechnung eine E-Rechnung?", "acceptedAnswer": {"@type": "Answer", "text": "Nein. Seit 2025 gilt eine reine PDF-Datei im B2B-Bereich als „sonstige Rechnung“. Eine E-Rechnung enthält strukturierte Daten nach EN 16931. ZUGFeRD ist eine PDF, in der diese Daten als XML eingebettet sind. Legst du eine PDF ab, zeigt dir beleg.org, ob sie solche Daten enthält."}}, {"@type": "Question", "name": "Wird meine Rechnung hochgeladen?", "acceptedAnswer": {"@type": "Answer", "text": "Nein. Die Datei wird ausschließlich in deinem Browser gelesen und geprüft. Es gibt keinen Upload und keine Speicherung auf einem Server."}}, {"@type": "Question", "name": "Was mache ich, wenn die Prüfung Fehler zeigt?", "acceptedAnswer": {"@type": "Answer", "text": "Bei Rechenfehlern oder fehlenden Pflichtangaben bittest du den Absender um eine korrigierte Rechnung. Ohne ordnungsgemäße Rechnung kann der Vorsteuerabzug gefährdet sein. Hinweise (orange) sind oft unkritisch, sollten aber geprüft werden."}}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "beleg.org", "item": "https://beleg.org/"}, {"@type": "ListItem", "position": 2, "name": "E-Rechnung prüfen", "item": "https://beleg.org/e-rechnung-pruefen/"}]}</script>
+  <!-- /meta -->
+  <link rel="stylesheet" href="../assets/site.css">
+  <link rel="stylesheet" href="../assets/invoice.css">
+  <style>
+    .hero { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); gap: clamp(28px, 5vw, 80px); align-items: start; }
+    .formats { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 28px; }
+    .formats span { font: 500 11.5px/1 var(--f-mono); padding: 7px 9px; border: 1px solid var(--rule-strong); border-radius: 2px; color: var(--ink-2); background: #fff; }
+    .promise { margin-top: 34px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--ink); }
+    .promise div { padding: 14px 16px 0 0; }
+    .promise b { display: block; font: 500 26px/1 var(--f-display); color: var(--blue); }
+    .promise span { font-size: 13px; color: var(--ink-2); }
+
+    /* Ablage: Belegdrucker mit Papier */
+    .slot { position: relative; padding-top: 18px; }
+    .slot__bar { position: absolute; top: 0; left: -14px; right: -14px; height: 34px; background: var(--blue-deep); border-radius: 6px 6px 3px 3px; box-shadow: 0 10px 22px -12px rgba(12,37,130,.7); z-index: 2; display: flex; align-items: center; justify-content: space-between; padding: 0 14px; color: #bcd0ff; font: 500 10px/1 var(--f-mono); letter-spacing: .12em; text-transform: uppercase; }
+    .slot__bar::after { content: ""; position: absolute; left: 12px; right: 12px; bottom: 7px; height: 3px; border-radius: 3px; background: #06154f; }
+    .slot__led { display: inline-flex; align-items: center; gap: 6px; }
+    .slot__led::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: #6ea0ff; box-shadow: 0 0 8px #6ea0ff; }
+    .drop {
+      position: relative; margin-top: 16px; padding: 44px 28px 40px; text-align: center; cursor: pointer;
+      background: #fff; border: 1px solid var(--rule); box-shadow: var(--shadow);
+      transition: transform .35s cubic-bezier(.2,.8,.2,1), background .2s;
+      animation: feed 1s cubic-bezier(.2,.8,.2,1) .15s both;
+    }
+    @keyframes feed { from { transform: translateY(-40px); clip-path: inset(40px 0 0 0); } to { transform: none; clip-path: inset(-20px -20px -20px -20px); } }
+    .drop::before { content: ""; position: absolute; inset: 14px; border: 1.5px dashed var(--rule-strong); border-radius: 2px; pointer-events: none; transition: border-color .2s, inset .2s; }
+    .drop:hover::before, .drop.is-over::before { border-color: var(--blue); inset: 10px; }
+    .drop.is-over { background: var(--blue-wash); transform: translateY(6px); }
+    .drop__icon { width: 64px; height: 64px; margin: 0 auto 18px; color: var(--blue); }
+    .drop__t { font: 400 30px/1.1 var(--f-display); margin: 0; }
+    .drop__s { color: var(--muted); font-size: 14px; margin: 8px 0 22px; }
+    .drop .btnrow { justify-content: center; }
+    .drop__foot { margin-top: 28px; padding-top: 14px; border-top: 1px dotted var(--rule-strong); display: flex; justify-content: space-between; gap: 10px; font: 500 10.5px/1.4 var(--f-mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+    .drop__foot b { color: var(--blue); font-weight: 600; }
+    .drop-err { margin-top: 22px; }
+
+    /* Ergebnis */
+    .result { margin-top: 64px; scroll-margin-top: 80px; }
+    .result[hidden] { display: none; }
+    .rbar { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 18px; align-items: end; padding-bottom: 18px; border-bottom: 1px solid var(--ink); }
+    .rbar__file { font: 500 12px/1.4 var(--f-mono); color: var(--muted); overflow-wrap: anywhere; }
+    .rgrid { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 28px; margin-top: 26px; align-items: start; }
+    .views { display: flex; gap: 0; margin-bottom: -1px; position: relative; z-index: 1; }
+    .views button { font: 500 12px/1 var(--f-label); letter-spacing: .04em; padding: 11px 16px; background: transparent; border: 1px solid transparent; border-bottom: 0; color: var(--muted); cursor: pointer; border-radius: 3px 3px 0 0; }
+    .views button[aria-selected="true"] { background: #fff; border-color: var(--rule); color: var(--blue-deep); }
+    .views button:hover { color: var(--blue); }
+    .pdfpages { padding: 20px; display: grid; gap: 16px; background: var(--paper-3); }
+    .pdfpages canvas { width: 100%; height: auto; background: #fff; box-shadow: var(--shadow); }
+    .xmlsrc { margin: 0; padding: 20px; max-height: 70vh; overflow: auto; font: 12px/1.6 var(--f-mono); color: var(--ink-2); white-space: pre; tab-size: 2; background: #fff; }
+    .xmlsrc .t { color: var(--blue-deep); } .xmlsrc .a { color: #6b5bd6; } .xmlsrc .v { color: #0f7a5a; }
+
+    .proto { position: sticky; top: 76px; }
+    .proto__head { padding: 20px 20px 16px; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px; align-items: center; border-bottom: 1px solid var(--rule); }
+    .proto__score { display: flex; gap: 14px; margin-top: 8px; font: 500 12px/1 var(--f-mono); }
+    .proto__score span { display: inline-flex; gap: 6px; align-items: center; }
+    .proto__score i { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+    .i-ok { background: var(--blue); } .i-warn { background: var(--warn); } .i-err { background: var(--err); }
+    .proto__filter { display: flex; gap: 4px; padding: 10px 20px; border-bottom: 1px solid var(--rule); }
+    .proto__filter button { font: 500 11px/1 var(--f-mono); letter-spacing: .04em; padding: 6px 8px; border-radius: 2px; border: 1px solid var(--rule); background: #fff; color: var(--ink-2); cursor: pointer; }
+    .proto__filter button[aria-pressed="true"] { border-color: var(--blue); color: var(--blue); background: var(--blue-wash); }
+    .proto ol { list-style: none; margin: 0; padding: 4px 0; max-height: min(62vh, 640px); overflow: auto; }
+    .proto li { display: grid; grid-template-columns: 16px minmax(0, 1fr); gap: 10px; padding: 9px 20px; border-bottom: 1px solid var(--paper-3); font-size: 13px; line-height: 1.4; }
+    .proto li:last-child { border-bottom: 0; }
+    .proto li .ic { width: 16px; height: 16px; margin-top: 1px; }
+    .proto li code { font: 500 10px/1 var(--f-mono); color: var(--muted); letter-spacing: .04em; display: block; margin-bottom: 3px; }
+    .proto li small { display: block; color: var(--muted); font-size: 12px; margin-top: 3px; }
+    .proto li.err { background: var(--err-wash); } .proto li.warn { background: var(--warn-wash); }
+    .proto__foot { padding: 14px 20px; border-top: 1px solid var(--rule); font-size: 12px; color: var(--muted); background: var(--paper-2); }
+
+    /* Zeitleiste E-Rechnungspflicht */
+    .law { margin-top: 96px; display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: clamp(24px, 5vw, 80px); }
+    .timeline { position: relative; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 2px solid var(--blue); margin-top: 12px; }
+    .timeline div { position: relative; padding: 22px 18px 0 0; }
+    .timeline div::before { content: ""; position: absolute; top: -8px; left: 0; width: 14px; height: 14px; border-radius: 50%; background: #fff; border: 2px solid var(--blue); }
+    .timeline div.now::before { background: var(--blue); box-shadow: 0 0 0 5px var(--blue-soft); }
+    .timeline b { display: block; font: 400 40px/1 var(--f-display); color: var(--blue-deep); letter-spacing: -.02em; }
+    .timeline span { display: block; font: 500 10.5px/1.3 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--blue); margin: 8px 0 8px; }
+    .timeline p { margin: 0; font-size: 14px; color: var(--ink-2); }
+
+
+    @media (max-width: 1100px) { .rgrid { grid-template-columns: minmax(0, 1fr); } .proto { position: static; } }
+    @media (max-width: 900px) {
+      .hero, .law { grid-template-columns: minmax(0, 1fr); }
+      .promise { display: none; }
+    }
+    @media (max-width: 560px) {
+      .timeline, .promise { grid-template-columns: minmax(0, 1fr); border-top: 0; }
+      .timeline { border-left: 2px solid var(--blue); border-top: 0; padding-left: 18px; gap: 18px; }
+      .timeline div { padding-top: 0; }
+      .timeline div::before { left: -27px; top: 12px; }
+      .promise div { border-top: 1px solid var(--ink); padding-bottom: 12px; }
+      .rbar { grid-template-columns: minmax(0, 1fr); }
+      .slot__bar { left: -6px; right: -6px; }
+    }
+  </style>
+</head>
+<body>
+<div class="shell">
+  <aside class="register" aria-label="Hauptnavigation">
+    <a class="register__mark" href="../" aria-label="beleg.org Startseite">
+      <svg viewBox="0 0 40 40" fill="none" aria-hidden="true"><path d="M9 4h22v30l-3.67-2.5L23.67 34 20 31.5 16.33 34l-3.66-2.5L9 34V4Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M14 12h12M14 17h12M14 22h7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="28" cy="25" r="5.5" fill="#6ea0ff" stroke="#0c2582" stroke-width="2"/><path d="m25.6 25 1.6 1.6 3-3.2" stroke="#0c2582" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span class="register__word">beleg<i>.org</i></span>
+    </a>
+    <nav>
+      <a class="tab" href="../e-rechnung-pruefen/" aria-current="page"><svg class="tab__ic" viewBox="0 0 18 18" aria-hidden="true"><path d="M4 1.5h7l3 3v12H4z"/><path d="m6.5 10 2 2 3.5-4"/></svg><span class="tab__label">E-Rechnung prüfen</span></a>
+      <a class="tab" href="../e-rechnung-erstellen/"><svg class="tab__ic" viewBox="0 0 18 18" aria-hidden="true"><path d="M4 1.5h7l3 3v12H4z"/><path d="M9 7.5v6M6 10.5h6"/></svg><span class="tab__label">E-Rechnung erstellen</span></a>
+      <a class="tab" href="../beleg-scannen/"><svg class="tab__ic" viewBox="0 0 18 18" aria-hidden="true"><path d="M1.5 5V1.5H5M13 1.5h3.5V5M16.5 13v3.5H13M5 16.5H1.5V13"/><path d="M4 9h10"/></svg><span class="tab__label">Beleg scannen</span></a>
+      <a class="tab" href="../belege-auslesen/"><svg class="tab__ic" viewBox="0 0 18 18" aria-hidden="true"><rect x="2" y="3" width="14" height="12" rx="1"/><path d="M2 7h14M2 11h14M7 3v12"/></svg><span class="tab__label">Belege auslesen</span></a>
+      <a class="tab" href="../eigenbeleg-erstellen/"><svg class="tab__ic" viewBox="0 0 18 18" aria-hidden="true"><path d="M5.5 4.5h9v12h-9z"/><path d="M3 13.5V2h8.5"/></svg><span class="tab__label">Belegvorlagen</span></a>
+      <a class="tab" href="../aufbewahrungsfristen/"><svg class="tab__ic" viewBox="0 0 18 18" aria-hidden="true"><rect x="1.5" y="2.5" width="15" height="4" rx=".5"/><path d="M3 6.5v9h12v-9M7 10h4"/></svg><span class="tab__label">Aufbewahrung</span></a>
+      <a class="tab" href="../ratgeber/"><svg class="tab__ic" viewBox="0 0 18 18" aria-hidden="true"><path d="M2 3.5c2.5-1 5-1 7 .5v11c-2-1.5-4.5-1.5-7-.5zM16 3.5c-2.5-1-5-1-7 .5v11c2-1.5 4.5-1.5 7-.5z"/></svg><span class="tab__label">Ratgeber</span></a>
+    </nav>
+    <div class="register__foot"><span>Kein Upload</span><span>Kein Konto</span><span>Kein Tracking</span></div>
+    <script>(function(){var t=document.querySelector('.register .tab[aria-current]');if(t&&t.parentNode.scrollWidth>t.parentNode.clientWidth)t.parentNode.scrollLeft=t.offsetLeft-48;})()</script>
+  </aside>
+
+  <main class="sheet">
+    <div class="kopf">
+      <div class="kopf__cell kopf__cell--hide"><span class="kopf__k">Bereich</span><span class="kopf__v">Werkzeug</span></div>
+      <div class="kopf__cell"><span class="kopf__k">Seite</span><span class="kopf__v">E-Rechnung prüfen</span></div>
+      <div class="kopf__cell"><span class="kopf__k">Verarbeitung</span><span class="kopf__v"><span class="dot"></span>lokal im Browser</span></div>
+      <div class="kopf__cell kopf__cell--hide"><span class="kopf__k">Formate</span><span class="kopf__v">CII · UBL · PDF</span></div>
+    </div>
+
+    <div class="wrap">
+      <section class="hero">
+        <div>
+          <p class="eyebrow rise">XRechnung · ZUGFeRD · Factur-X</p>
+          <h1 class="display rise rise-2">E&#8209;Rechnung prüfen,<br>endlich <em>lesbar.</em></h1>
+          <p class="lede rise rise-3">Leg eine XML- oder PDF-Datei ab. beleg.org zeigt dir die Rechnung als sauberes Dokument, rechnet alle Summen nach und prüft die Pflichtangaben. Die Datei bleibt dabei auf deinem Gerät.</p>
+          <div class="formats rise rise-4" aria-label="Unterstützte Formate">
+            <span>XRechnung 3.x · CII</span><span>XRechnung · UBL</span><span>ZUGFeRD 2.x</span><span>Factur-X</span><span>Peppol BIS 3</span>
+          </div>
+          <div class="promise rise rise-5">
+            <div><b>0&nbsp;Bytes</b><span>werden hochgeladen</span></div>
+            <div><b>25+</b><span>Prüfregeln aus EN&nbsp;16931 &amp; UStG</span></div>
+            <div><b>CSV</b><span>Positionen für die Buchhaltung</span></div>
+          </div>
+        </div>
+
+        <div class="slot">
+          <div class="slot__bar" aria-hidden="true"><span>Ablage</span><span class="slot__led">bereit</span></div>
+          <div class="drop perf" id="drop" role="button" tabindex="0" aria-label="Datei auswählen oder hier ablegen">
+            <svg class="drop__icon" viewBox="0 0 64 64" fill="none" aria-hidden="true"><path d="M16 6h24l10 10v42H16z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M40 6v10h10" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M24 30h18M24 36h18M24 42h11" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M32 60V48m0 0-5 5m5-5 5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" transform="rotate(180 32 54)"/></svg>
+            <p class="drop__t">Beleg hier ablegen</p>
+            <p class="drop__s">XML oder PDF – oder XML-Text mit <kbd class="mono">⌘/Strg + V</kbd> einfügen</p>
+            <div class="btnrow">
+              <button class="btn" type="button" id="pick"><svg viewBox="0 0 16 16" fill="none"><path d="M8 11V2m0 0L4.5 5.5M8 2l3.5 3.5M2 10v4h12v-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Datei auswählen</button>
+              <button class="btn btn--ghost" type="button" id="sample">Beispiel ansehen</button>
+            </div>
+            <input type="file" id="file" accept=".xml,.pdf,application/xml,text/xml,application/pdf" hidden>
+            <div class="drop__foot"><span>Verarbeitung <b>lokal</b></span><span>Speicherung <b>keine</b></span></div>
+          </div>
+          <div class="note note--warn drop-err" id="dropErr" hidden></div>
+        </div>
+      </section>
+
+      <section class="result" id="result" hidden aria-live="polite">
+        <div class="rbar">
+          <div>
+            <p class="eyebrow">Ergebnis</p>
+            <h2 class="h2" id="rTitle">Rechnung</h2>
+            <p class="rbar__file" id="rFile"></p>
+          </div>
+          <div class="btnrow">
+            <button class="btn btn--ghost" type="button" id="csv">Positionen als CSV</button>
+            <button class="btn btn--ghost" type="button" id="json">JSON</button>
+            <button class="btn btn--quiet" type="button" id="again">Neue Datei</button>
+          </div>
+        </div>
+        <div class="rgrid">
+          <div>
+            <div class="views" role="tablist">
+              <button role="tab" aria-selected="true" data-view="doc">Lesefassung</button>
+              <button role="tab" aria-selected="false" data-view="pdf" id="tabPdf" hidden>Original-PDF</button>
+              <button role="tab" aria-selected="false" data-view="xml">XML-Quelltext</button>
+            </div>
+            <div class="paper" id="vDoc"></div>
+            <div class="paper" id="vPdf" hidden><div class="pdfpages" id="pdfPages"></div></div>
+            <div class="paper" id="vXml" hidden><pre class="xmlsrc" id="xmlSrc"></pre></div>
+          </div>
+          <aside class="paper proto" aria-label="Prüfprotokoll">
+            <div class="proto__head">
+              <div>
+                <p class="h3" style="margin:0">Prüfprotokoll</p>
+                <div class="proto__score" id="score"></div>
+              </div>
+              <div id="stamp"></div>
+            </div>
+            <div class="proto__filter" id="filter">
+              <button type="button" aria-pressed="true" data-f="all">Alle</button>
+              <button type="button" aria-pressed="false" data-f="err">Fehler</button>
+              <button type="button" aria-pressed="false" data-f="warn">Hinweise</button>
+              <button type="button" aria-pressed="false" data-f="ok">Erfüllt</button>
+            </div>
+            <ol id="checks"></ol>
+            <div class="proto__foot">Plausibilitätsprüfung nach EN&nbsp;16931, XRechnung und §&nbsp;14 UStG. Ersetzt nicht die vollständige Schematron-Validierung der <a href="https://github.com/itplr-kosit/validator" rel="noopener">KoSIT</a>.</div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="law">
+        <div>
+          <p class="eyebrow">Warum das wichtig ist</p>
+          <h2 class="h2">Die E-Rechnung kommt <em>in drei Stufen.</em></h2>
+          <p class="small" style="max-width:44ch">Eine PDF-Datei ist seit 2025 keine E-Rechnung mehr, sondern eine „sonstige Rechnung“. Gemeint ist eine strukturierte Datei nach EN&nbsp;16931, also XRechnung oder ZUGFeRD ab Profil EN&nbsp;16931.</p>
+        </div>
+        <div class="timeline">
+          <div class="now"><b>2025</b><span>Empfang</span><p>Alle Unternehmen müssen E-Rechnungen annehmen und verarbeiten können, auch Kleinunternehmer.</p></div>
+          <div><b>2027</b><span>Versand &gt; 800 T€</span><p>Wer im Vorjahr mehr als 800.000&nbsp;€ Umsatz hatte, muss E-Rechnungen ausstellen.</p></div>
+          <div><b>2028</b><span>Versand alle</span><p>Die Pflicht gilt für alle inländischen B2B-Umsätze. Kleinunternehmer nach §&nbsp;19 UStG bleiben ausgenommen.</p></div>
+        </div>
+      </section>
+
+      <section class="info">
+        <div class="info__head">
+          <p class="eyebrow">Wissen</p>
+          <h2 class="h2">Was beim Prüfen <em>passiert</em></h2>
+        </div>
+        <div class="prose">
+          <p>Eine E-Rechnung ist eine XML-Datei, die für Maschinen gemacht ist. Ohne passendes Programm siehst du darin nur Code. beleg.org zeigt dir die Rechnung als gewohntes Dokument und prüft gleichzeitig, ob sie vollständig und rechnerisch richtig ist.</p>
+          <h3>Unterstützte Formate</h3>
+          <ul>
+            <li><b>XRechnung</b> in beiden Syntaxen: UN/CEFACT CII und OASIS UBL</li>
+            <li><b>ZUGFeRD 2.x und Factur-X</b>: PDF mit eingebetteter XML-Datei, in allen Profilen von Minimum bis Extended</li>
+            <li><b>Peppol BIS Billing 3.0</b></li>
+          </ul>
+          <h3>Was geprüft wird</h3>
+          <ul>
+            <li>Pflichtangaben nach EN&nbsp;16931 und §&nbsp;14 UStG: Rechnungsnummer, Datum, Anschriften, Steuernummer, Leistungsdatum</li>
+            <li>Alle Summen: Positionen, Nettobetrag, Steuer je Steuersatz, Brutto- und Zahlbetrag</li>
+            <li>Prüfziffer der IBAN und Zahlungsbedingungen</li>
+            <li>Die Zusatzregeln der XRechnung: Käuferreferenz bzw. Leitweg-ID, Kontaktdaten, elektronische Adressen</li>
+          </ul>
+          <p>Die Prüfung ist eine Plausibilitätsprüfung. Sie deckt die häufigsten Fehler auf, ersetzt aber nicht die vollständige Schematron-Validierung, wie sie der Validator der KoSIT durchführt.</p>
+          <a class="callout" href="../e-rechnungspflicht/"><div><span>Ratgeber</span><b>E-Rechnungspflicht: Wer muss was und ab wann?</b></div></a>
+        </div>
+      </section>
+
+      <section class="faq">
+        <p class="eyebrow">Häufige Fragen</p>
+        <h2 class="h2">Fragen zur E-Rechnung</h2>
+        <div class="faq__list">
+          <details class="faq__item"><summary>Wie öffne ich eine XRechnung?</summary>
+            <div><p>Zieh die XML-Datei in das Ablagefeld oben oder wähle sie über „Datei auswählen“ aus. Die Rechnung erscheint sofort als lesbares Dokument. Du kannst sie drucken oder die Positionen als CSV exportieren.</p></div></details>
+          <details class="faq__item"><summary>Ist eine PDF-Rechnung eine E-Rechnung?</summary>
+            <div><p>Nein. Seit 2025 gilt eine reine PDF-Datei im B2B-Bereich als „sonstige Rechnung“. Eine E-Rechnung enthält strukturierte Daten nach EN&nbsp;16931. ZUGFeRD ist eine PDF, in der diese Daten als XML eingebettet sind. Legst du eine PDF ab, zeigt dir beleg.org, ob sie solche Daten enthält.</p></div></details>
+          <details class="faq__item"><summary>Wird meine Rechnung hochgeladen?</summary>
+            <div><p>Nein. Die Datei wird ausschließlich in deinem Browser gelesen und geprüft. Es gibt keinen Upload und keine Speicherung auf einem Server.</p></div></details>
+          <details class="faq__item"><summary>Was mache ich, wenn die Prüfung Fehler zeigt?</summary>
+            <div><p>Bei Rechenfehlern oder fehlenden Pflichtangaben bittest du den Absender um eine korrigierte Rechnung. Ohne ordnungsgemäße Rechnung kann der Vorsteuerabzug gefährdet sein. Hinweise (orange) sind oft unkritisch, sollten aber geprüft werden.</p></div></details>
+        </div>
+      </section>
+
+    </div>
+
+    <footer class="colophon">
+      <div class="colophon__brand"><b>beleg<i>.org</i></b><span>Werkzeuge für Belege. Kostenlos, ohne Konto, ohne Tracking. Deine Dateien bleiben auf deinem Gerät.</span></div>
+      <nav class="colophon__cols" aria-label="Fußzeile">
+        <div><p>Werkzeuge</p><ul><li><a href="../e-rechnung-pruefen/">E-Rechnung prüfen</a></li><li><a href="../e-rechnung-erstellen/">E-Rechnung erstellen</a></li><li><a href="../beleg-scannen/">Beleg scannen</a></li><li><a href="../belege-auslesen/">Belege auslesen</a></li><li><a href="../eigenbeleg-erstellen/">Belegvorlagen</a></li><li><a href="../aufbewahrungsfristen/">Aufbewahrung</a></li><li><a href="../kontoauszug-in-excel/">Kontoauszug in Excel</a></li></ul></div>
+        <div><p>Vorlagen</p><ul><li><a href="../eigenbeleg-erstellen/">Eigenbeleg erstellen</a></li><li><a href="../bewirtungsbeleg-erstellen/">Bewirtungsbeleg erstellen</a></li><li><a href="../quittung-erstellen/">Quittung erstellen</a></li></ul></div>
+        <div><p>Ratgeber</p><ul><li><a href="../belegpflicht/">Belegpflicht</a></li><li><a href="../beleg-vs-quittung/">Beleg, Quittung, Rechnung</a></li><li><a href="../beleg-digitalisieren/">Belege digitalisieren</a></li><li><a href="../e-rechnungspflicht/">E-Rechnungspflicht</a></li></ul></div>
+        <div><p>Rechtliches</p><ul><li><a href="../impressum/">Impressum</a></li><li><a href="../datenschutz/">Datenschutz</a></li></ul></div>
+      </nav>
+      <p class="colophon__legal">Keine Steuer- oder Rechtsberatung. Angaben ohne Gewähr.</p>
+    </footer>
+  </main>
+</div>
+<script type="module" src="../assets/viewer.js"></script>
+</body>
+</html>

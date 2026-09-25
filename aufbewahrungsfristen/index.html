@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <!-- meta: generiert von tools/site.py -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Aufbewahrungsfristen 2026 – Rechner: Darf der Beleg weg?</title>
+  <meta name="description" content="Aufbewahrungsfristen-Rechner für Rechnungen, Kontoauszüge, Lohnunterlagen und Geschäftsbriefe. Mit neuer 8-Jahres-Frist für Buchungsbelege und Schredder-Plan.">
+  <link rel="canonical" href="https://beleg.org/aufbewahrungsfristen/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="beleg.org">
+  <meta property="og:locale" content="de_DE">
+  <meta property="og:title" content="Aufbewahrungsfristen 2026 – Rechner: Darf der Beleg weg?">
+  <meta property="og:description" content="Aufbewahrungsfristen-Rechner für Rechnungen, Kontoauszüge, Lohnunterlagen und Geschäftsbriefe. Mit neuer 8-Jahres-Frist für Buchungsbelege und Schredder-Plan.">
+  <meta property="og:url" content="https://beleg.org/aufbewahrungsfristen/">
+  <meta property="og:image" content="https://beleg.org/assets/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#0c2582">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+  <link rel="preload" href="../assets/fonts/Newsreader-normal-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../assets/fonts/fonts.css">
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Aufbewahrungsfristen", "url": "https://beleg.org/aufbewahrungsfristen/", "description": "Aufbewahrungsfristen-Rechner für Rechnungen, Kontoauszüge, Lohnunterlagen und Geschäftsbriefe. Mit neuer 8-Jahres-Frist für Buchungsbelege und Schredder-Plan.", "applicationCategory": "BusinessApplication", "operatingSystem": "Web", "inLanguage": "de-DE", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "EUR"}}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "beleg.org", "item": "https://beleg.org/"}, {"@type": "ListItem", "position": 2, "name": "Aufbewahrungsfristen", "item": "https://beleg.org/aufbewahrungsfristen/"}]}</script>
+  <!-- /meta -->
+  <link rel="stylesheet" href="../assets/site.css">
+  <style>
+    .intro { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 340px); gap: 40px; align-items: end; margin-bottom: 48px; }
+    .desk { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: clamp(24px, 4vw, 56px); align-items: start; }
+
+    .cats { display: grid; gap: 0; border-top: 1px solid var(--ink); }
+    .cats__group { font: 500 10.5px/1 var(--f-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); padding: 18px 0 8px; }
+    .cat { display: grid; grid-template-columns: 22px minmax(0, 1fr) auto; gap: 12px; align-items: center; padding: 13px 14px 13px 10px; border-bottom: 1px solid var(--rule); cursor: pointer; transition: background .15s; position: relative; }
+    .cat:hover { background: var(--blue-wash); }
+    .cat input { appearance: none; width: 16px; height: 16px; border: 1.5px solid var(--rule-strong); border-radius: 50%; margin: 0; display: grid; place-items: center; cursor: pointer; }
+    .cat input::after { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--blue); transform: scale(0); transition: transform .15s; }
+    .cat input:checked { border-color: var(--blue); }
+    .cat input:checked::after { transform: scale(1); }
+    .cat:has(input:checked) { background: var(--blue-wash); }
+    .cat:has(input:checked)::before { content: ""; position: absolute; left: -1px; top: -1px; bottom: -1px; width: 3px; background: var(--blue); }
+    .cat b { display: block; font: 600 14.5px/1.3 var(--f-label); }
+    .cat small { display: block; color: var(--muted); font-size: 12.5px; line-height: 1.4; margin-top: 2px; }
+    .cat__y { font: 500 20px/1 var(--f-display); color: var(--blue); white-space: nowrap; }
+    .cat__y span { font: 500 10px/1 var(--f-mono); letter-spacing: .06em; color: var(--muted); margin-left: 3px; }
+
+    .when { display: flex; gap: 14px; align-items: end; flex-wrap: wrap; margin-bottom: 18px; }
+    .stepper { justify-self: start; display: inline-flex; align-items: stretch; border: 1px solid var(--rule-strong); border-radius: var(--radius); background: #fff; overflow: hidden; }
+    .stepper button { border: 0; background: #fff; color: var(--blue); width: 42px; font: 500 20px/1 var(--f-mono); cursor: pointer; }
+    .stepper button:hover { background: var(--blue-wash); }
+    .stepper input { width: 96px; text-align: center; border: 0; border-inline: 1px solid var(--rule); font: 500 22px/1 var(--f-mono); padding: 10px 0; color: var(--ink); -moz-appearance: textfield; }
+    .stepper input::-webkit-inner-spin-button { -webkit-appearance: none; }
+    .stepper input:focus { outline: none; background: var(--blue-wash); }
+
+    .verdict { padding: clamp(22px, 3vw, 36px); position: sticky; top: 80px; }
+    .verdict__k { font: 500 10.5px/1 var(--f-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+    .verdict__big { font: 400 clamp(34px, 4.2vw, 56px)/1.02 var(--f-display); letter-spacing: -.02em; margin: 14px 0 10px; }
+    .verdict__big em { color: var(--blue); }
+    .verdict__sub { color: var(--ink-2); margin: 0; max-width: 46ch; }
+    .verdict__stamp { position: absolute; top: 22px; right: 22px; }
+    .verdict__law { margin-top: 20px; padding-top: 14px; border-top: 1px dotted var(--rule-strong); font: 400 12px/1.5 var(--f-mono); color: var(--muted); }
+
+    .ruler { margin-top: 30px; }
+    .ruler__track { position: relative; height: 46px; border-bottom: 1px solid var(--ink); }
+    .ruler__keep { position: absolute; top: 12px; height: 20px; background: repeating-linear-gradient(135deg, var(--blue) 0 6px, var(--blue-deep) 6px 12px); border-radius: 2px; transition: left .4s, width .4s; }
+    .ruler__free { position: absolute; top: 12px; height: 20px; border: 1.5px dashed var(--rule-strong); border-left: 0; border-radius: 0 2px 2px 0; transition: left .4s, width .4s; }
+    .ruler__now { position: absolute; top: 0; bottom: -8px; width: 2px; background: var(--err); transition: left .4s; }
+    .ruler__now::after { content: attr(data-label); position: absolute; top: -18px; left: 50%; transform: translateX(-50%); font: 600 10px/1 var(--f-mono); color: var(--err); letter-spacing: .06em; white-space: nowrap; }
+    .ruler__ticks { position: relative; height: 26px; }
+    .ruler__ticks span { position: absolute; top: 6px; transform: translateX(-50%); font: 500 10.5px/1 var(--f-mono); color: var(--muted); }
+    .ruler__ticks span::before { content: ""; position: absolute; top: -12px; left: 50%; width: 1px; height: 6px; background: var(--ink); }
+    .ruler__legend { display: flex; gap: 18px; flex-wrap: wrap; margin-top: 4px; font: 500 11px/1 var(--f-mono); color: var(--ink-2); }
+    .ruler__legend i { display: inline-block; width: 18px; height: 9px; margin-right: 6px; vertical-align: -1px; border-radius: 1px; }
+
+    /* Schredder-Plan */
+    .plan { margin-top: 96px; }
+    .plan__head { display: flex; justify-content: space-between; align-items: end; gap: 20px; flex-wrap: wrap; margin-bottom: 22px; }
+    .matrix-wrap { overflow-x: auto; border: 1px solid var(--rule); background: #fff; box-shadow: var(--shadow); }
+    .matrix { border-collapse: collapse; width: 100%; min-width: 760px; }
+    .matrix th, .matrix td { border-bottom: 1px solid var(--rule); }
+    .matrix thead th { font: 500 11px/1 var(--f-mono); color: var(--muted); padding: 12px 0; text-align: center; border-bottom: 1px solid var(--ink); }
+    .matrix thead th:first-child { text-align: left; padding-left: 16px; }
+    .matrix tbody th { text-align: left; padding: 10px 16px; font: 600 13px/1.25 var(--f-label); white-space: nowrap; }
+    .matrix tbody th small { display: block; font: 400 11px/1.3 var(--f-mono); color: var(--muted); }
+    .matrix td { text-align: center; padding: 6px 3px; }
+    .cell { display: grid; place-items: center; height: 30px; border-radius: 2px; font: 600 10px/1 var(--f-mono); }
+    .cell--keep { background: var(--blue); color: rgba(255,255,255,.75); }
+    .cell--last { background: var(--blue-deep); color: #fff; }
+    .cell--go { background: #fff; color: var(--blue); border: 1px dashed var(--rule-strong); }
+    .cell--go svg { width: 14px; height: 14px; }
+    .matrix td.is-sel .cell { outline: 2px solid var(--err); outline-offset: 1px; }
+    .facts { margin-top: 64px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; border-top: 1px solid var(--ink); }
+    .facts div { padding: 18px 22px 0 0; }
+    .facts h3 { font: 400 22px/1.15 var(--f-display); margin: 0 0 8px; }
+    .facts p { margin: 0; font-size: 14px; color: var(--ink-2); }
+    @media (max-width: 960px) { .desk, .intro { grid-template-columns: minmax(0, 1fr); } .verdict { position: relative; top: 0; } .facts { grid-template-columns: minmax(0, 1fr); } .facts div { border-bottom: 1px solid var(--rule); padding-bottom: 16px; } }
+  </style>
+</head>
+<body>
+<div class="shell">
+  <aside class="register" aria-label="Hauptnavigation">
+    <a class="register__mark" href="../" aria-label="beleg.org Startseite">
+      <svg viewBox="0 0 40 40" fill="none" aria-hidden="true"><path d="M9 4h22v30l-3.67-2.5L23.67 34 20 31.5 16.33 34l-3.66-2.5L9 34V4Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M14 12h12M14 17h12M14 22h7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="28" cy="25" r="5.5" fill="#6ea0ff" stroke="#0c2582" stroke-width="2"/><path d="m25.6 25 1.6 1.6 3-3.2" stroke="#0c2582" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span class="register__word">beleg<i>.org</i></span>
+    </a>
+    <nav>
+      <a class="tab" href="../e-rechnung-pruefen/"><svg class="tab__ic" viewBox="0 0 18 18" aria-hidden="true"><path d="M4 1.5h7l3 3v12H4z"/><path d="m6.5 10 2 2 3.5-4"/></svg><span class="tab__label">E-Rechnung prüfen</span></a>
+      <a class="tab" href="../e-rechnung-erstellen/"><svg class="tab__ic" viewBox="0 0 18 18" aria-hidden="true"><path d="M4 1.5h7l3 3v12H4z"/><path d="M9 7.5v6M6 10.5h6"/></svg><span class="tab__label">E-Rechnung erstellen</span></a>
+      <a class="tab" href="../beleg-scannen/"><svg class="tab__ic" viewBox="0 0 18 18" aria-hidden="true"><path d="M1.5 5V1.5H5M13 1.5h3.5V5M16.5 13v3.5H13M5 16.5H1.5V13"/><path d="M4 9h10"/></svg><span class="tab__label">Beleg scannen</span></a>
+      <a class="tab" href="../belege-auslesen/"><svg class="tab__ic" viewBox="0 0 18 18" aria-hidden="true"><rect x="2" y="3" width="14" height="12" rx="1"/><path d="M2 7h14M2 11h14M7 3v12"/></svg><span class="tab__label">Belege auslesen</span></a>
+      <a class="tab" href="../eigenbeleg-erstellen/"><svg class="tab__ic" viewBox="0 0 18 18" aria-hidden="true"><path d="M5.5 4.5h9v12h-9z"/><path d="M3 13.5V2h8.5"/></svg><span class="tab__label">Belegvorlagen</span></a>
+      <a class="tab" href="../aufbewahrungsfristen/" aria-current="page"><svg class="tab__ic" viewBox="0 0 18 18" aria-hidden="true"><rect x="1.5" y="2.5" width="15" height="4" rx=".5"/><path d="M3 6.5v9h12v-9M7 10h4"/></svg><span class="tab__label">Aufbewahrung</span></a>
+      <a class="tab" href="../ratgeber/"><svg class="tab__ic" viewBox="0 0 18 18" aria-hidden="true"><path d="M2 3.5c2.5-1 5-1 7 .5v11c-2-1.5-4.5-1.5-7-.5zM16 3.5c-2.5-1-5-1-7 .5v11c2-1.5 4.5-1.5 7-.5z"/></svg><span class="tab__label">Ratgeber</span></a>
+    </nav>
+    <div class="register__foot"><span>Kein Upload</span><span>Kein Konto</span><span>Kein Tracking</span></div>
+    <script>(function(){var t=document.querySelector('.register .tab[aria-current]');if(t&&t.parentNode.scrollWidth>t.parentNode.clientWidth)t.parentNode.scrollLeft=t.offsetLeft-48;})()</script>
+  </aside>
+
+  <main class="sheet">
+    <div class="kopf">
+      <div class="kopf__cell kopf__cell--hide"><span class="kopf__k">Bereich</span><span class="kopf__v">Werkzeug</span></div>
+      <div class="kopf__cell"><span class="kopf__k">Seite</span><span class="kopf__v">Aufbewahrungsfristen</span></div>
+      <div class="kopf__cell"><span class="kopf__k">Rechtsstand</span><span class="kopf__v"><span class="dot"></span>AO / HGB / UStG 2025</span></div>
+      <div class="kopf__cell kopf__cell--hide"><span class="kopf__k">Grundlage</span><span class="kopf__v">§ 147 AO · § 257 HGB</span></div>
+    </div>
+
+    <div class="wrap">
+      <header class="intro">
+        <div>
+          <p class="eyebrow rise">Aufbewahrungsfristen</p>
+          <h1 class="display rise rise-2">Aufbewahrungsfristen:<br>Darf der Beleg <em>weg?</em></h1>
+        </div>
+        <p class="lede rise rise-3" style="margin:0">Wähle die Belegart und das Jahr, in dem der Beleg entstanden ist. Du siehst sofort, ob er in den Schredder darf oder wie lange du ihn noch aufheben musst.</p>
+      </header>
+
+      <div class="desk">
+        <form id="form" onsubmit="return false">
+          <div class="when">
+            <label class="field">
+              <span>Entstehungsjahr <small>(Jahr des Belegs bzw. der letzten Eintragung)</small></span>
+              <div class="stepper">
+                <button type="button" data-step="-1" aria-label="Ein Jahr früher">−</button>
+                <input type="number" name="year" id="year" min="1990" max="2100" inputmode="numeric">
+                <button type="button" data-step="1" aria-label="Ein Jahr später">+</button>
+              </div>
+            </label>
+          </div>
+          <div class="cats" id="cats" role="radiogroup" aria-label="Belegart"></div>
+        </form>
+
+        <section class="paper verdict" aria-live="polite">
+          <div class="verdict__stamp" id="vStamp"></div>
+          <span class="verdict__k" id="vK">Ergebnis</span>
+          <p class="verdict__big" id="vBig"></p>
+          <p class="verdict__sub" id="vSub"></p>
+          <div class="ruler" aria-hidden="true">
+            <div class="ruler__track" id="track">
+              <div class="ruler__keep" id="rKeep"></div>
+              <div class="ruler__free" id="rFree"></div>
+              <div class="ruler__now" id="rNow"></div>
+            </div>
+            <div class="ruler__ticks" id="ticks"></div>
+            <div class="ruler__legend"><span><i style="background:var(--blue)"></i>aufbewahren</span><span><i style="border:1.5px dashed var(--rule-strong)"></i>darf vernichtet werden</span><span><i style="background:var(--err);width:2px"></i>heute</span></div>
+          </div>
+          <div class="note note--warn" style="margin-top:22px"><b>Vorsicht:</b> Die Frist läuft nicht ab, solange der Beleg für eine offene Steuerfestsetzung wichtig ist. Das gilt etwa bei laufender Betriebsprüfung, Einspruch oder vorläufigem Bescheid (§&nbsp;147 Abs.&nbsp;3 S.&nbsp;5 AO).</div>
+          <p class="verdict__law" id="vLaw"></p>
+        </section>
+      </div>
+
+      <section class="plan">
+        <div class="plan__head">
+          <div>
+            <p class="eyebrow">Schredder-Plan</p>
+            <h2 class="h2">Was darf <em id="planYearLabel"></em> raus?</h2>
+            <p class="small" style="margin:0;max-width:60ch">Jede Zeile ist eine Belegart, jede Spalte ein Entstehungsjahr. Blaue Felder musst du im gewählten Jahr noch aufheben, gestrichelte Felder darfst du vernichten.</p>
+          </div>
+          <label class="field">
+            <span>Aufräumen im Jahr</span>
+            <div class="stepper">
+              <button type="button" data-plan="-1" aria-label="Ein Jahr früher">−</button>
+              <input type="number" id="planYear" min="2000" max="2100" inputmode="numeric">
+              <button type="button" data-plan="1" aria-label="Ein Jahr später">+</button>
+            </div>
+          </label>
+        </div>
+        <div class="matrix-wrap"><table class="matrix" id="matrix"></table></div>
+      </section>
+
+      <section class="facts">
+        <div><h3>Fristbeginn ist der 31.&nbsp;Dezember</h3><p>Die Frist beginnt am Ende des Jahres, in dem der Beleg entstanden ist. Eine Rechnung vom März 2018 zählt also ab dem 31.12.2018.</p></div>
+        <div><h3>Seit 2025: 8 statt 10 Jahre</h3><p>Das Bürokratieentlastungsgesetz IV hat die Frist für Buchungsbelege verkürzt. Sie gilt für alle Belege, deren alte Frist Anfang 2025 noch nicht abgelaufen war.</p></div>
+        <div><h3>Digital ist erlaubt</h3><p>Papierbelege darfst du nach ordnungsgemäßem Scannen vernichten, wenn du die GoBD einhältst. Jahresabschlüsse und Eröffnungsbilanzen musst du im Original aufheben.</p></div>
+      </section>
+      <p class="small" style="margin-top:28px">Für Banken, Versicherungen und Wertpapierinstitute gelten teilweise abweichende Übergangsregeln. Diese Seite ist keine Steuerberatung.</p>
+    </div>
+
+    <footer class="colophon">
+      <div class="colophon__brand"><b>beleg<i>.org</i></b><span>Werkzeuge für Belege. Kostenlos, ohne Konto, ohne Tracking. Deine Dateien bleiben auf deinem Gerät.</span></div>
+      <nav class="colophon__cols" aria-label="Fußzeile">
+        <div><p>Werkzeuge</p><ul><li><a href="../e-rechnung-pruefen/">E-Rechnung prüfen</a></li><li><a href="../e-rechnung-erstellen/">E-Rechnung erstellen</a></li><li><a href="../beleg-scannen/">Beleg scannen</a></li><li><a href="../belege-auslesen/">Belege auslesen</a></li><li><a href="../eigenbeleg-erstellen/">Belegvorlagen</a></li><li><a href="../aufbewahrungsfristen/">Aufbewahrung</a></li><li><a href="../kontoauszug-in-excel/">Kontoauszug in Excel</a></li></ul></div>
+        <div><p>Vorlagen</p><ul><li><a href="../eigenbeleg-erstellen/">Eigenbeleg erstellen</a></li><li><a href="../bewirtungsbeleg-erstellen/">Bewirtungsbeleg erstellen</a></li><li><a href="../quittung-erstellen/">Quittung erstellen</a></li></ul></div>
+        <div><p>Ratgeber</p><ul><li><a href="../belegpflicht/">Belegpflicht</a></li><li><a href="../beleg-vs-quittung/">Beleg, Quittung, Rechnung</a></li><li><a href="../beleg-digitalisieren/">Belege digitalisieren</a></li><li><a href="../e-rechnungspflicht/">E-Rechnungspflicht</a></li></ul></div>
+        <div><p>Rechtliches</p><ul><li><a href="../impressum/">Impressum</a></li><li><a href="../datenschutz/">Datenschutz</a></li></ul></div>
+      </nav>
+      <p class="colophon__legal">Keine Steuer- oder Rechtsberatung. Angaben ohne Gewähr.</p>
+    </footer>
+  </main>
+</div>
+<script type="module" src="../assets/fristen.js"></script>
+</body>
+</html>

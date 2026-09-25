@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <!-- meta: generiert von tools/site.py -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Quittung erstellen – Vorlage online ausfüllen, mit Betrag in Worten</title>
+  <meta name="description" content="Quittung online erstellen: Betrag mit Umsatzsteuer, Betrag in Worten, Kleinunternehmer-Hinweis. Kostenlos als PDF drucken, ohne Anmeldung.">
+  <link rel="canonical" href="https://beleg.org/quittung-erstellen/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="beleg.org">
+  <meta property="og:locale" content="de_DE">
+  <meta property="og:title" content="Quittung erstellen – Vorlage online ausfüllen, mit Betrag in Worten">
+  <meta property="og:description" content="Quittung online erstellen: Betrag mit Umsatzsteuer, Betrag in Worten, Kleinunternehmer-Hinweis. Kostenlos als PDF drucken, ohne Anmeldung.">
+  <meta property="og:url" content="https://beleg.org/quittung-erstellen/">
+  <meta property="og:image" content="https://beleg.org/assets/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#0c2582">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+  <link rel="preload" href="../assets/fonts/Newsreader-normal-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../assets/fonts/fonts.css">
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Quittung erstellen", "url": "https://beleg.org/quittung-erstellen/", "description": "Quittung online erstellen: Betrag mit Umsatzsteuer, Betrag in Worten, Kleinunternehmer-Hinweis. Kostenlos als PDF drucken, ohne Anmeldung.", "applicationCategory": "BusinessApplication", "operatingSystem": "Web", "inLanguage": "de-DE", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "EUR"}}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Ist eine handschriftliche Quittung gültig?", "acceptedAnswer": {"@type": "Answer", "text": "Ja. Zivilrechtlich reicht eine unterschriebene Bestätigung. Steuerlich zählt, dass die nötigen Angaben enthalten sind. Eine ausgedruckte Quittung ist lesbarer und schneller erstellt."}}, {"@type": "Question", "name": "Warum steht der Betrag in Worten auf der Quittung?", "acceptedAnswer": {"@type": "Answer", "text": "Der Betrag in Worten erschwert nachträgliche Änderungen, zum Beispiel eine zusätzliche Ziffer. Vorgeschrieben ist er nicht, aber üblich. Die Vorlage schreibt ihn automatisch aus."}}, {"@type": "Question", "name": "Reicht eine Quittung für den Vorsteuerabzug?", "acceptedAnswer": {"@type": "Answer", "text": "Nur wenn sie die Rechnungsangaben enthält: bis 250 € die der Kleinbetragsrechnung, darüber alle Angaben nach § 14 UStG. Für größere Beträge an Unternehmen nutzt du besser das Werkzeug E-Rechnung erstellen."}}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "beleg.org", "item": "https://beleg.org/"}, {"@type": "ListItem", "position": 2, "name": "Quittung erstellen", "item": "https://beleg.org/quittung-erstellen/"}]}</script>
+  <!-- /meta -->
+  <link rel="stylesheet" href="../assets/site.css">
+  <link rel="stylesheet" href="../assets/doc.css">
+  <style>
+    .types { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; margin: 36px 0 40px; border: 1px solid var(--rule-strong); background: #fff; }
+    .type { display: block; text-decoration: none; text-align: left; background: #fff; border: 0; border-right: 1px solid var(--rule); padding: 20px 22px 22px; cursor: pointer; position: relative; font: inherit; color: inherit; transition: background .2s; }
+    .type:last-child { border-right: 0; }
+    .type:hover { background: var(--blue-wash); }
+    .type__no { font: 500 11px/1 var(--f-mono); color: var(--blue); letter-spacing: .08em; }
+    .type__t { display: block; font: 400 28px/1.1 var(--f-display); margin: 10px 0 6px; letter-spacing: -.01em; }
+    .type__d { display: block; font-size: 13.5px; color: var(--ink-2); line-height: 1.45; }
+    .type[aria-current="page"] { background: var(--blue); color: #fff; }
+    .type[aria-current="page"] .type__no, .type[aria-current="page"] .type__d { color: #cfdcff; }
+    .type[aria-current="page"]::after { content: ""; position: absolute; left: 50%; bottom: -9px; width: 16px; height: 16px; background: var(--blue); transform: translateX(-50%) rotate(45deg); }
+
+    .bench { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: clamp(24px, 4vw, 56px); align-items: start; }
+    .pane[hidden] { display: none; }
+    .preview { position: sticky; top: 76px; }
+    .preview__bar { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 14px; flex-wrap: wrap; }
+    .stage { background: var(--paper-3); border: 1px solid var(--rule); padding: clamp(12px, 2vw, 28px); overflow: hidden; }
+    .stage__fit { width: 100%; }
+    .stage__fit > .a4 { transform-origin: top left; }
+    .calc { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; border: 1px solid var(--rule); background: #fff; margin-top: 4px; }
+    .calc div { padding: 10px 12px; border-right: 1px solid var(--rule); }
+    .calc div:last-child { border-right: 0; }
+    .calc span { display: block; font: 500 10px/1.2 var(--f-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+    .calc b { font: 500 16px/1.4 var(--f-mono); color: var(--blue-deep); }
+    @media (max-width: 1100px) { .bench { grid-template-columns: minmax(0, 1fr); } .preview { position: static; } }
+    @media (max-width: 700px) { .types { grid-template-columns: minmax(0, 1fr); } .type { border-right: 0; border-bottom: 1px solid var(--rule); } .type[aria-current="page"]::after { display: none; } }
+
+    @media print {
+      @page { size: A4; margin: 0; }
+      body { background: #fff; }
+      .register, .kopf, .intro, .types, .pane, .preview__bar, .colophon, .note { display: none !important; }
+      .shell, .sheet, .wrap, .bench, .preview, .stage, .stage__fit { display: block !important; padding: 0 !important; margin: 0 !important; border: 0 !important; background: #fff !important; box-shadow: none !important; position: static !important; }
+      .sheet::before { display: none; }
+      .stage__fit { height: auto !important; }
+      .stage__fit > .a4 { transform: none !important; box-shadow: none !important; }
+    }
+  </style>
+</head>
+<body data-vtype="quittung">
+<div class="shell">
+  <aside class="register" aria-label="Hauptnavigation">
+    <a class="register__mark" href="../" aria-label="beleg.org Startseite">
+      <svg viewBox="0 0 40 40" fill="none" aria-hidden="true"><path d="M9 4h22v30l-3.67-2.5L23.67 34 20 31.5 16.33 34l-3.66-2.5L9 34V4Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M14 12h12M14 17h12M14 22h7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="28" cy="25" r="5.5" fill="#6ea0ff" stroke="#0c2582" stroke-width="2"/><path d="m25.6 25 1.6 1.6 3-3.2" stroke="#0c2582" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span class="register__word">beleg<i>.org</i></span>
+    </a>
+    <nav>
+      <a class="tab" href="../e-rechnung-pruefen/"><svg class="tab__ic" viewBox="0 0 18 18" aria-hidden="true"><path d="M4 1.5h7l3 3v12H4z"/><path d="m6.5 10 2 2 3.5-4"/></svg><span class="tab__label">E-Rechnung prüfen</span></a>
+      <a class="tab" href="../e-rechnung-erstellen/"><svg class="tab__ic" viewBox="0 0 18 18" aria-hidden="true"><path d="M4 1.5h7l3 3v12H4z"/><path d="M9 7.5v6M6 10.5h6"/></svg><span class="tab__label">E-Rechnung erstellen</span></a>
+      <a class="tab" href="../beleg-scannen/"><svg class="tab__ic" viewBox="0 0 18 18" aria-hidden="true"><path d="M1.5 5V1.5H5M13 1.5h3.5V5M16.5 13v3.5H13M5 16.5H1.5V13"/><path d="M4 9h10"/></svg><span class="tab__label">Beleg scannen</span></a>
+      <a class="tab" href="../belege-auslesen/"><svg class="tab__ic" viewBox="0 0 18 18" aria-hidden="true"><rect x="2" y="3" width="14" height="12" rx="1"/><path d="M2 7h14M2 11h14M7 3v12"/></svg><span class="tab__label">Belege auslesen</span></a>
+      <a class="tab" href="../eigenbeleg-erstellen/" aria-current="page"><svg class="tab__ic" viewBox="0 0 18 18" aria-hidden="true"><path d="M5.5 4.5h9v12h-9z"/><path d="M3 13.5V2h8.5"/></svg><span class="tab__label">Belegvorlagen</span></a>
+      <a class="tab" href="../aufbewahrungsfristen/"><svg class="tab__ic" viewBox="0 0 18 18" aria-hidden="true"><rect x="1.5" y="2.5" width="15" height="4" rx=".5"/><path d="M3 6.5v9h12v-9M7 10h4"/></svg><span class="tab__label">Aufbewahrung</span></a>
+      <a class="tab" href="../ratgeber/"><svg class="tab__ic" viewBox="0 0 18 18" aria-hidden="true"><path d="M2 3.5c2.5-1 5-1 7 .5v11c-2-1.5-4.5-1.5-7-.5zM16 3.5c-2.5-1-5-1-7 .5v11c2-1.5 4.5-1.5 7-.5z"/></svg><span class="tab__label">Ratgeber</span></a>
+    </nav>
+    <div class="register__foot"><span>Kein Upload</span><span>Kein Konto</span><span>Kein Tracking</span></div>
+    <script>(function(){var t=document.querySelector('.register .tab[aria-current]');if(t&&t.parentNode.scrollWidth>t.parentNode.clientWidth)t.parentNode.scrollLeft=t.offsetLeft-48;})()</script>
+  </aside>
+
+  <main class="sheet">
+    <div class="kopf">
+      <div class="kopf__cell kopf__cell--hide"><span class="kopf__k">Bereich</span><span class="kopf__v">Werkzeug</span></div>
+      <div class="kopf__cell"><span class="kopf__k">Seite</span><span class="kopf__v">Quittung erstellen</span></div>
+      <div class="kopf__cell"><span class="kopf__k">Ausgabe</span><span class="kopf__v"><span class="dot"></span>Druck / PDF · A4</span></div>
+      <div class="kopf__cell kopf__cell--hide"><span class="kopf__k">Entwurf</span><span class="kopf__v">nur auf diesem Gerät</span></div>
+    </div>
+
+    <div class="wrap">
+      <header class="intro">
+        <p class="eyebrow rise">Belegvorlagen · Druck &amp; PDF</p>
+        <h1 class="display rise rise-2">Quittung <em>erstellen.</em></h1>
+        <p class="lede rise rise-3">Eine Quittung bestätigt, dass du Geld erhalten hast. Mit Umsatzsteuer, Betrag in Worten und Unterschriftsfeld, fertig zum Drucken oder als PDF.</p>
+      </header>
+
+      <nav class="types rise rise-3" aria-label="Belegart">
+        <a class="type" href="../eigenbeleg-erstellen/"><span class="type__no">A</span><span class="type__t">Eigenbeleg</span><span class="type__d">Für Ausgaben ohne Quittung, etwa bei verlorenen Belegen, Parkautomaten oder Trinkgeld.</span></a>
+        <a class="type" href="../bewirtungsbeleg-erstellen/"><span class="type__no">B</span><span class="type__t">Bewirtungsbeleg</span><span class="type__d">Für Geschäftsessen: Anlass und Teilnehmende. Die Restaurantrechnung heftest du an.</span></a>
+        <a class="type" href="../quittung-erstellen/" aria-current="page"><span class="type__no">C</span><span class="type__t">Quittung</span><span class="type__d">Bestätigung einer Barzahlung mit Umsatzsteuer, Betrag in Worten und Unterschrift.</span></a>
+      </nav>
+
+      <div class="bench">
+        <div>
+          <form class="pane" data-pane="quittung" onsubmit="return false">
+            <fieldset class="fieldset"><legend><span class="no">01</span><span class="t">Betrag</span></legend>
+              <div class="grid">
+                <label class="field span-2"><span>Betrag brutto (€)</span><input name="amount" class="num-in" inputmode="decimal" placeholder="119,00"></label>
+                <label class="field span-2"><span>USt.-Satz</span><select name="rate"><option value="19">19 %</option><option value="7">7 %</option><option value="0">0 %</option></select></label>
+                <label class="field span-2"><span>Quittungs-Nr.</span><input name="nr" placeholder="Q-0042"></label>
+                <label class="switch span-6"><input type="checkbox" name="ku"><span><b>Kleinunternehmer</b><small>Keine Umsatzsteuer ausweisen (§ 19 UStG)</small></span></label>
+                <div class="span-6 calc" aria-live="polite"><div><span>Netto</span><b id="qNet">0,00 €</b></div><div><span>Umsatzsteuer</span><b id="qTax">0,00 €</b></div><div><span>Brutto</span><b id="qGross">0,00 €</b></div></div>
+              </div>
+            </fieldset>
+            <fieldset class="fieldset"><legend><span class="no">02</span><span class="t">Beteiligte</span></legend>
+              <div class="grid">
+                <label class="field span-6"><span>Erhalten von</span><input name="payer" placeholder="Jonas Kranz, Marktplatz 3, 24103 Kiel"></label>
+                <label class="field span-6"><span>Für</span><input name="purpose" placeholder="Nachdruck von 200 Etiketten"></label>
+                <label class="field span-6"><span>Empfänger <small>(du bzw. deine Firma, mit Anschrift)</small></span><input name="issuer" placeholder="Studio Nordlicht GmbH, Hafenstraße 12, 20457 Hamburg"></label>
+                <label class="field span-6"><span>Steuernummer / USt-IdNr. <small>(bei Umsatzsteuer über 250 € Pflicht)</small></span><input name="taxid" placeholder="DE123456788"></label>
+                <label class="field span-3"><span>Ort</span><input name="place" placeholder="Hamburg"></label>
+                <label class="field span-3"><span>Datum</span><input type="date" name="date"></label>
+              </div>
+            </fieldset>
+            <div class="note">Bis 250&nbsp;€ brutto reicht eine <b>Kleinbetragsrechnung</b> (§&nbsp;33 UStDV). Darüber braucht die Quittung alle Rechnungsangaben aus §&nbsp;14 UStG. Nutze dafür besser <a href="../e-rechnung-erstellen/">E-Rechnung erstellen</a>.</div>
+          </form>
+
+        </div>
+
+        <div class="preview">
+          <div class="preview__bar">
+            <p class="h3" style="margin:0">Vorschau · A4</p>
+            <div class="btnrow">
+              <button class="btn btn--quiet" type="button" id="reset">Leeren</button>
+              <button class="btn" type="button" id="print"><svg viewBox="0 0 16 16" fill="none"><path d="M4 6V1.5h8V6M4 12H2V6h12v6h-2M4 9.5h8v5H4z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>Drucken / als PDF</button>
+            </div>
+          </div>
+          <div class="stage"><div class="stage__fit" id="fit"><div class="a4" id="doc"></div></div></div>
+        </div>
+      </div>
+      <section class="info">
+        <div class="info__head">
+          <p class="eyebrow">Wissen</p>
+          <h2 class="h2">Was eine <em>Quittung</em> leisten muss</h2>
+        </div>
+        <div class="prose">
+          <p>Eine Quittung ist die schriftliche Bestätigung, dass du eine Zahlung erhalten hast, meist in bar. Wer Geld erhält, muss auf Verlangen quittieren (§&nbsp;368 BGB). Für die zahlende Person ist die Quittung der Beweis, dass die Schuld beglichen ist.</p>
+          <h3>Quittung und Umsatzsteuer</h3>
+          <p>Bist du umsatzsteuerpflichtig, gilt eine Quittung steuerlich als Rechnung. Bis 250&nbsp;€ brutto reichen die Angaben einer <b>Kleinbetragsrechnung</b> (§&nbsp;33 UStDV): dein Name und deine Anschrift, das Ausstellungsdatum, Menge und Art der Leistung, der Bruttobetrag und der Steuersatz. Darüber brauchst du alle Pflichtangaben aus §&nbsp;14 UStG, unter anderem Steuernummer, fortlaufende Nummer und die Anschrift des Empfängers.</p>
+          <p>Als <b>Kleinunternehmer</b> weist du keine Umsatzsteuer aus und vermerkst stattdessen den Hinweis auf §&nbsp;19 UStG. Die Vorlage setzt ihn automatisch, wenn du den Schalter aktivierst.</p>
+          <a class="callout" href="../beleg-vs-quittung/"><div><span>Ratgeber</span><b>Beleg, Quittung, Rechnung: die Unterschiede</b></div></a>
+        </div>
+      </section>
+
+      <section class="faq">
+        <p class="eyebrow">Häufige Fragen</p>
+        <h2 class="h2">Fragen zur Quittung</h2>
+        <div class="faq__list">
+          <details class="faq__item"><summary>Ist eine handschriftliche Quittung gültig?</summary>
+            <div><p>Ja. Zivilrechtlich reicht eine unterschriebene Bestätigung. Steuerlich zählt, dass die nötigen Angaben enthalten sind. Eine ausgedruckte Quittung ist lesbarer und schneller erstellt.</p></div></details>
+          <details class="faq__item"><summary>Warum steht der Betrag in Worten auf der Quittung?</summary>
+            <div><p>Der Betrag in Worten erschwert nachträgliche Änderungen, zum Beispiel eine zusätzliche Ziffer. Vorgeschrieben ist er nicht, aber üblich. Die Vorlage schreibt ihn automatisch aus.</p></div></details>
+          <details class="faq__item"><summary>Reicht eine Quittung für den Vorsteuerabzug?</summary>
+            <div><p>Nur wenn sie die Rechnungsangaben enthält: bis 250&nbsp;€ die der Kleinbetragsrechnung, darüber alle Angaben nach §&nbsp;14 UStG. Für größere Beträge an Unternehmen nutzt du besser das Werkzeug <a href="../e-rechnung-erstellen/">E-Rechnung erstellen</a>.</p></div></details>
+        </div>
+      </section>
+
+    </div>
+
+    <footer class="colophon">
+      <div class="colophon__brand"><b>beleg<i>.org</i></b><span>Werkzeuge für Belege. Kostenlos, ohne Konto, ohne Tracking. Deine Dateien bleiben auf deinem Gerät.</span></div>
+      <nav class="colophon__cols" aria-label="Fußzeile">
+        <div><p>Werkzeuge</p><ul><li><a href="../e-rechnung-pruefen/">E-Rechnung prüfen</a></li><li><a href="../e-rechnung-erstellen/">E-Rechnung erstellen</a></li><li><a href="../beleg-scannen/">Beleg scannen</a></li><li><a href="../belege-auslesen/">Belege auslesen</a></li><li><a href="../eigenbeleg-erstellen/">Belegvorlagen</a></li><li><a href="../aufbewahrungsfristen/">Aufbewahrung</a></li><li><a href="../kontoauszug-in-excel/">Kontoauszug in Excel</a></li></ul></div>
+        <div><p>Vorlagen</p><ul><li><a href="../eigenbeleg-erstellen/">Eigenbeleg erstellen</a></li><li><a href="../bewirtungsbeleg-erstellen/">Bewirtungsbeleg erstellen</a></li><li><a href="../quittung-erstellen/">Quittung erstellen</a></li></ul></div>
+        <div><p>Ratgeber</p><ul><li><a href="../belegpflicht/">Belegpflicht</a></li><li><a href="../beleg-vs-quittung/">Beleg, Quittung, Rechnung</a></li><li><a href="../beleg-digitalisieren/">Belege digitalisieren</a></li><li><a href="../e-rechnungspflicht/">E-Rechnungspflicht</a></li></ul></div>
+        <div><p>Rechtliches</p><ul><li><a href="../impressum/">Impressum</a></li><li><a href="../datenschutz/">Datenschutz</a></li></ul></div>
+      </nav>
+      <p class="colophon__legal">Keine Steuer- oder Rechtsberatung. Angaben ohne Gewähr.</p>
+    </footer>
+  </main>
+</div>
+<script type="module" src="../assets/werkstatt.js"></script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+/* Lesefassung einer Rechnung */
+.inv { padding: clamp(20px, 3.5vw, 44px); font-size: 13.5px; color: var(--ink); }
+.inv p { margin: 0; }
+.inv .muted { color: var(--muted); }
+.inv__head { display: flex; justify-content: space-between; gap: 20px; align-items: flex-start; padding-bottom: 18px; border-bottom: 2px solid var(--ink); }
+.inv__from p + p { margin-top: 4px; }
+.inv__name { font: 500 20px/1.2 var(--f-display); margin-bottom: 4px !important; }
+.inv__badge { text-align: right; display: grid; gap: 4px; justify-items: end; }
+.inv__fmt { font: 600 11px/1 var(--f-mono); letter-spacing: .08em; text-transform: uppercase; color: #fff; background: var(--blue); padding: 6px 8px; border-radius: 2px; }
+.inv__syn { font: 400 11px/1 var(--f-mono); color: var(--muted); }
+.inv__addr { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 250px); gap: 24px; padding: 22px 0; }
+.inv__addr .inv__name { font-size: 17px; }
+.inv__k { display: block; font: 500 10px/1.2 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--blue); margin-bottom: 6px; }
+.inv__meta { margin: 0; display: grid; gap: 0; border-top: 1px solid var(--rule); }
+.inv__meta div { display: flex; justify-content: space-between; gap: 12px; padding: 6px 0; border-bottom: 1px solid var(--rule); }
+.inv__meta dt { font: 500 10.5px/1.6 var(--f-mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.inv__meta dd { margin: 0; text-align: right; font-size: 13px; overflow-wrap: anywhere; }
+.inv__title { font: 400 30px/1.1 var(--f-display); margin: 6px 0 14px; letter-spacing: -.01em; }
+.inv__title .num { font-size: .6em; color: var(--muted); margin-left: 6px; letter-spacing: 0; }
+.inv__notes { margin-bottom: 16px; color: var(--ink-2); }
+.inv__scroll { overflow-x: auto; }
+.inv__lines { min-width: 520px; }
+.inv__lines td:first-child { width: 36px; }
+.inv__desc { color: var(--muted); font-size: 12.5px; margin-top: 2px; }
+.inv__sum { display: flex; justify-content: flex-end; margin-top: 8px; }
+.inv__sum .table { max-width: 380px; }
+.inv__sum td { padding: 7px 0; }
+.inv__sum td.r { padding-left: 20px; }
+.inv__grand td { border-top: 2px solid var(--ink); border-bottom: 0 !important; font: 600 16px/1.3 var(--f-body); padding-top: 10px !important; }
+.inv__grand .num { font-size: 17px; }
+.inv__foot { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; margin-top: 26px; padding-top: 16px; border-top: 1px solid var(--rule); color: var(--ink-2); font-size: 12.5px; }
+.inv__foot p + p { margin-top: 3px; }
+.inv--compact { padding: 26px; font-size: 12px; }
+.inv--compact .inv__title { font-size: 24px; }
+@media (max-width: 600px) {
+  .inv__addr, .inv__foot { grid-template-columns: minmax(0, 1fr); }
+  .inv__head { flex-direction: column-reverse; }
+  .inv__badge { justify-items: start; text-align: left; }
+}

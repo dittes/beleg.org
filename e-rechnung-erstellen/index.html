@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <!-- meta: generiert von tools/site.py -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>E-Rechnung erstellen – XRechnung &amp; ZUGFeRD kostenlos schreiben</title>
+  <meta name="description" content="E-Rechnungen kostenlos im Browser erstellen: XRechnung 3.0 als XML oder PDF mit eingebetteten ZUGFeRD-Daten. Mit Live-Prüfung, ohne Konto.">
+  <link rel="canonical" href="https://beleg.org/e-rechnung-erstellen/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="beleg.org">
+  <meta property="og:locale" content="de_DE">
+  <meta property="og:title" content="E-Rechnung erstellen – XRechnung &amp; ZUGFeRD kostenlos schreiben">
+  <meta property="og:description" content="E-Rechnungen kostenlos im Browser erstellen: XRechnung 3.0 als XML oder PDF mit eingebetteten ZUGFeRD-Daten. Mit Live-Prüfung, ohne Konto.">
+  <meta property="og:url" content="https://beleg.org/e-rechnung-erstellen/">
+  <meta property="og:image" content="https://beleg.org/assets/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#0c2582">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+  <link rel="preload" href="../assets/fonts/Newsreader-normal-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../assets/fonts/fonts.css">
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "E-Rechnung erstellen", "url": "https://beleg.org/e-rechnung-erstellen/", "description": "E-Rechnungen kostenlos im Browser erstellen: XRechnung 3.0 als XML oder PDF mit eingebetteten ZUGFeRD-Daten. Mit Live-Prüfung, ohne Konto.", "applicationCategory": "BusinessApplication", "operatingSystem": "Web", "inLanguage": "de-DE", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "EUR"}}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "beleg.org", "item": "https://beleg.org/"}, {"@type": "ListItem", "position": 2, "name": "E-Rechnung erstellen", "item": "https://beleg.org/e-rechnung-erstellen/"}]}</script>
+  <!-- /meta -->
+  <link rel="stylesheet" href="../assets/site.css">
+  <link rel="stylesheet" href="../assets/invoice.css">
+  <style>
+    .intro { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 30px; align-items: end; margin-bottom: 40px; }
+    .desk { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(24px, 3.5vw, 52px); align-items: start; }
+    .mode { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 10px; margin-bottom: 30px; }
+    .opt { display: grid; grid-template-columns: 18px minmax(0, 1fr); gap: 10px; padding: 14px; border: 1px solid var(--rule-strong); border-radius: var(--radius); background: #fff; cursor: pointer; }
+    .opt input { appearance: none; width: 16px; height: 16px; border: 1.5px solid var(--rule-strong); border-radius: 50%; margin: 2px 0 0; display: grid; place-items: center; }
+    .opt input::after { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--blue); transform: scale(0); transition: transform .15s; }
+    .opt input:checked::after { transform: scale(1); }
+    .opt input:checked { border-color: var(--blue); }
+    .opt:has(input:checked) { border-color: var(--blue); background: var(--blue-wash); box-shadow: inset 3px 0 0 var(--blue); }
+    .opt b { display: block; font: 600 14px/1.3 var(--f-label); }
+    .opt small { display: block; color: var(--muted); font-size: 12.5px; line-height: 1.4; margin-top: 2px; }
+
+    /* Positionen */
+    .lines { border-top: 1px solid var(--ink); }
+    .lines__head, .line { display: grid; grid-template-columns: 26px minmax(0, 3fr) 70px 96px 100px 76px 30px; gap: 8px; align-items: start; }
+    .lines__head { padding: 8px 0; font: 500 10px/1.2 var(--f-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); border-bottom: 1px solid var(--rule); }
+    .line { padding: 10px 0; border-bottom: 1px solid var(--rule); }
+    .line__no { font: 500 11px/38px var(--f-mono); color: var(--blue); }
+    .line input, .line select { width: 100%; font: 400 14px/1.3 var(--f-body); padding: 9px 8px; border: 1px solid var(--rule-strong); border-radius: var(--radius); background: #fff; color: var(--ink); }
+    .line select { padding-right: 4px; }
+    .line input:focus, .line select:focus { outline: none; border-color: var(--blue); box-shadow: 0 0 0 3px var(--blue-soft); }
+    .line .num-in { font-family: var(--f-mono); text-align: right; }
+    .line__desc { margin-top: 6px; font-size: 12.5px !important; padding: 7px 8px !important; border-style: dashed !important; }
+    .line__del { width: 30px; height: 38px; border: 0; background: transparent; color: var(--muted); cursor: pointer; border-radius: var(--radius); }
+    .line__del:hover { color: var(--err); background: var(--err-wash); }
+    .line__sum { grid-column: 2 / -1; text-align: right; font: 500 12px/1 var(--f-mono); color: var(--muted); }
+    .lines__add { margin-top: 12px; }
+    .ku-rate .line select[name="rate"] { opacity: .35; pointer-events: none; }
+
+    .preview { position: sticky; top: 76px; }
+    .pbar { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 12px; }
+    .live { display: inline-flex; align-items: center; gap: 10px; padding: 8px 12px; border: 1px solid var(--rule-strong); border-radius: var(--radius); background: #fff; font: 500 12px/1 var(--f-mono); cursor: pointer; color: var(--ink); }
+    .live i { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 5px; }
+    .live[data-state="ok"] { border-color: var(--blue); }
+    .issues { margin: 0 0 12px; padding: 0; list-style: none; border: 1px solid var(--rule); background: #fff; max-height: 240px; overflow: auto; }
+    .issues[hidden] { display: none; }
+    .issues li { padding: 9px 14px; font-size: 13px; border-bottom: 1px solid var(--paper-3); display: grid; grid-template-columns: 70px minmax(0, 1fr); gap: 10px; }
+    .issues li code { font: 500 10.5px/1.6 var(--f-mono); }
+    .issues li.err code { color: var(--err); } .issues li.warn code { color: var(--warn); }
+    .preview .paper { max-height: calc(100dvh - 250px); overflow: auto; }
+    .export { margin-top: 14px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+    .export .btn { justify-content: center; }
+    .export__note { margin-top: 12px; font-size: 12.5px; color: var(--muted); }
+    @media (max-width: 1180px) { .desk { grid-template-columns: minmax(0, 1fr); } .preview { position: static; } .preview .paper { max-height: none; } }
+    @media (max-width: 640px) {
+      .mode, .intro { grid-template-columns: minmax(0, 1fr); }
+      .lines__head { display: none; }
+      .line { grid-template-columns: 1fr 1fr 1fr; }
+      .line__no { grid-column: 1 / -1; line-height: 1; }
+      .line > :nth-child(2) { grid-column: 1 / -1; }
+      .line__del { grid-column: 3; justify-self: end; }
+      .export { grid-template-columns: minmax(0, 1fr); }
+    }
+  </style>
+</head>
+<body>
+<div class="shell">
+  <aside class="register" aria-label="Hauptnavigation">
+    <a class="register__mark" href="../" aria-label="beleg.org Startseite">
+      <svg viewBox="0 0 40 40" fill="none" aria-hidden="true"><path d="M9 4h22v30l-3.67-2.5L23.67 34 20 31.5 16.33 34l-3.66-2.5L9 34V4Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M14 12h12M14 17h12M14 22h7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="28" cy="25" r="5.5" fill="#6ea0ff" stroke="#0c2582" stroke-width="2"/><path d="m25.6 25 1.6 1.6 3-3.2" stroke="#0c2582" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span class="register__word">beleg<i>.org</i></span>
+    </a>
+    <nav>
+      <a class="tab" href="../e-rechnung-pruefen/"><svg class="tab__ic" viewBox="0 0 18 18" aria-hidden="true"><path d="M4 1.5h7l3 3v12H4z"/><path d="m6.5 10 2 2 3.5-4"/></svg><span class="tab__label">E-Rechnung prüfen</span></a>
+      <a class="tab" href="../e-rechnung-erstellen/" aria-current="page"><svg class="tab__ic" viewBox="0 0 18 18" aria-hidden="true"><path d="M4 1.5h7l3 3v12H4z"/><path d="M9 7.5v6M6 10.5h6"/></svg><span class="tab__label">E-Rechnung erstellen</span></a>
+      <a class="tab" href="../beleg-scannen/"><svg class="tab__ic" viewBox="0 0 18 18" aria-hidden="true"><path d="M1.5 5V1.5H5M13 1.5h3.5V5M16.5 13v3.5H13M5 16.5H1.5V13"/><path d="M4 9h10"/></svg><span class="tab__label">Beleg scannen</span></a>
+      <a class="tab" href="../belege-auslesen/"><svg class="tab__ic" viewBox="0 0 18 18" aria-hidden="true"><rect x="2" y="3" width="14" height="12" rx="1"/><path d="M2 7h14M2 11h14M7 3v12"/></svg><span class="tab__label">Belege auslesen</span></a>
+      <a class="tab" href="../eigenbeleg-erstellen/"><svg class="tab__ic" viewBox="0 0 18 18" aria-hidden="true"><path d="M5.5 4.5h9v12h-9z"/><path d="M3 13.5V2h8.5"/></svg><span class="tab__label">Belegvorlagen</span></a>
+      <a class="tab" href="../aufbewahrungsfristen/"><svg class="tab__ic" viewBox="0 0 18 18" aria-hidden="true"><rect x="1.5" y="2.5" width="15" height="4" rx=".5"/><path d="M3 6.5v9h12v-9M7 10h4"/></svg><span class="tab__label">Aufbewahrung</span></a>
+      <a class="tab" href="../ratgeber/"><svg class="tab__ic" viewBox="0 0 18 18" aria-hidden="true"><path d="M2 3.5c2.5-1 5-1 7 .5v11c-2-1.5-4.5-1.5-7-.5zM16 3.5c-2.5-1-5-1-7 .5v11c2-1.5 4.5-1.5 7-.5z"/></svg><span class="tab__label">Ratgeber</span></a>
+    </nav>
+    <div class="register__foot"><span>Kein Upload</span><span>Kein Konto</span><span>Kein Tracking</span></div>
+    <script>(function(){var t=document.querySelector('.register .tab[aria-current]');if(t&&t.parentNode.scrollWidth>t.parentNode.clientWidth)t.parentNode.scrollLeft=t.offsetLeft-48;})()</script>
+  </aside>
+
+  <main class="sheet">
+    <div class="kopf">
+      <div class="kopf__cell kopf__cell--hide"><span class="kopf__k">Bereich</span><span class="kopf__v">Werkzeug</span></div>
+      <div class="kopf__cell"><span class="kopf__k">Seite</span><span class="kopf__v">E-Rechnung erstellen</span></div>
+      <div class="kopf__cell"><span class="kopf__k">Standard</span><span class="kopf__v"><span class="dot"></span>EN 16931 · CII</span></div>
+      <div class="kopf__cell kopf__cell--hide"><span class="kopf__k">Entwurf</span><span class="kopf__v">nur auf diesem Gerät</span></div>
+    </div>
+
+    <div class="wrap">
+      <header class="intro">
+        <div>
+          <p class="eyebrow rise">XRechnung · ZUGFeRD</p>
+          <h1 class="display rise rise-2">E&#8209;Rechnung erstellen,<br><em>maschinenlesbar.</em></h1>
+        </div>
+        <div class="btnrow rise rise-3">
+          <button class="btn btn--ghost" type="button" id="sample">Beispiel laden</button>
+          <button class="btn btn--quiet" type="button" id="clear">Leeren</button>
+        </div>
+      </header>
+
+      <div class="desk">
+        <form id="form" onsubmit="return false" novalidate>
+          <div class="mode">
+            <label class="opt"><input type="radio" name="profile" value="xrechnung" checked><span><b>XRechnung 3.0</b><small>Deutscher Standard, Pflicht bei Behörden. Verlangt eine Käuferreferenz und vollständige Kontaktdaten.</small></span></label>
+            <label class="opt"><input type="radio" name="profile" value="en16931"><span><b>ZUGFeRD EN 16931</b><small>Europäischer Kernstandard, üblich zwischen Unternehmen. Weniger Pflichtfelder.</small></span></label>
+          </div>
+
+          <fieldset class="fieldset"><legend><span class="no">01</span><span class="t">Von</span></legend>
+            <div class="grid">
+              <label class="field span-6"><span>Name / Firma</span><input name="sName" autocomplete="organization" required></label>
+              <label class="field span-6"><span>Straße &amp; Nr.</span><input name="sStreet" autocomplete="address-line1" required></label>
+              <label class="field span-2"><span>PLZ</span><input name="sZip" autocomplete="postal-code" inputmode="numeric" required></label>
+              <label class="field span-3"><span>Ort</span><input name="sCity" autocomplete="address-level2" required></label>
+              <label class="field span-1"><span>Land</span><input name="sCountry" value="DE" maxlength="2" required></label>
+              <label class="field span-3"><span>USt-IdNr.</span><input name="sVatId" placeholder="DE…"></label>
+              <label class="field span-3"><span>oder Steuernummer</span><input name="sTaxNo" placeholder="12/345/67890"></label>
+              <label class="field span-2"><span>Ansprechperson</span><input name="sContact" autocomplete="name"></label>
+              <label class="field span-2"><span>Telefon</span><input name="sPhone" type="tel" autocomplete="tel"></label>
+              <label class="field span-2"><span>E-Mail</span><input name="sEmail" type="email" autocomplete="email"></label>
+              <label class="switch span-6"><input type="checkbox" name="kleinunternehmer"><span><b>Kleinunternehmer nach § 19 UStG</b><small>Keine Umsatzsteuer. Die Rechnung erhält automatisch den Hinweis zur Steuerbefreiung.</small></span></label>
+            </div>
+          </fieldset>
+
+          <fieldset class="fieldset"><legend><span class="no">02</span><span class="t">An</span></legend>
+            <div class="grid">
+              <label class="field span-6"><span>Name / Firma</span><input name="bName" required></label>
+              <label class="field span-6"><span>Straße &amp; Nr.</span><input name="bStreet"></label>
+              <label class="field span-2"><span>PLZ</span><input name="bZip" inputmode="numeric" required></label>
+              <label class="field span-3"><span>Ort</span><input name="bCity" required></label>
+              <label class="field span-1"><span>Land</span><input name="bCountry" value="DE" maxlength="2"></label>
+              <label class="field span-3"><span>E-Mail für Rechnungen</span><input name="bEmail" type="email"></label>
+              <label class="field span-3"><span>Käuferreferenz / Leitweg-ID</span><input name="buyerReference" placeholder="bei Behörden: 991-…"></label>
+            </div>
+          </fieldset>
+
+          <fieldset class="fieldset"><legend><span class="no">03</span><span class="t">Rechnung</span></legend>
+            <div class="grid">
+              <label class="field span-2"><span>Rechnungs-Nr.</span><input name="number" required></label>
+              <label class="field span-2"><span>Rechnungsdatum</span><input type="date" name="issueDate" required></label>
+              <label class="field span-2"><span>Zahlungsziel <small>(Tage)</small></span><input name="dueDays" type="number" min="0" max="365" value="14"></label>
+              <label class="field span-2"><span>Leistung</span><select name="periodMode"><option value="date">am Tag</option><option value="period">im Zeitraum</option></select></label>
+              <label class="field span-2" data-when="date"><span>Leistungsdatum</span><input type="date" name="deliveryDate"></label>
+              <label class="field span-2" data-when="period" hidden><span>von</span><input type="date" name="periodStart"></label>
+              <label class="field span-2" data-when="period" hidden><span>bis</span><input type="date" name="periodEnd"></label>
+              <label class="field span-2"><span>Bestell-Nr. <small>(optional)</small></span><input name="orderRef"></label>
+            </div>
+          </fieldset>
+
+          <fieldset class="fieldset"><legend><span class="no">04</span><span class="t">Positionen</span></legend>
+            <div class="lines" id="linesBox">
+              <div class="lines__head"><span>#</span><span>Bezeichnung</span><span>Menge</span><span>Einheit</span><span>Preis netto</span><span>USt.</span><span></span></div>
+              <div id="lines"></div>
+            </div>
+            <button class="btn btn--ghost lines__add" type="button" id="addLine">+ Position</button>
+          </fieldset>
+
+          <fieldset class="fieldset"><legend><span class="no">05</span><span class="t">Zahlung &amp; Hinweis</span></legend>
+            <div class="grid">
+              <label class="field span-4"><span>IBAN</span><input name="iban" class="num-in" autocomplete="off" spellcheck="false"></label>
+              <label class="field span-2"><span>BIC <small>(optional)</small></span><input name="bic" class="num-in" spellcheck="false"></label>
+              <label class="field span-6"><span>Kontoinhaber</span><input name="accountName"></label>
+              <label class="field span-6"><span>Hinweistext <small>(optional)</small></span><textarea name="note" rows="2"></textarea></label>
+            </div>
+          </fieldset>
+        </form>
+
+        <div class="preview">
+          <div class="pbar">
+            <p class="h3" style="margin:0">Vorschau</p>
+            <button class="live" type="button" id="live" aria-expanded="false" aria-controls="issues"></button>
+          </div>
+          <ul class="issues" id="issues" hidden></ul>
+          <div class="paper" id="doc"></div>
+          <div class="export">
+            <button class="btn" type="button" id="dlXml"><svg viewBox="0 0 16 16" fill="none"><path d="M8 2v8.5m0 0L4.5 7M8 10.5 11.5 7M2 13.5h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>XML (E-Rechnung)</button>
+            <button class="btn" type="button" id="dlPdf"><svg viewBox="0 0 16 16" fill="none"><path d="M8 2v8.5m0 0L4.5 7M8 10.5 11.5 7M2 13.5h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>PDF mit XML</button>
+            <button class="btn btn--ghost" type="button" id="toCheck">Im Prüfer öffnen</button>
+          </div>
+          <p class="export__note"><b>XML</b> ist die eigentliche E-Rechnung und wird von jeder Buchhaltungssoftware gelesen. <b>PDF mit XML</b> bettet dieselben Daten nach ZUGFeRD-Schema als <span class="mono">factur-x.xml</span> in eine lesbare PDF ein. Diese PDF ist nicht als PDF/A-3 zertifiziert. Wenn dein Empfänger streng prüft, schick die XML-Datei.</p>
+        </div>
+      </div>
+    </div>
+
+    <footer class="colophon">
+      <div class="colophon__brand"><b>beleg<i>.org</i></b><span>Werkzeuge für Belege. Kostenlos, ohne Konto, ohne Tracking. Deine Dateien bleiben auf deinem Gerät.</span></div>
+      <nav class="colophon__cols" aria-label="Fußzeile">
+        <div><p>Werkzeuge</p><ul><li><a href="../e-rechnung-pruefen/">E-Rechnung prüfen</a></li><li><a href="../e-rechnung-erstellen/">E-Rechnung erstellen</a></li><li><a href="../beleg-scannen/">Beleg scannen</a></li><li><a href="../belege-auslesen/">Belege auslesen</a></li><li><a href="../eigenbeleg-erstellen/">Belegvorlagen</a></li><li><a href="../aufbewahrungsfristen/">Aufbewahrung</a></li><li><a href="../kontoauszug-in-excel/">Kontoauszug in Excel</a></li></ul></div>
+        <div><p>Vorlagen</p><ul><li><a href="../eigenbeleg-erstellen/">Eigenbeleg erstellen</a></li><li><a href="../bewirtungsbeleg-erstellen/">Bewirtungsbeleg erstellen</a></li><li><a href="../quittung-erstellen/">Quittung erstellen</a></li></ul></div>
+        <div><p>Ratgeber</p><ul><li><a href="../belegpflicht/">Belegpflicht</a></li><li><a href="../beleg-vs-quittung/">Beleg, Quittung, Rechnung</a></li><li><a href="../beleg-digitalisieren/">Belege digitalisieren</a></li><li><a href="../e-rechnungspflicht/">E-Rechnungspflicht</a></li></ul></div>
+        <div><p>Rechtliches</p><ul><li><a href="../impressum/">Impressum</a></li><li><a href="../datenschutz/">Datenschutz</a></li></ul></div>
+      </nav>
+      <p class="colophon__legal">Keine Steuer- oder Rechtsberatung. Angaben ohne Gewähr.</p>
+    </footer>
+  </main>
+</div>
+<script type="module" src="../assets/rechnung.js"></script>
+</body>
+</html>

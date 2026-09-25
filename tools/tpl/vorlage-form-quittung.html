@@ -1,0 +1,22 @@
+          <form class="pane" data-pane="quittung" onsubmit="return false">
+            <fieldset class="fieldset"><legend><span class="no">01</span><span class="t">Betrag</span></legend>
+              <div class="grid">
+                <label class="field span-2"><span>Betrag brutto (€)</span><input name="amount" class="num-in" inputmode="decimal" placeholder="119,00"></label>
+                <label class="field span-2"><span>USt.-Satz</span><select name="rate"><option value="19">19 %</option><option value="7">7 %</option><option value="0">0 %</option></select></label>
+                <label class="field span-2"><span>Quittungs-Nr.</span><input name="nr" placeholder="Q-0042"></label>
+                <label class="switch span-6"><input type="checkbox" name="ku"><span><b>Kleinunternehmer</b><small>Keine Umsatzsteuer ausweisen (§ 19 UStG)</small></span></label>
+                <div class="span-6 calc" aria-live="polite"><div><span>Netto</span><b id="qNet">0,00 €</b></div><div><span>Umsatzsteuer</span><b id="qTax">0,00 €</b></div><div><span>Brutto</span><b id="qGross">0,00 €</b></div></div>
+              </div>
+            </fieldset>
+            <fieldset class="fieldset"><legend><span class="no">02</span><span class="t">Beteiligte</span></legend>
+              <div class="grid">
+                <label class="field span-6"><span>Erhalten von</span><input name="payer" placeholder="Jonas Kranz, Marktplatz 3, 24103 Kiel"></label>
+                <label class="field span-6"><span>Für</span><input name="purpose" placeholder="Nachdruck von 200 Etiketten"></label>
+                <label class="field span-6"><span>Empfänger <small>(du bzw. deine Firma, mit Anschrift)</small></span><input name="issuer" placeholder="Studio Nordlicht GmbH, Hafenstraße 12, 20457 Hamburg"></label>
+                <label class="field span-6"><span>Steuernummer / USt-IdNr. <small>(bei Umsatzsteuer über 250 € Pflicht)</small></span><input name="taxid" placeholder="DE123456788"></label>
+                <label class="field span-3"><span>Ort</span><input name="place" placeholder="Hamburg"></label>
+                <label class="field span-3"><span>Datum</span><input type="date" name="date"></label>
+              </div>
+            </fieldset>
+            <div class="note">Bis 250&nbsp;€ brutto reicht eine <b>Kleinbetragsrechnung</b> (§&nbsp;33 UStDV). Darüber braucht die Quittung alle Rechnungsangaben aus §&nbsp;14 UStG. Nutze dafür besser <a href="{{pre}}e-rechnung-erstellen/">E-Rechnung erstellen</a>.</div>
+          </form>

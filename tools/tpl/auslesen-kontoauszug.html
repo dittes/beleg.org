@@ -1,0 +1,33 @@
+      <section class="info">
+        <div class="info__head">
+          <p class="eyebrow">Wissen</p>
+          <h2 class="h2">Vom PDF-Auszug zur <em>Excel-Tabelle</em></h2>
+        </div>
+        <div class="prose">
+          <p>Viele Banken stellen Kontoauszüge nur als PDF bereit. Für die Buchhaltung, die Steuererklärung oder ein Haushaltsbuch brauchst du die Umsätze aber als Tabelle. beleg.org liest jede Buchung aus dem PDF und legt sie als Zeile an: Buchungstag, Wertstellung, Buchungstext, Verwendungszweck und Betrag.</p>
+          <h3>So funktioniert es</h3>
+          <ol class="steps">
+            <li><b>PDF ablegen.</b> Du kannst mehrere Auszüge auf einmal ablegen, etwa alle Monate eines Jahres.</li>
+            <li><b>Buchungen prüfen.</b> Das Werkzeug erkennt Soll und Haben, auch bei getrennten Spalten oder der Kennung S/H, und gleicht Anfangs- und Endsaldo ab. Steht dort „Abgestimmt“, sind alle Buchungen vollständig erfasst.</li>
+            <li><b>Exportieren.</b> Speichere die Umsätze als XLSX für Excel oder als CSV für Buchhaltungsprogramme.</li>
+          </ol>
+          <h3>Welche Kontoauszüge funktionieren?</h3>
+          <p>Am besten funktionieren PDFs aus dem Online-Banking, weil sie eine Textebene haben. Die Erkennung ist auf deutsche Auszüge ausgelegt: Datum im Format TT.MM.JJJJ und Beträge mit Dezimalkomma. Gescannte Papierauszüge laufen durch die Texterkennung. Das dauert etwas länger und sollte sorgfältiger geprüft werden.</p>
+          <p>Wichtig: Ein Kontoauszug belegt nur die <em>Zahlung</em>, nicht die Leistung dahinter. Für Betriebsausgaben und den Vorsteuerabzug brauchst du zusätzlich die Rechnung. Mehr dazu im Artikel <a href="{{pre}}beleg-vs-quittung/">Beleg, Quittung, Rechnung</a>.</p>
+        </div>
+      </section>
+
+      <section class="faq">
+        <p class="eyebrow">Häufige Fragen</p>
+        <h2 class="h2">Fragen zum Kontoauszug</h2>
+        <div class="faq__list">
+          <details class="faq__item"><summary>Ist es sicher, Kontoauszüge hier umzuwandeln?</summary>
+            <div><p>Ja. Die Umwandlung passiert vollständig in deinem Browser. Der Kontoauszug wird nicht hochgeladen, nicht gespeichert und nicht an Dritte übertragen. Wenn du die Seite schließt, sind die Daten weg.</p></div></details>
+          <details class="faq__item"><summary>Was bedeutet „Abgestimmt“?</summary>
+            <div><p>beleg.org rechnet den Anfangssaldo plus alle erkannten Umsätze und vergleicht das Ergebnis mit dem Endsaldo auf dem Auszug. Stimmen beide überein, fehlt keine Buchung und alle Vorzeichen stimmen. Bei einer Differenz prüfst du die markierten Zeilen.</p></div></details>
+          <details class="faq__item"><summary>Kann ich mehrere Monate zusammenführen?</summary>
+            <div><p>Ja. Leg alle Auszüge gleichzeitig ab. Die Buchungen landen sortiert nach Datum in einer gemeinsamen Tabelle, die Spalte „Datei“ zeigt, aus welchem Auszug eine Buchung stammt.</p></div></details>
+          <details class="faq__item"><summary>Meine Bank bietet doch einen CSV-Export an?</summary>
+            <div><p>Wenn du ihn nutzen kannst, ist er die beste Quelle. Oft ist er aber nur für wenige Monate verfügbar, das Konto ist geschlossen, oder du hast nur die PDF-Auszüge im Postfach. Dann hilft dieses Werkzeug.</p></div></details>
+        </div>
+      </section>

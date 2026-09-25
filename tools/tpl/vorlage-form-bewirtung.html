@@ -1,0 +1,26 @@
+          <form class="pane" data-pane="bewirtung" onsubmit="return false">
+            <fieldset class="fieldset"><legend><span class="no">01</span><span class="t">Bewirtung</span></legend>
+              <div class="grid">
+                <label class="field span-3"><span>Tag der Bewirtung</span><input type="date" name="date"></label>
+                <label class="field span-3"><span>Beleg-Nr. <small>(optional)</small></span><input name="nr" placeholder="BW-2026-11"></label>
+                <label class="field span-6"><span>Restaurant <small>(Name und Anschrift)</small></span><input name="venue" placeholder="Fischereihafen Restaurant, Große Elbstraße 143, 22767 Hamburg"></label>
+                <label class="field span-6"><span>Geschäftlicher Anlass <small>(konkret)</small></span><textarea name="occasion" placeholder="Abstimmung Verpackungsserie Herbst mit Bäckerei Kranz"></textarea></label>
+                <label class="field span-6"><span>Teilnehmende <small>(eine Person pro Zeile, dich eingeschlossen)</small></span><textarea name="guests" rows="4" placeholder="Mira Albers, Studio Nordlicht (bewirtend)&#10;Jonas Kranz, Bäckerei Kranz OHG&#10;Lea Kranz, Bäckerei Kranz OHG"></textarea></label>
+              </div>
+            </fieldset>
+            <fieldset class="fieldset"><legend><span class="no">02</span><span class="t">Kosten</span></legend>
+              <div class="grid">
+                <label class="field span-3"><span>Betrag laut Rechnung (€)</span><input name="amount" class="num-in" inputmode="decimal" placeholder="148,60"></label>
+                <label class="field span-3"><span>Trinkgeld (€)</span><input name="tip" class="num-in" inputmode="decimal" placeholder="15,00"></label>
+                <div class="span-6 calc" aria-live="polite"><div><span>Gesamt</span><b id="bwTotal">0,00 €</b></div><div><span>70 % abziehbar</span><b id="bw70">0,00 €</b></div><div><span>30 % nicht abz.</span><b id="bw30">0,00 €</b></div></div>
+              </div>
+            </fieldset>
+            <fieldset class="fieldset"><legend><span class="no">03</span><span class="t">Bewirtende Person</span></legend>
+              <div class="grid">
+                <label class="field span-6"><span>Name / Firma</span><input name="host" placeholder="Mira Albers, Studio Nordlicht GmbH"></label>
+                <label class="field span-3"><span>Ort</span><input name="place" placeholder="Hamburg"></label>
+                <label class="field span-3"><span>Datum</span><input type="date" name="created"></label>
+              </div>
+            </fieldset>
+            <div class="note">Hefte die <b>maschinell erstellte Rechnung</b> des Restaurants an. Sie muss aus einer Kasse mit TSE stammen. Ab 250&nbsp;€ muss dein Name auf der Rechnung stehen. Trinkgeld lässt du am besten auf der Rechnung quittieren.</div>
+          </form>

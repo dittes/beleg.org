@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <!-- meta: generiert von tools/site.py -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bewirtungsbeleg erstellen – Vorlage online ausfüllen &amp; drucken</title>
+  <meta name="description" content="Bewirtungsbeleg für Geschäftsessen online ausfüllen: Anlass, Teilnehmende, Betrag und Trinkgeld – mit 70/30-Aufteilung und Druckvorlage als PDF.">
+  <link rel="canonical" href="https://beleg.org/bewirtungsbeleg-erstellen/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="beleg.org">
+  <meta property="og:locale" content="de_DE">
+  <meta property="og:title" content="Bewirtungsbeleg erstellen – Vorlage online ausfüllen &amp; drucken">
+  <meta property="og:description" content="Bewirtungsbeleg für Geschäftsessen online ausfüllen: Anlass, Teilnehmende, Betrag und Trinkgeld – mit 70/30-Aufteilung und Druckvorlage als PDF.">
+  <meta property="og:url" content="https://beleg.org/bewirtungsbeleg-erstellen/">
+  <meta property="og:image" content="https://beleg.org/assets/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#0c2582">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+  <link rel="preload" href="../assets/fonts/Newsreader-normal-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../assets/fonts/fonts.css">
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Bewirtungsbeleg erstellen", "url": "https://beleg.org/bewirtungsbeleg-erstellen/", "description": "Bewirtungsbeleg für Geschäftsessen online ausfüllen: Anlass, Teilnehmende, Betrag und Trinkgeld – mit 70/30-Aufteilung und Druckvorlage als PDF.", "applicationCategory": "BusinessApplication", "operatingSystem": "Web", "inLanguage": "de-DE", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "EUR"}}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Gilt das auch für Essen nur mit Kolleginnen und Kollegen?", "acceptedAnswer": {"@type": "Answer", "text": "Nein. Reine Arbeitnehmerbewirtungen, etwa Teamessen oder Betriebsfeiern, sind anders geregelt und oft voll abziehbar oder Arbeitslohn. Der 70-%-Abzug gilt für Bewirtungen mit geschäftlichem Anlass und externen Gästen."}}, {"@type": "Question", "name": "Kann ich den Bewirtungsbeleg digital aufbewahren?", "acceptedAnswer": {"@type": "Answer", "text": "Ja. Beide Dokumente, Bewirtungsbeleg und Restaurantrechnung, müssen zusammengehören und lesbar sein. Wie du sie richtig scannst, steht im Ratgeber Belege digitalisieren."}}, {"@type": "Question", "name": "Was, wenn ich die Restaurantrechnung verloren habe?", "acceptedAnswer": {"@type": "Answer", "text": "Bitte das Restaurant um eine Rechnungskopie. Ohne Rechnung wird das Finanzamt den Betriebsausgabenabzug in der Regel ablehnen, und die Vorsteuer entfällt."}}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "beleg.org", "item": "https://beleg.org/"}, {"@type": "ListItem", "position": 2, "name": "Bewirtungsbeleg erstellen", "item": "https://beleg.org/bewirtungsbeleg-erstellen/"}]}</script>
+  <!-- /meta -->
+  <link rel="stylesheet" href="../assets/site.css">
+  <link rel="stylesheet" href="../assets/doc.css">
+  <style>
+    .types { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; margin: 36px 0 40px; border: 1px solid var(--rule-strong); background: #fff; }
+    .type { display: block; text-decoration: none; text-align: left; background: #fff; border: 0; border-right: 1px solid var(--rule); padding: 20px 22px 22px; cursor: pointer; position: relative; font: inherit; color: inherit; transition: background .2s; }
+    .type:last-child { border-right: 0; }
+    .type:hover { background: var(--blue-wash); }
+    .type__no { font: 500 11px/1 var(--f-mono); color: var(--blue); letter-spacing: .08em; }
+    .type__t { display: block; font: 400 28px/1.1 var(--f-display); margin: 10px 0 6px; letter-spacing: -.01em; }
+    .type__d { display: block; font-size: 13.5px; color: var(--ink-2); line-height: 1.45; }
+    .type[aria-current="page"] { background: var(--blue); color: #fff; }
+    .type[aria-current="page"] .type__no, .type[aria-current="page"] .type__d { color: #cfdcff; }
+    .type[aria-current="page"]::after { content: ""; position: absolute; left: 50%; bottom: -9px; width: 16px; height: 16px; background: var(--blue); transform: translateX(-50%) rotate(45deg); }
+
+    .bench { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: clamp(24px, 4vw, 56px); align-items: start; }
+    .pane[hidden] { display: none; }
+    .preview { position: sticky; top: 76px; }
+    .preview__bar { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 14px; flex-wrap: wrap; }
+    .stage { background: var(--paper-3); border: 1px solid var(--rule); padding: clamp(12px, 2vw, 28px); overflow: hidden; }
+    .stage__fit { width: 100%; }
+    .stage__fit > .a4 { transform-origin: top left; }
+    .calc { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; border: 1px solid var(--rule); background: #fff; margin-top: 4px; }
+    .calc div { padding: 10px 12px; border-right: 1px solid var(--rule); }
+    .calc div:last-child { border-right: 0; }
+    .calc span { display: block; font: 500 10px/1.2 var(--f-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+    .calc b { font: 500 16px/1.4 var(--f-mono); color: var(--blue-deep); }
+    @media (max-width: 1100px) { .bench { grid-template-columns: minmax(0, 1fr); } .preview { position: static; } }
+    @media (max-width: 700px) { .types { grid-template-columns: minmax(0, 1fr); } .type { border-right: 0; border-bottom: 1px solid var(--rule); } .type[aria-current="page"]::after { display: none; } }
+
+    @media print {
+      @page { size: A4; margin: 0; }
+      body { background: #fff; }
+      .register, .kopf, .intro, .types, .pane, .preview__bar, .colophon, .note { display: none !important; }
+      .shell, .sheet, .wrap, .bench, .preview, .stage, .stage__fit { display: block !important; padding: 0 !important; margin: 0 !important; border: 0 !important; background: #fff !important; box-shadow: none !important; position: static !important; }
+      .sheet::before { display: none; }
+      .stage__fit { height: auto !important; }
+      .stage__fit > .a4 { transform: none !important; box-shadow: none !important; }
+    }
+  </style>
+</head>
+<body data-vtype="bewirtung">
+<div class="shell">
+  <aside class="register" aria-label="Hauptnavigation">
+    <a class="register__mark" href="../" aria-label="beleg.org Startseite">
+      <svg viewBox="0 0 40 40" fill="none" aria-hidden="true"><path d="M9 4h22v30l-3.67-2.5L23.67 34 20 31.5 16.33 34l-3.66-2.5L9 34V4Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M14 12h12M14 17h12M14 22h7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="28" cy="25" r="5.5" fill="#6ea0ff" stroke="#0c2582" stroke-width="2"/><path d="m25.6 25 1.6 1.6 3-3.2" stroke="#0c2582" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span class="register__word">beleg<i>.org</i></span>
+    </a>
+    <nav>
+      <a class="tab" href="../e-rechnung-pruefen/"><svg class="tab__ic" viewBox="0 0 18 18" aria-hidden="true"><path d="M4 1.5h7l3 3v12H4z"/><path d="m6.5 10 2 2 3.5-4"/></svg><span class="tab__label">E-Rechnung prüfen</span></a>
+      <a class="tab" href="../e-rechnung-erstellen/"><svg class="tab__ic" viewBox="0 0 18 18" aria-hidden="true"><path d="M4 1.5h7l3 3v12H4z"/><path d="M9 7.5v6M6 10.5h6"/></svg><span class="tab__label">E-Rechnung erstellen</span></a>
+      <a class="tab" href="../beleg-scannen/"><svg class="tab__ic" viewBox="0 0 18 18" aria-hidden="true"><path d="M1.5 5V1.5H5M13 1.5h3.5V5M16.5 13v3.5H13M5 16.5H1.5V13"/><path d="M4 9h10"/></svg><span class="tab__label">Beleg scannen</span></a>
+      <a class="tab" href="../belege-auslesen/"><svg class="tab__ic" viewBox="0 0 18 18" aria-hidden="true"><rect x="2" y="3" width="14" height="12" rx="1"/><path d="M2 7h14M2 11h14M7 3v12"/></svg><span class="tab__label">Belege auslesen</span></a>
+      <a class="tab" href="../eigenbeleg-erstellen/" aria-current="page"><svg class="tab__ic" viewBox="0 0 18 18" aria-hidden="true"><path d="M5.5 4.5h9v12h-9z"/><path d="M3 13.5V2h8.5"/></svg><span class="tab__label">Belegvorlagen</span></a>
+      <a class="tab" href="../aufbewahrungsfristen/"><svg class="tab__ic" viewBox="0 0 18 18" aria-hidden="true"><rect x="1.5" y="2.5" width="15" height="4" rx=".5"/><path d="M3 6.5v9h12v-9M7 10h4"/></svg><span class="tab__label">Aufbewahrung</span></a>
+      <a class="tab" href="../ratgeber/"><svg class="tab__ic" viewBox="0 0 18 18" aria-hidden="true"><path d="M2 3.5c2.5-1 5-1 7 .5v11c-2-1.5-4.5-1.5-7-.5zM16 3.5c-2.5-1-5-1-7 .5v11c2-1.5 4.5-1.5 7-.5z"/></svg><span class="tab__label">Ratgeber</span></a>
+    </nav>
+    <div class="register__foot"><span>Kein Upload</span><span>Kein Konto</span><span>Kein Tracking</span></div>
+    <script>(function(){var t=document.querySelector('.register .tab[aria-current]');if(t&&t.parentNode.scrollWidth>t.parentNode.clientWidth)t.parentNode.scrollLeft=t.offsetLeft-48;})()</script>
+  </aside>
+
+  <main class="sheet">
+    <div class="kopf">
+      <div class="kopf__cell kopf__cell--hide"><span class="kopf__k">Bereich</span><span class="kopf__v">Werkzeug</span></div>
+      <div class="kopf__cell"><span class="kopf__k">Seite</span><span class="kopf__v">Bewirtungsbeleg erstellen</span></div>
+      <div class="kopf__cell"><span class="kopf__k">Ausgabe</span><span class="kopf__v"><span class="dot"></span>Druck / PDF · A4</span></div>
+      <div class="kopf__cell kopf__cell--hide"><span class="kopf__k">Entwurf</span><span class="kopf__v">nur auf diesem Gerät</span></div>
+    </div>
+
+    <div class="wrap">
+      <header class="intro">
+        <p class="eyebrow rise">Belegvorlagen · Druck &amp; PDF</p>
+        <h1 class="display rise rise-2">Bewirtungsbeleg <em>erstellen.</em></h1>
+        <p class="lede rise rise-3">Für jedes Geschäftsessen brauchst du einen Bewirtungsbeleg mit Anlass und Teilnehmenden. Hier füllst du ihn aus und druckst ihn zum Anheften an die Restaurantrechnung.</p>
+      </header>
+
+      <nav class="types rise rise-3" aria-label="Belegart">
+        <a class="type" href="../eigenbeleg-erstellen/"><span class="type__no">A</span><span class="type__t">Eigenbeleg</span><span class="type__d">Für Ausgaben ohne Quittung, etwa bei verlorenen Belegen, Parkautomaten oder Trinkgeld.</span></a>
+        <a class="type" href="../bewirtungsbeleg-erstellen/" aria-current="page"><span class="type__no">B</span><span class="type__t">Bewirtungsbeleg</span><span class="type__d">Für Geschäftsessen: Anlass und Teilnehmende. Die Restaurantrechnung heftest du an.</span></a>
+        <a class="type" href="../quittung-erstellen/"><span class="type__no">C</span><span class="type__t">Quittung</span><span class="type__d">Bestätigung einer Barzahlung mit Umsatzsteuer, Betrag in Worten und Unterschrift.</span></a>
+      </nav>
+
+      <div class="bench">
+        <div>
+          <form class="pane" data-pane="bewirtung" onsubmit="return false">
+            <fieldset class="fieldset"><legend><span class="no">01</span><span class="t">Bewirtung</span></legend>
+              <div class="grid">
+                <label class="field span-3"><span>Tag der Bewirtung</span><input type="date" name="date"></label>
+                <label class="field span-3"><span>Beleg-Nr. <small>(optional)</small></span><input name="nr" placeholder="BW-2026-11"></label>
+                <label class="field span-6"><span>Restaurant <small>(Name und Anschrift)</small></span><input name="venue" placeholder="Fischereihafen Restaurant, Große Elbstraße 143, 22767 Hamburg"></label>
+                <label class="field span-6"><span>Geschäftlicher Anlass <small>(konkret)</small></span><textarea name="occasion" placeholder="Abstimmung Verpackungsserie Herbst mit Bäckerei Kranz"></textarea></label>
+                <label class="field span-6"><span>Teilnehmende <small>(eine Person pro Zeile, dich eingeschlossen)</small></span><textarea name="guests" rows="4" placeholder="Mira Albers, Studio Nordlicht (bewirtend)&#10;Jonas Kranz, Bäckerei Kranz OHG&#10;Lea Kranz, Bäckerei Kranz OHG"></textarea></label>
+              </div>
+            </fieldset>
+            <fieldset class="fieldset"><legend><span class="no">02</span><span class="t">Kosten</span></legend>
+              <div class="grid">
+                <label class="field span-3"><span>Betrag laut Rechnung (€)</span><input name="amount" class="num-in" inputmode="decimal" placeholder="148,60"></label>
+                <label class="field span-3"><span>Trinkgeld (€)</span><input name="tip" class="num-in" inputmode="decimal" placeholder="15,00"></label>
+                <div class="span-6 calc" aria-live="polite"><div><span>Gesamt</span><b id="bwTotal">0,00 €</b></div><div><span>70 % abziehbar</span><b id="bw70">0,00 €</b></div><div><span>30 % nicht abz.</span><b id="bw30">0,00 €</b></div></div>
+              </div>
+            </fieldset>
+            <fieldset class="fieldset"><legend><span class="no">03</span><span class="t">Bewirtende Person</span></legend>
+              <div class="grid">
+                <label class="field span-6"><span>Name / Firma</span><input name="host" placeholder="Mira Albers, Studio Nordlicht GmbH"></label>
+                <label class="field span-3"><span>Ort</span><input name="place" placeholder="Hamburg"></label>
+                <label class="field span-3"><span>Datum</span><input type="date" name="created"></label>
+              </div>
+            </fieldset>
+            <div class="note">Hefte die <b>maschinell erstellte Rechnung</b> des Restaurants an. Sie muss aus einer Kasse mit TSE stammen. Ab 250&nbsp;€ muss dein Name auf der Rechnung stehen. Trinkgeld lässt du am besten auf der Rechnung quittieren.</div>
+          </form>
+
+        </div>
+
+        <div class="preview">
+          <div class="preview__bar">
+            <p class="h3" style="margin:0">Vorschau · A4</p>
+            <div class="btnrow">
+              <button class="btn btn--quiet" type="button" id="reset">Leeren</button>
+              <button class="btn" type="button" id="print"><svg viewBox="0 0 16 16" fill="none"><path d="M4 6V1.5h8V6M4 12H2V6h12v6h-2M4 9.5h8v5H4z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>Drucken / als PDF</button>
+            </div>
+          </div>
+          <div class="stage"><div class="stage__fit" id="fit"><div class="a4" id="doc"></div></div></div>
+        </div>
+      </div>
+      <section class="info">
+        <div class="info__head">
+          <p class="eyebrow">Wissen</p>
+          <h2 class="h2">Geschäftsessen richtig <em>belegen</em></h2>
+        </div>
+        <div class="prose">
+          <p>Bewirtest du Geschäftspartner, Kundinnen oder Kunden aus geschäftlichem Anlass, kannst du 70&nbsp;% der Kosten als Betriebsausgabe abziehen (§&nbsp;4 Abs.&nbsp;5 Nr.&nbsp;2 EStG). Die Vorsteuer aus der Restaurantrechnung ist in voller Höhe abziehbar. Dafür verlangt das Finanzamt einen schriftlichen Nachweis: den Bewirtungsbeleg.</p>
+          <h3>Pflichtangaben</h3>
+          <ul>
+            <li>Ort und Tag der Bewirtung</li>
+            <li>Alle Teilnehmenden, dich selbst eingeschlossen</li>
+            <li>Ein konkreter geschäftlicher Anlass. „Geschäftsessen“ allein reicht nicht.</li>
+            <li>Die Höhe der Aufwendungen, inklusive Trinkgeld</li>
+            <li>Deine Unterschrift</li>
+          </ul>
+          <h3>Die Restaurantrechnung</h3>
+          <p>Hefte die Rechnung des Restaurants an. Sie muss maschinell erstellt und über eine elektronische Kasse mit TSE registriert sein. Name und Anschrift des Restaurants, Datum, die einzelnen Speisen und Getränke sowie Entgelt und Umsatzsteuer müssen darauf stehen. Ab 250&nbsp;€ muss auch dein Name als Bewirtender auf der Rechnung stehen.</p>
+          <p>Trinkgeld taucht meist nicht auf der Rechnung auf. Lass es dir vom Personal auf der Rechnung quittieren oder trage es im Bewirtungsbeleg ein.</p>
+        </div>
+      </section>
+
+      <section class="faq">
+        <p class="eyebrow">Häufige Fragen</p>
+        <h2 class="h2">Fragen zur Bewirtung</h2>
+        <div class="faq__list">
+          <details class="faq__item"><summary>Gilt das auch für Essen nur mit Kolleginnen und Kollegen?</summary>
+            <div><p>Nein. Reine Arbeitnehmerbewirtungen, etwa Teamessen oder Betriebsfeiern, sind anders geregelt und oft voll abziehbar oder Arbeitslohn. Der 70-%-Abzug gilt für Bewirtungen mit geschäftlichem Anlass und externen Gästen.</p></div></details>
+          <details class="faq__item"><summary>Kann ich den Bewirtungsbeleg digital aufbewahren?</summary>
+            <div><p>Ja. Beide Dokumente, Bewirtungsbeleg und Restaurantrechnung, müssen zusammengehören und lesbar sein. Wie du sie richtig scannst, steht im Ratgeber <a href="../beleg-digitalisieren/">Belege digitalisieren</a>.</p></div></details>
+          <details class="faq__item"><summary>Was, wenn ich die Restaurantrechnung verloren habe?</summary>
+            <div><p>Bitte das Restaurant um eine Rechnungskopie. Ohne Rechnung wird das Finanzamt den Betriebsausgabenabzug in der Regel ablehnen, und die Vorsteuer entfällt.</p></div></details>
+        </div>
+      </section>
+
+    </div>
+
+    <footer class="colophon">
+      <div class="colophon__brand"><b>beleg<i>.org</i></b><span>Werkzeuge für Belege. Kostenlos, ohne Konto, ohne Tracking. Deine Dateien bleiben auf deinem Gerät.</span></div>
+      <nav class="colophon__cols" aria-label="Fußzeile">
+        <div><p>Werkzeuge</p><ul><li><a href="../e-rechnung-pruefen/">E-Rechnung prüfen</a></li><li><a href="../e-rechnung-erstellen/">E-Rechnung erstellen</a></li><li><a href="../beleg-scannen/">Beleg scannen</a></li><li><a href="../belege-auslesen/">Belege auslesen</a></li><li><a href="../eigenbeleg-erstellen/">Belegvorlagen</a></li><li><a href="../aufbewahrungsfristen/">Aufbewahrung</a></li><li><a href="../kontoauszug-in-excel/">Kontoauszug in Excel</a></li></ul></div>
+        <div><p>Vorlagen</p><ul><li><a href="../eigenbeleg-erstellen/">Eigenbeleg erstellen</a></li><li><a href="../bewirtungsbeleg-erstellen/">Bewirtungsbeleg erstellen</a></li><li><a href="../quittung-erstellen/">Quittung erstellen</a></li></ul></div>
+        <div><p>Ratgeber</p><ul><li><a href="../belegpflicht/">Belegpflicht</a></li><li><a href="../beleg-vs-quittung/">Beleg, Quittung, Rechnung</a></li><li><a href="../beleg-digitalisieren/">Belege digitalisieren</a></li><li><a href="../e-rechnungspflicht/">E-Rechnungspflicht</a></li></ul></div>
+        <div><p>Rechtliches</p><ul><li><a href="../impressum/">Impressum</a></li><li><a href="../datenschutz/">Datenschutz</a></li></ul></div>
+      </nav>
+      <p class="colophon__legal">Keine Steuer- oder Rechtsberatung. Angaben ohne Gewähr.</p>
+    </footer>
+  </main>
+</div>
+<script type="module" src="../assets/werkstatt.js"></script>
+</body>
+</html>

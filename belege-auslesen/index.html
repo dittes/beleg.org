@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <!-- meta: generiert von tools/site.py -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Belege auslesen – Kassenbons &amp; Rechnungen per Texterkennung erfassen</title>
+  <meta name="description" content="Daten aus Kassenbons, Rechnungen und Scans automatisch auslesen: Händler, Datum, Beträge und Umsatzsteuer. Export als Excel oder CSV, Texterkennung im Browser.">
+  <link rel="canonical" href="https://beleg.org/belege-auslesen/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="beleg.org">
+  <meta property="og:locale" content="de_DE">
+  <meta property="og:title" content="Belege auslesen – Kassenbons &amp; Rechnungen per Texterkennung erfassen">
+  <meta property="og:description" content="Daten aus Kassenbons, Rechnungen und Scans automatisch auslesen: Händler, Datum, Beträge und Umsatzsteuer. Export als Excel oder CSV, Texterkennung im Browser.">
+  <meta property="og:url" content="https://beleg.org/belege-auslesen/">
+  <meta property="og:image" content="https://beleg.org/assets/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#0c2582">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+  <link rel="preload" href="../assets/fonts/Newsreader-normal-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../assets/fonts/fonts.css">
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Belege auslesen", "url": "https://beleg.org/belege-auslesen/", "description": "Daten aus Kassenbons, Rechnungen und Scans automatisch auslesen: Händler, Datum, Beträge und Umsatzsteuer. Export als Excel oder CSV, Texterkennung im Browser.", "applicationCategory": "BusinessApplication", "operatingSystem": "Web", "inLanguage": "de-DE", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "EUR"}}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Werden meine Belege hochgeladen?", "acceptedAnswer": {"@type": "Answer", "text": "Nein. Die Texterkennung (Tesseract) läuft vollständig in deinem Browser. Beim ersten Gebrauch lädt der Browser einmalig das deutsche Sprachmodell von beleg.org, deine Bilder und PDFs verlassen dein Gerät aber nicht."}}, {"@type": "Question", "name": "Welche Dateien kann ich auslesen?", "acceptedAnswer": {"@type": "Answer", "text": "PDF-Dateien (mit oder ohne Textebene), Fotos als JPG oder PNG sowie E-Rechnungen als XML. Du kannst viele Dateien auf einmal ablegen, jede wird zu einer Zeile in der Tabelle."}}, {"@type": "Question", "name": "Wie genau ist die Texterkennung?", "acceptedAnswer": {"@type": "Answer", "text": "Bei sauberen Scans und digitalen PDFs sind die Werte meist korrekt. Bei zerknitterten, schiefen oder verblassten Belegen kann die Erkennung Fehler machen. Prüfe deshalb vor allem Beträge und Datum, bevor du die Tabelle weiterverwendest."}}, {"@type": "Question", "name": "Kann ich die Tabelle in meine Buchhaltung importieren?", "acceptedAnswer": {"@type": "Answer", "text": "Ja. Die CSV-Datei nutzt deutsches Format mit Semikolon und Dezimalkomma, die XLSX-Datei enthält echte Datums- und Zahlenzellen. Beides lässt sich in Excel, Numbers, LibreOffice und die meisten Buchhaltungsprogramme importieren."}}]}</script>
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "beleg.org", "item": "https://beleg.org/"}, {"@type": "ListItem", "position": 2, "name": "Belege auslesen", "item": "https://beleg.org/belege-auslesen/"}]}</script>
+  <!-- /meta -->
+  <link rel="stylesheet" href="../assets/site.css">
+  <style>
+    .intro { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 380px); gap: 40px; align-items: end; margin-bottom: 40px; }
+
+    /* Scanner-Bett */
+    .bed { position: relative; background: var(--blue-deep); border-radius: 10px; padding: 14px; box-shadow: 0 24px 40px -28px rgba(12,37,130,.8); }
+    .bed__glass {
+      position: relative; overflow: hidden; border-radius: 4px; cursor: pointer;
+      background: linear-gradient(180deg, #f7f9ff, #ffffff 40%, #f2f6ff);
+      display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 24px; align-items: center;
+      padding: clamp(24px, 4vw, 44px);
+      outline: 1.5px dashed transparent; outline-offset: -10px; transition: outline-color .2s, background .2s;
+    }
+    .bed__glass:hover, .bed.is-over .bed__glass { outline-color: var(--blue); }
+    .bed.is-over .bed__glass { background: var(--blue-wash); }
+    .bed__light { position: absolute; left: 0; right: 0; height: 60px; top: -60px; pointer-events: none; background: linear-gradient(180deg, transparent, rgba(110,160,255,.28) 70%, rgba(27,63,209,.55) 96%, transparent); }
+    .bed.is-busy .bed__light { animation: scan 1.8s cubic-bezier(.45,0,.55,1) infinite alternate; }
+    @keyframes scan { from { top: -60px; } to { top: calc(100% - 4px); } }
+    .bed__t { font: 400 clamp(26px, 3vw, 36px)/1.1 var(--f-display); margin: 0 0 8px; letter-spacing: -.01em; }
+    .bed__s { margin: 0; color: var(--ink-2); max-width: 52ch; }
+    .bed__meta { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding: 12px 6px 0; color: #bcd0ff; font: 500 10.5px/1.4 var(--f-mono); letter-spacing: .08em; text-transform: uppercase; }
+    .bed__meta b { color: #fff; font-weight: 600; }
+    .mode-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 18px; }
+    .mode-row .small { font: 500 11px/1 var(--f-mono); letter-spacing: .06em; text-transform: uppercase; }
+
+    /* Stapel */
+    .stack { margin-top: 26px; list-style: none; padding: 0; display: grid; gap: 8px; }
+    .stack:empty { display: none; }
+    .job { display: grid; grid-template-columns: 44px minmax(0, 1fr) auto; gap: 14px; align-items: center; padding: 10px 14px 10px 10px; background: #fff; border: 1px solid var(--rule); border-radius: var(--radius); }
+    .job__thumb { width: 44px; height: 54px; border: 1px solid var(--rule); background: var(--paper-3) center / cover no-repeat; border-radius: 2px; }
+    .job__name { font: 500 13.5px/1.3 var(--f-label); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .job__info { font: 400 12px/1.4 var(--f-mono); color: var(--muted); margin-top: 3px; }
+    .job__bar { height: 3px; background: var(--paper-3); border-radius: 3px; margin-top: 7px; overflow: hidden; }
+    .job__bar i { display: block; height: 100%; width: 0; background: var(--blue); transition: width .3s; }
+    .job__tag { font: 600 10.5px/1 var(--f-mono); letter-spacing: .08em; text-transform: uppercase; padding: 6px 8px; border-radius: 2px; border: 1px solid var(--rule-strong); color: var(--ink-2); white-space: nowrap; }
+    .job__tag.is-st { background: var(--blue); color: #fff; border-color: var(--blue); }
+    .job__tag.is-rc { background: var(--blue-wash); color: var(--blue-deep); border-color: var(--blue-soft); }
+    .job__tag.is-err { color: var(--err); border-color: var(--err); }
+
+    /* Ergebnisse */
+    .block { margin-top: 64px; }
+    .block[hidden] { display: none; }
+    .block__head { display: flex; justify-content: space-between; align-items: end; gap: 20px; flex-wrap: wrap; padding-bottom: 16px; border-bottom: 1px solid var(--ink); }
+    .ledger { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)) auto; gap: 0; border: 1px solid var(--rule); background: #fff; margin-top: 20px; }
+    .ledger div { padding: 14px 16px; border-right: 1px solid var(--rule); }
+    .ledger div:last-child { border-right: 0; display: grid; place-items: center; padding: 10px 22px; }
+    .ledger span { display: block; font: 500 10px/1.2 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+    .ledger b { display: block; font: 500 19px/1.4 var(--f-mono); color: var(--ink); margin-top: 4px; white-space: nowrap; }
+    .ledger .pos { color: var(--blue); } .ledger .neg { color: var(--err); }
+
+    .grid-wrap { margin-top: 16px; border: 1px solid var(--rule); background: #fff; overflow: auto; max-height: 70vh; box-shadow: var(--shadow); }
+    .edit { border-collapse: separate; border-spacing: 0; width: 100%; min-width: 880px; font-size: 13px; }
+    .edit th { position: sticky; top: 0; z-index: 1; background: var(--paper-2); text-align: left; font: 500 10px/1.2 var(--f-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); padding: 10px 8px; border-bottom: 1px solid var(--ink); white-space: nowrap; }
+    .edit th.r { text-align: right; }
+    .edit td { border-bottom: 1px solid var(--rule); padding: 0; vertical-align: top; }
+    .edit tr:hover td { background: var(--blue-wash); }
+    .edit input { width: 100%; border: 0; background: transparent; font: 400 13px/1.3 var(--f-body); color: var(--ink); padding: 10px 8px; border-radius: 0; }
+    .edit input:focus { outline: 2px solid var(--blue); outline-offset: -2px; background: #fff; }
+    .edit input.n { font-family: var(--f-mono); text-align: right; font-variant-numeric: tabular-nums; }
+    .edit input.d { font-family: var(--f-mono); width: 104px; }
+    .edit input.neg { color: var(--err); }
+    .edit input.low { box-shadow: inset 0 -2px 0 var(--warn); background: var(--warn-wash); }
+    .edit .src { font: 400 11px/1.3 var(--f-mono); color: var(--muted); padding: 11px 8px; white-space: nowrap; max-width: 160px; overflow: hidden; text-overflow: ellipsis; }
+    .edit .act { width: 64px; white-space: nowrap; text-align: right; padding-right: 6px; }
+    .edit .act button { border: 0; background: transparent; color: var(--muted); cursor: pointer; padding: 9px 6px; border-radius: 2px; font: 500 12px/1 var(--f-mono); }
+    .edit .act button:hover { color: var(--blue); background: var(--blue-soft); }
+    .edit .act button.del:hover { color: var(--err); background: var(--err-wash); }
+    .detail td { background: var(--paper-2) !important; }
+    .detail__in { display: grid; grid-template-columns: 240px minmax(0, 1fr); gap: 18px; padding: 16px; }
+    .detail__in img { width: 100%; border: 1px solid var(--rule); background: #fff; }
+    .detail__in pre { margin: 0; max-height: 360px; overflow: auto; font: 12px/1.55 var(--f-mono); color: var(--ink-2); white-space: pre-wrap; background: #fff; border: 1px solid var(--rule); padding: 12px; }
+    .edit tfoot td { position: sticky; bottom: 0; background: var(--paper-2); border-top: 1px solid var(--ink); font: 600 13px/1 var(--f-mono); padding: 12px 8px; text-align: right; }
+
+    .how { margin-top: 96px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--ink); }
+    .how div { padding: 20px 24px 0 0; }
+    .how span { font: 500 11px/1 var(--f-mono); color: var(--blue); letter-spacing: .08em; }
+    .how h3 { font: 400 23px/1.15 var(--f-display); margin: 8px 0; }
+    .how p { margin: 0; font-size: 14px; color: var(--ink-2); }
+
+    @media (max-width: 900px) {
+      .intro, .how { grid-template-columns: minmax(0, 1fr); }
+      .bed__glass { grid-template-columns: minmax(0, 1fr); }
+      .ledger { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .ledger div { border-bottom: 1px solid var(--rule); }
+      .ledger div:last-child { grid-column: 1 / -1; }
+      .detail__in { grid-template-columns: minmax(0, 1fr); }
+      .how div { border-bottom: 1px solid var(--rule); padding-bottom: 16px; }
+    }
+  </style>
+</head>
+<body>
+<div class="shell">
+  <aside class="register" aria-label="Hauptnavigation">
+    <a class="register__mark" href="../" aria-label="beleg.org Startseite">
+      <svg viewBox="0 0 40 40" fill="none" aria-hidden="true"><path d="M9 4h22v30l-3.67-2.5L23.67 34 20 31.5 16.33 34l-3.66-2.5L9 34V4Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M14 12h12M14 17h12M14 22h7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="28" cy="25" r="5.5" fill="#6ea0ff" stroke="#0c2582" stroke-width="2"/><path d="m25.6 25 1.6 1.6 3-3.2" stroke="#0c2582" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span class="register__word">beleg<i>.org</i></span>
+    </a>
+    <nav>
+      <a class="tab" href="../e-rechnung-pruefen/"><svg class="tab__ic" viewBox="0 0 18 18" aria-hidden="true"><path d="M4 1.5h7l3 3v12H4z"/><path d="m6.5 10 2 2 3.5-4"/></svg><span class="tab__label">E-Rechnung prüfen</span></a>
+      <a class="tab" href="../e-rechnung-erstellen/"><svg class="tab__ic" viewBox="0 0 18 18" aria-hidden="true"><path d="M4 1.5h7l3 3v12H4z"/><path d="M9 7.5v6M6 10.5h6"/></svg><span class="tab__label">E-Rechnung erstellen</span></a>
+      <a class="tab" href="../beleg-scannen/"><svg class="tab__ic" viewBox="0 0 18 18" aria-hidden="true"><path d="M1.5 5V1.5H5M13 1.5h3.5V5M16.5 13v3.5H13M5 16.5H1.5V13"/><path d="M4 9h10"/></svg><span class="tab__label">Beleg scannen</span></a>
+      <a class="tab" href="../belege-auslesen/" aria-current="page"><svg class="tab__ic" viewBox="0 0 18 18" aria-hidden="true"><rect x="2" y="3" width="14" height="12" rx="1"/><path d="M2 7h14M2 11h14M7 3v12"/></svg><span class="tab__label">Belege auslesen</span></a>
+      <a class="tab" href="../eigenbeleg-erstellen/"><svg class="tab__ic" viewBox="0 0 18 18" aria-hidden="true"><path d="M5.5 4.5h9v12h-9z"/><path d="M3 13.5V2h8.5"/></svg><span class="tab__label">Belegvorlagen</span></a>
+      <a class="tab" href="../aufbewahrungsfristen/"><svg class="tab__ic" viewBox="0 0 18 18" aria-hidden="true"><rect x="1.5" y="2.5" width="15" height="4" rx=".5"/><path d="M3 6.5v9h12v-9M7 10h4"/></svg><span class="tab__label">Aufbewahrung</span></a>
+      <a class="tab" href="../ratgeber/"><svg class="tab__ic" viewBox="0 0 18 18" aria-hidden="true"><path d="M2 3.5c2.5-1 5-1 7 .5v11c-2-1.5-4.5-1.5-7-.5zM16 3.5c-2.5-1-5-1-7 .5v11c2-1.5 4.5-1.5 7-.5z"/></svg><span class="tab__label">Ratgeber</span></a>
+    </nav>
+    <div class="register__foot"><span>Kein Upload</span><span>Kein Konto</span><span>Kein Tracking</span></div>
+    <script>(function(){var t=document.querySelector('.register .tab[aria-current]');if(t&&t.parentNode.scrollWidth>t.parentNode.clientWidth)t.parentNode.scrollLeft=t.offsetLeft-48;})()</script>
+  </aside>
+
+  <main class="sheet">
+    <div class="kopf">
+      <div class="kopf__cell kopf__cell--hide"><span class="kopf__k">Bereich</span><span class="kopf__v">Werkzeug</span></div>
+      <div class="kopf__cell"><span class="kopf__k">Seite</span><span class="kopf__v">Belege auslesen</span></div>
+      <div class="kopf__cell"><span class="kopf__k">Texterkennung</span><span class="kopf__v"><span class="dot"></span>lokal im Browser</span></div>
+      <div class="kopf__cell kopf__cell--hide"><span class="kopf__k">Ausgabe</span><span class="kopf__v">XLSX · CSV</span></div>
+    </div>
+
+    <div class="wrap">
+      <header class="intro">
+        <div>
+          <p class="eyebrow rise">Belege auslesen · OCR</p>
+          <h1 class="display rise rise-2">Belege <em>auslesen</em>,<br>statt abtippen.</h1>
+        </div>
+        <p class="lede rise rise-3" style="margin:0">Leg Kassenbons, Rechnungen, Scans oder Handyfotos ab. beleg.org liest den Text, erkennt Datum, Beträge und Umsatzsteuer und macht daraus eine Tabelle, die du prüfen und als Excel oder CSV speichern kannst.</p>
+      </header>
+
+      <div class="bed rise rise-4" id="bed" data-mode="auto">
+        <div class="bed__glass" id="drop" role="button" tabindex="0" aria-label="Dateien auswählen oder hier ablegen">
+          <div class="bed__light" aria-hidden="true"></div>
+          <div>
+            <p class="bed__t">Belege auf das Glas legen</p>
+            <p class="bed__s">PDF, JPG oder PNG. Auch mehrere Dateien auf einmal, etwa ein ganzes Jahr Kontoauszüge oder ein Stapel Kassenbons.</p>
+            <div class="mode-row">
+              <span class="small">Erkennen als</span>
+              <div class="seg" id="mode" role="group" aria-label="Erkennungsart">
+                <button type="button" data-mode="auto" aria-pressed="true">Automatisch</button>
+                <button type="button" data-mode="statement" aria-pressed="false">Kontoauszug</button>
+                <button type="button" data-mode="receipt" aria-pressed="false">Beleg</button>
+              </div>
+            </div>
+          </div>
+          <div class="btnrow">
+            <button class="btn" type="button" id="pick"><svg viewBox="0 0 16 16" fill="none"><path d="M8 11V2m0 0L4.5 5.5M8 2l3.5 3.5M2 10v4h12v-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Dateien wählen</button>
+            <button class="btn btn--ghost" type="button" id="demo">Beispiele</button>
+          </div>
+          <input type="file" id="file" accept="application/pdf,image/png,image/jpeg,image/webp,.pdf,.png,.jpg,.jpeg,.webp,.xml" multiple hidden>
+        </div>
+        <div class="bed__meta"><span>Verarbeitung <b>im Browser</b></span><span id="bedState">bereit</span><span>Upload <b>keiner</b></span></div>
+      </div>
+
+      <ol class="stack" id="stack" aria-live="polite"></ol>
+
+      <section class="block" id="stBlock" hidden>
+        <div class="block__head">
+          <div><p class="eyebrow">Kontoauszug</p><h2 class="h2">Umsätze <em id="stCount"></em></h2></div>
+          <div class="btnrow">
+            <button class="btn btn--ghost" type="button" data-export="st-csv">CSV</button>
+            <button class="btn" type="button" data-export="st-xlsx">Excel (XLSX)</button>
+          </div>
+        </div>
+        <div class="ledger" id="stLedger"></div>
+        <div class="grid-wrap"><table class="edit" id="stTable"></table></div>
+        <p class="small" style="margin-top:10px">Alle Felder lassen sich bearbeiten. Ausgaben sind negativ. Ist der Abgleich rot, fehlt vermutlich eine Buchung oder ein Vorzeichen stimmt nicht.</p>
+      </section>
+
+      <section class="block" id="rcBlock" hidden>
+        <div class="block__head">
+          <div><p class="eyebrow">Belege</p><h2 class="h2">Erfasste Belege <em id="rcCount"></em></h2></div>
+          <div class="btnrow">
+            <button class="btn btn--ghost" type="button" data-export="rc-csv">CSV</button>
+            <button class="btn" type="button" data-export="rc-xlsx">Excel (XLSX)</button>
+          </div>
+        </div>
+        <div class="grid-wrap"><table class="edit" id="rcTable"></table></div>
+        <p class="small" style="margin-top:10px">Orange unterstrichene Felder sind unsicher erkannt. Mit <b>Ansehen</b> öffnest du Bild und erkannten Text nebeneinander.</p>
+      </section>
+
+      <section class="how">
+        <div><span>01</span><h3>Text lesen</h3><p>Aus PDFs mit Textebene, etwa aus dem Online-Banking, liest beleg.org den Text direkt aus. Fotos und Scans laufen durch eine Texterkennung (Tesseract), die in deinem Browser arbeitet.</p></div>
+        <div><span>02</span><h3>Felder erkennen</h3><p>Regeln für deutsche Belege finden Datum, Beträge, Steuersätze, USt-IdNr. und Salden. Beim Kontoauszug wird geprüft, ob Anfangssaldo und Umsätze den Endsaldo ergeben.</p></div>
+        <div><span>03</span><h3>Prüfen &amp; exportieren</h3><p>Du korrigierst in der Tabelle und speicherst als XLSX oder CSV. Die CSV hat deutsches Format: Semikolon als Trenner, Komma bei Dezimalzahlen.</p></div>
+      </section>
+      <section class="info">
+        <div class="info__head">
+          <p class="eyebrow">Wissen</p>
+          <h2 class="h2">Belege auslesen, <em>ohne abzutippen</em></h2>
+        </div>
+        <div class="prose">
+          <p>Wer Belege für die Buchhaltung oder die Steuererklärung erfasst, tippt meist dieselben Angaben ab: Händler, Datum, Betrag, Umsatzsteuer. Das Werkzeug übernimmt diese Arbeit. Es liest Kassenbons, Rechnungen, Tankquittungen und Handyfotos aus und schreibt die Werte in eine Tabelle, die du prüfst und als Excel- oder CSV-Datei speicherst.</p>
+          <h3>Was erkannt wird</h3>
+          <ul>
+            <li><b>Händler oder Aussteller</b>, meist aus der ersten Zeile des Belegs</li>
+            <li><b>Datum</b>, bevorzugt neben dem Wort „Datum“</li>
+            <li><b>Bruttobetrag</b> aus Zeilen wie „Summe“, „Gesamt“ oder „zu zahlen“</li>
+            <li><b>Umsatzsteuer</b> getrennt nach 19&nbsp;% und 7&nbsp;%, samt Nettobetrag</li>
+            <li><b>Beleg- oder Rechnungsnummer</b>, <b>Zahlungsart</b> und <b>USt-IdNr.</b></li>
+          </ul>
+          <p>Unsicher erkannte Felder sind orange markiert. Mit „Ansehen“ vergleichst du Bild und erkannten Text direkt nebeneinander. Legst du eine E-Rechnung ab (XRechnung oder ZUGFeRD), übernimmt beleg.org die Werte exakt aus den eingebetteten Daten, ganz ohne Texterkennung.</p>
+          <h3>Tipps für gute Ergebnisse</h3>
+          <p>Fotografiere Belege flach, gut ausgeleuchtet und ohne Schatten. Noch besser funktioniert es, wenn du den Beleg vorher mit <a href="../beleg-scannen/">Beleg scannen</a> zuschneidest und die Schrift verbesserst. Verblasstes Thermopapier solltest du möglichst früh erfassen.</p>
+          <a class="callout" href="../kontoauszug-in-excel/"><div><span>Auch für Kontoauszüge</span><b>Kontoauszug in Excel umwandeln</b></div></a>
+        </div>
+      </section>
+
+      <section class="faq">
+        <p class="eyebrow">Häufige Fragen</p>
+        <h2 class="h2">Fragen zum Auslesen</h2>
+        <div class="faq__list">
+          <details class="faq__item"><summary>Werden meine Belege hochgeladen?</summary>
+            <div><p>Nein. Die Texterkennung (Tesseract) läuft vollständig in deinem Browser. Beim ersten Gebrauch lädt der Browser einmalig das deutsche Sprachmodell von beleg.org, deine Bilder und PDFs verlassen dein Gerät aber nicht.</p></div></details>
+          <details class="faq__item"><summary>Welche Dateien kann ich auslesen?</summary>
+            <div><p>PDF-Dateien (mit oder ohne Textebene), Fotos als JPG oder PNG sowie E-Rechnungen als XML. Du kannst viele Dateien auf einmal ablegen, jede wird zu einer Zeile in der Tabelle.</p></div></details>
+          <details class="faq__item"><summary>Wie genau ist die Texterkennung?</summary>
+            <div><p>Bei sauberen Scans und digitalen PDFs sind die Werte meist korrekt. Bei zerknitterten, schiefen oder verblassten Belegen kann die Erkennung Fehler machen. Prüfe deshalb vor allem Beträge und Datum, bevor du die Tabelle weiterverwendest.</p></div></details>
+          <details class="faq__item"><summary>Kann ich die Tabelle in meine Buchhaltung importieren?</summary>
+            <div><p>Ja. Die CSV-Datei nutzt deutsches Format mit Semikolon und Dezimalkomma, die XLSX-Datei enthält echte Datums- und Zahlenzellen. Beides lässt sich in Excel, Numbers, LibreOffice und die meisten Buchhaltungsprogramme importieren.</p></div></details>
+        </div>
+      </section>
+
+    </div>
+
+    <footer class="colophon">
+      <div class="colophon__brand"><b>beleg<i>.org</i></b><span>Werkzeuge für Belege. Kostenlos, ohne Konto, ohne Tracking. Deine Dateien bleiben auf deinem Gerät.</span></div>
+      <nav class="colophon__cols" aria-label="Fußzeile">
+        <div><p>Werkzeuge</p><ul><li><a href="../e-rechnung-pruefen/">E-Rechnung prüfen</a></li><li><a href="../e-rechnung-erstellen/">E-Rechnung erstellen</a></li><li><a href="../beleg-scannen/">Beleg scannen</a></li><li><a href="../belege-auslesen/">Belege auslesen</a></li><li><a href="../eigenbeleg-erstellen/">Belegvorlagen</a></li><li><a href="../aufbewahrungsfristen/">Aufbewahrung</a></li><li><a href="../kontoauszug-in-excel/">Kontoauszug in Excel</a></li></ul></div>
+        <div><p>Vorlagen</p><ul><li><a href="../eigenbeleg-erstellen/">Eigenbeleg erstellen</a></li><li><a href="../bewirtungsbeleg-erstellen/">Bewirtungsbeleg erstellen</a></li><li><a href="../quittung-erstellen/">Quittung erstellen</a></li></ul></div>
+        <div><p>Ratgeber</p><ul><li><a href="../belegpflicht/">Belegpflicht</a></li><li><a href="../beleg-vs-quittung/">Beleg, Quittung, Rechnung</a></li><li><a href="../beleg-digitalisieren/">Belege digitalisieren</a></li><li><a href="../e-rechnungspflicht/">E-Rechnungspflicht</a></li></ul></div>
+        <div><p>Rechtliches</p><ul><li><a href="../impressum/">Impressum</a></li><li><a href="../datenschutz/">Datenschutz</a></li></ul></div>
+      </nav>
+      <p class="colophon__legal">Keine Steuer- oder Rechtsberatung. Angaben ohne Gewähr.</p>
+    </footer>
+  </main>
+</div>
+<script type="module" src="../assets/erkennen.js"></script>
+</body>
+</html>

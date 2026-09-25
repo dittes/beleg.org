@@ -1,0 +1,29 @@
+          <form class="pane" data-pane="eigen" onsubmit="return false">
+            <fieldset class="fieldset"><legend><span class="no">01</span><span class="t">Aussteller</span></legend>
+              <div class="grid">
+                <label class="field span-6"><span>Name / Firma</span><input name="aName" autocomplete="organization" placeholder="Mira Albers Design"></label>
+                <label class="field span-6"><span>Anschrift</span><input name="aAddr" autocomplete="street-address" placeholder="Hafenstraße 12, 20457 Hamburg"></label>
+              </div>
+            </fieldset>
+            <fieldset class="fieldset"><legend><span class="no">02</span><span class="t">Ausgabe</span></legend>
+              <div class="grid">
+                <label class="field span-2"><span>Beleg-Nr.</span><input name="nr" placeholder="EB-2026-04"></label>
+                <label class="field span-2"><span>Datum der Ausgabe</span><input type="date" name="date"></label>
+                <label class="field span-2"><span>Betrag brutto (€)</span><input name="amount" class="num-in" inputmode="decimal" placeholder="12,50"></label>
+                <label class="field span-6"><span>Zahlungsempfänger <small>(Name und Anschrift)</small></span><input name="payee" placeholder="Parkhaus Am Markt, Marktplatz 1, 24103 Kiel"></label>
+                <label class="field span-6"><span>Art der Ausgabe / Leistung</span><textarea name="purpose" placeholder="Parkgebühr beim Kundentermin Bäckerei Kranz"></textarea></label>
+                <label class="field span-3"><span>Zahlungsart</span>
+                  <select name="method"><option>bar</option><option>Karte</option><option>Überweisung</option><option>PayPal / online</option></select></label>
+                <label class="field span-3"><span>Grund für den Eigenbeleg</span>
+                  <select name="reason"><option>Originalbeleg verloren gegangen</option><option>Kein Beleg erhältlich (Automat)</option><option>Trinkgeld</option><option>Beleg unleserlich</option><option>Sonstiges</option></select></label>
+                <label class="field span-6"><span>Ergänzung <small>(optional)</small></span><input name="extra" placeholder="z. B. Kontoauszug vom 12.09. liegt bei"></label>
+              </div>
+            </fieldset>
+            <fieldset class="fieldset"><legend><span class="no">03</span><span class="t">Erstellt</span></legend>
+              <div class="grid">
+                <label class="field span-3"><span>Ort</span><input name="place" placeholder="Hamburg"></label>
+                <label class="field span-3"><span>Datum</span><input type="date" name="created"></label>
+              </div>
+            </fieldset>
+            <div class="note">Aus einem Eigenbeleg kannst du <b>keine Vorsteuer</b> abziehen. Das Finanzamt akzeptiert ihn nur als Ausnahme und nur, wenn die Ausgabe glaubhaft ist.</div>
+          </form>

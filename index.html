@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <!-- meta: generiert von tools/site.py -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>beleg.org – Belege prüfen, scannen, auslesen &amp; erstellen</title>
+  <meta name="description" content="Kostenlose Werkzeuge für Belege: E-Rechnungen prüfen und erstellen, Belege scannen, Kontoauszüge in Excel umwandeln, Eigenbelege schreiben. Ohne Upload.">
+  <link rel="canonical" href="https://beleg.org/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="beleg.org">
+  <meta property="og:locale" content="de_DE">
+  <meta property="og:title" content="beleg.org – Belege prüfen, scannen, auslesen &amp; erstellen">
+  <meta property="og:description" content="Kostenlose Werkzeuge für Belege: E-Rechnungen prüfen und erstellen, Belege scannen, Kontoauszüge in Excel umwandeln, Eigenbelege schreiben. Ohne Upload.">
+  <meta property="og:url" content="https://beleg.org/">
+  <meta property="og:image" content="https://beleg.org/assets/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#0c2582">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="preload" href="assets/fonts/Newsreader-normal-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/fonts/fonts.css">
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebSite", "name": "beleg.org", "url": "https://beleg.org/", "inLanguage": "de-DE", "description": "Kostenlose Werkzeuge für Belege: E-Rechnungen prüfen und erstellen, Belege scannen, Kontoauszüge in Excel umwandeln, Eigenbelege schreiben. Ohne Upload.", "publisher": {"@type": "Person", "name": "Andreas Dittes"}}</script>
+  <!-- /meta -->
+  <link rel="stylesheet" href="assets/site.css">
+  <style>
+    .hero { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, .8fr); gap: clamp(28px, 5vw, 80px); align-items: end; padding-bottom: 48px; border-bottom: 1px solid var(--ink); }
+    .hero .display { font-size: clamp(48px, 7.6vw, 112px); }
+    .hero__side { display: grid; gap: 0; border-top: 1px solid var(--ink); }
+    .hero__side div { display: grid; grid-template-columns: 110px minmax(0, 1fr); gap: 14px; align-items: baseline; padding: 14px 0; border-bottom: 1px solid var(--rule); }
+    .hero__side b { font: 400 30px/1 var(--f-display); color: var(--blue); }
+    .hero__side span { font-size: 14px; color: var(--ink-2); }
+
+    .tasks { margin-top: 56px; }
+    .tasks__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 22px; border-top: 1px solid var(--rule-strong); border-left: 1px solid var(--rule-strong); background: #fff; }
+    .task { position: relative; display: grid; grid-template-rows: auto auto 1fr auto; gap: 8px; padding: 26px 26px 22px; border-right: 1px solid var(--rule-strong); border-bottom: 1px solid var(--rule-strong); color: inherit; text-decoration: none; transition: background .2s; min-height: 250px; }
+    .task:hover { background: var(--blue-wash); }
+    .task svg.ic { width: 34px; height: 34px; fill: none; stroke: var(--blue); stroke-width: 1.3; stroke-linecap: round; stroke-linejoin: round; margin-bottom: 10px; }
+    .task__t { font: 400 clamp(26px, 2.4vw, 34px)/1.05 var(--f-display); letter-spacing: -.015em; }
+    .task__d { font-size: 14.5px; color: var(--ink-2); max-width: 36ch; }
+    .task__go { display: flex; justify-content: space-between; align-items: center; font: 500 11px/1 var(--f-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); padding-top: 14px; border-top: 1px dotted var(--rule-strong); margin-top: 8px; }
+    .task__go i { font-style: normal; color: var(--blue); font-size: 18px; transition: transform .25s; }
+    .task:hover .task__go i { transform: translateX(6px); }
+    .task--lead { background: var(--blue-deep); color: #fff; }
+    .task--lead:hover { background: var(--blue); }
+    .task--lead svg.ic { stroke: #9fb6ff; }
+    .task--lead .task__d { color: #c8d5ff; }
+    .task--lead .task__go { color: #9fb6ff; border-color: rgba(255,255,255,.25); }
+    .task--lead .task__go i { color: #fff; }
+    .also { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 16px; }
+    .also span { font: 500 11px/1 var(--f-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-right: 6px; }
+    .also a { font: 500 13px/1 var(--f-label); padding: 9px 12px; border: 1px solid var(--rule-strong); border-radius: 2px; background: #fff; text-decoration: none; color: var(--ink-2); }
+    .also a:hover { border-color: var(--blue); color: var(--blue); }
+
+    .law { margin-top: 104px; display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: clamp(24px, 5vw, 80px); }
+    .timeline { position: relative; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 2px solid var(--blue); margin-top: 12px; }
+    .timeline div { position: relative; padding: 22px 18px 0 0; }
+    .timeline div::before { content: ""; position: absolute; top: -8px; left: 0; width: 14px; height: 14px; border-radius: 50%; background: #fff; border: 2px solid var(--blue); }
+    .timeline div.now::before { background: var(--blue); box-shadow: 0 0 0 5px var(--blue-soft); }
+    .timeline b { display: block; font: 400 40px/1 var(--f-display); color: var(--blue-deep); letter-spacing: -.02em; }
+    .timeline span { display: block; font: 500 10.5px/1.3 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--blue); margin: 8px 0; }
+    .timeline p { margin: 0; font-size: 14px; color: var(--ink-2); }
+
+    @media (max-width: 1000px) { .tasks__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    @media (max-width: 860px) { .hero, .law { grid-template-columns: minmax(0, 1fr); } }
+    @media (max-width: 600px) {
+      .tasks__grid { grid-template-columns: minmax(0, 1fr); } .task { min-height: 0; }
+      .timeline { grid-template-columns: minmax(0, 1fr); border-top: 0; border-left: 2px solid var(--blue); padding-left: 18px; gap: 18px; }
+      .timeline div { padding-top: 0; } .timeline div::before { left: -27px; top: 12px; }
+    }
+  </style>
+</head>
+<body>
+<div class="shell">
+  <aside class="register" aria-label="Hauptnavigation">
+    <a class="register__mark" href="./" aria-label="beleg.org Startseite">
+      <svg viewBox="0 0 40 40" fill="none" aria-hidden="true"><path d="M9 4h22v30l-3.67-2.5L23.67 34 20 31.5 16.33 34l-3.66-2.5L9 34V4Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M14 12h12M14 17h12M14 22h7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="28" cy="25" r="5.5" fill="#6ea0ff" stroke="#0c2582" stroke-width="2"/><path d="m25.6 25 1.6 1.6 3-3.2" stroke="#0c2582" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span class="register__word">beleg<i>.org</i></span>
+    </a>
+    <nav>
+      <a class="tab" href="e-rechnung-pruefen/"><svg class="tab__ic" viewBox="0 0 18 18" aria-hidden="true"><path d="M4 1.5h7l3 3v12H4z"/><path d="m6.5 10 2 2 3.5-4"/></svg><span class="tab__label">E-Rechnung prüfen</span></a>
+      <a class="tab" href="e-rechnung-erstellen/"><svg class="tab__ic" viewBox="0 0 18 18" aria-hidden="true"><path d="M4 1.5h7l3 3v12H4z"/><path d="M9 7.5v6M6 10.5h6"/></svg><span class="tab__label">E-Rechnung erstellen</span></a>
+      <a class="tab" href="beleg-scannen/"><svg class="tab__ic" viewBox="0 0 18 18" aria-hidden="true"><path d="M1.5 5V1.5H5M13 1.5h3.5V5M16.5 13v3.5H13M5 16.5H1.5V13"/><path d="M4 9h10"/></svg><span class="tab__label">Beleg scannen</span></a>
+      <a class="tab" href="belege-auslesen/"><svg class="tab__ic" viewBox="0 0 18 18" aria-hidden="true"><rect x="2" y="3" width="14" height="12" rx="1"/><path d="M2 7h14M2 11h14M7 3v12"/></svg><span class="tab__label">Belege auslesen</span></a>
+      <a class="tab" href="eigenbeleg-erstellen/"><svg class="tab__ic" viewBox="0 0 18 18" aria-hidden="true"><path d="M5.5 4.5h9v12h-9z"/><path d="M3 13.5V2h8.5"/></svg><span class="tab__label">Belegvorlagen</span></a>
+      <a class="tab" href="aufbewahrungsfristen/"><svg class="tab__ic" viewBox="0 0 18 18" aria-hidden="true"><rect x="1.5" y="2.5" width="15" height="4" rx=".5"/><path d="M3 6.5v9h12v-9M7 10h4"/></svg><span class="tab__label">Aufbewahrung</span></a>
+      <a class="tab" href="ratgeber/"><svg class="tab__ic" viewBox="0 0 18 18" aria-hidden="true"><path d="M2 3.5c2.5-1 5-1 7 .5v11c-2-1.5-4.5-1.5-7-.5zM16 3.5c-2.5-1-5-1-7 .5v11c2-1.5 4.5-1.5 7-.5z"/></svg><span class="tab__label">Ratgeber</span></a>
+    </nav>
+    <div class="register__foot"><span>Kein Upload</span><span>Kein Konto</span><span>Kein Tracking</span></div>
+    <script>(function(){var t=document.querySelector('.register .tab[aria-current]');if(t&&t.parentNode.scrollWidth>t.parentNode.clientWidth)t.parentNode.scrollLeft=t.offsetLeft-48;})()</script>
+  </aside>
+
+  <main class="sheet">
+    <div class="kopf">
+      <div class="kopf__cell kopf__cell--hide"><span class="kopf__k">Bereich</span><span class="kopf__v">Start</span></div>
+      <div class="kopf__cell"><span class="kopf__k">Seite</span><span class="kopf__v">Werkzeuge für Belege</span></div>
+      <div class="kopf__cell"><span class="kopf__k">Verarbeitung</span><span class="kopf__v"><span class="dot"></span>lokal im Browser</span></div>
+      <div class="kopf__cell kopf__cell--hide"><span class="kopf__k">Kosten</span><span class="kopf__v">keine</span></div>
+    </div>
+
+    <div class="wrap">
+      <section class="hero">
+        <div>
+          <p class="eyebrow rise">Werkzeuge für Belege</p>
+          <h1 class="display rise rise-2">Belege,<br><em>erledigt.</em></h1>
+          <p class="lede rise rise-3">E-Rechnungen prüfen und schreiben, Kassenbons scannen, Kontoauszüge in Excel umwandeln, Eigenbelege ausfüllen: beleg.org erledigt den Papierkram rund um Belege direkt im Browser. Kostenlos, ohne Konto, und deine Dateien bleiben auf deinem Gerät.</p>
+        </div>
+        <div class="hero__side rise rise-4">
+          <div><b>0</b><span>Uploads: alles wird lokal im Browser verarbeitet</span></div>
+          <div><b>0 €</b><span>ohne Konto, ohne Abo, ohne Werbung</span></div>
+          <div><b>6</b><span>Werkzeuge und ein Ratgeber rund um Belege</span></div>
+        </div>
+      </section>
+
+      <section class="tasks" aria-labelledby="tasksH">
+        <p class="eyebrow">Was möchtest du erledigen?</p>
+        <h2 class="h2" id="tasksH">Werkzeuge</h2>
+        <div class="tasks__grid">
+          <a class="task task--lead" href="e-rechnung-pruefen/">
+            <svg class="ic" viewBox="0 0 18 18"><path d="M4 1.5h7l3 3v12H4z"/><path d="m6.5 10 2 2 3.5-4"/></svg>
+            <span class="task__t">E-Rechnung prüfen</span>
+            <span class="task__d">XRechnung oder ZUGFeRD öffnen, lesbar anzeigen und Summen, Pflichtangaben und IBAN prüfen.</span>
+            <span class="task__go">XML · PDF <i>→</i></span>
+          </a>
+          <a class="task" href="e-rechnung-erstellen/">
+            <svg class="ic" viewBox="0 0 18 18"><path d="M4 1.5h7l3 3v12H4z"/><path d="M9 7.5v6M6 10.5h6"/></svg>
+            <span class="task__t">E-Rechnung erstellen</span>
+            <span class="task__d">Rechnungen als XRechnung oder ZUGFeRD-PDF schreiben, mit Live-Prüfung aller Pflichtangaben.</span>
+            <span class="task__go">XRechnung 3.0 · ZUGFeRD <i>→</i></span>
+          </a>
+          <a class="task" href="beleg-scannen/">
+            <svg class="ic" viewBox="0 0 18 18"><path d="M1.5 5V1.5H5M13 1.5h3.5V5M16.5 13v3.5H13M5 16.5H1.5V13"/><path d="M4 9h10"/></svg>
+            <span class="task__t">Beleg scannen</span>
+            <span class="task__d">Mit der Handykamera fotografieren, automatisch zuschneiden, Schrift verbessern, als PDF speichern.</span>
+            <span class="task__go">Kamera · PDF <i>→</i></span>
+          </a>
+          <a class="task" href="belege-auslesen/">
+            <svg class="ic" viewBox="0 0 18 18"><rect x="2" y="3" width="14" height="12" rx="1"/><path d="M2 7h14M2 11h14M7 3v12"/></svg>
+            <span class="task__t">Belege auslesen</span>
+            <span class="task__d">Datum, Betrag und Umsatzsteuer aus Kassenbons und Scans erkennen und als Excel-Tabelle speichern.</span>
+            <span class="task__go">OCR · XLSX · CSV <i>→</i></span>
+          </a>
+          <a class="task" href="eigenbeleg-erstellen/">
+            <svg class="ic" viewBox="0 0 18 18"><path d="M5.5 4.5h9v12h-9z"/><path d="M3 13.5V2h8.5"/></svg>
+            <span class="task__t">Belegvorlagen</span>
+            <span class="task__d">Eigenbeleg, Bewirtungsbeleg und Quittung online ausfüllen, mit Vorschau drucken oder als PDF sichern.</span>
+            <span class="task__go">Druck · PDF <i>→</i></span>
+          </a>
+          <a class="task" href="aufbewahrungsfristen/">
+            <svg class="ic" viewBox="0 0 18 18"><rect x="1.5" y="2.5" width="15" height="4" rx=".5"/><path d="M3 6.5v9h12v-9M7 10h4"/></svg>
+            <span class="task__t">Aufbewahrungsfristen</span>
+            <span class="task__d">Welche Belege darfst du dieses Jahr vernichten? Mit der neuen 8-Jahres-Frist für Buchungsbelege.</span>
+            <span class="task__go">Rechner · Schredder-Plan <i>→</i></span>
+          </a>
+        </div>
+        <div class="also"><span>Direkt zu</span><a href="kontoauszug-in-excel/">Kontoauszug in Excel</a><a href="eigenbeleg-erstellen/">Eigenbeleg</a><a href="bewirtungsbeleg-erstellen/">Bewirtungsbeleg</a><a href="quittung-erstellen/">Quittung</a></div>
+      </section>
+
+      <section class="law">
+        <div>
+          <p class="eyebrow">E-Rechnungspflicht</p>
+          <h2 class="h2">Die E-Rechnung kommt <em>in drei Stufen.</em></h2>
+          <p class="small" style="max-width:44ch">Eine PDF-Datei ist seit 2025 keine E-Rechnung mehr, sondern eine „sonstige Rechnung“. <a href="e-rechnungspflicht/">Alles zur E-Rechnungspflicht →</a></p>
+        </div>
+        <div class="timeline">
+          <div class="now"><b>2025</b><span>Empfang</span><p>Alle Unternehmen müssen E-Rechnungen annehmen können, auch Kleinunternehmer.</p></div>
+          <div><b>2027</b><span>Versand &gt; 800 T€</span><p>Wer im Vorjahr mehr als 800.000&nbsp;€ Umsatz hatte, muss E-Rechnungen ausstellen.</p></div>
+          <div><b>2028</b><span>Versand alle</span><p>Pflicht für alle inländischen B2B-Umsätze, Kleinunternehmer ausgenommen.</p></div>
+        </div>
+      </section>
+
+      <section class="related">
+        <p class="eyebrow">Ratgeber</p>
+        <h2 class="h2">Wissen rund um <em>Belege</em></h2>
+        <div class="related__grid" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr))">
+          <a href="belegpflicht/"><span class="related__k">Grundlagen</span><span class="related__t">Belegpflicht</span><span class="related__d">Wann du einen Beleg brauchst und was darauf stehen muss.</span></a>
+          <a href="beleg-vs-quittung/"><span class="related__k">Begriffe</span><span class="related__t">Beleg, Quittung, Rechnung</span><span class="related__d">Die Unterschiede einfach erklärt, mit Übersichtstabelle.</span></a>
+          <a href="beleg-digitalisieren/"><span class="related__k">Praxis</span><span class="related__t">Belege digitalisieren</span><span class="related__d">Scannen und Papier vernichten nach GoBD.</span></a>
+          <a href="e-rechnungspflicht/"><span class="related__k">Recht</span><span class="related__t">E-Rechnungspflicht</span><span class="related__d">Was ab 2025, 2027 und 2028 gilt.</span></a>
+        </div>
+      </section>
+    </div>
+
+    <footer class="colophon">
+      <div class="colophon__brand"><b>beleg<i>.org</i></b><span>Werkzeuge für Belege. Kostenlos, ohne Konto, ohne Tracking. Deine Dateien bleiben auf deinem Gerät.</span></div>
+      <nav class="colophon__cols" aria-label="Fußzeile">
+        <div><p>Werkzeuge</p><ul><li><a href="e-rechnung-pruefen/">E-Rechnung prüfen</a></li><li><a href="e-rechnung-erstellen/">E-Rechnung erstellen</a></li><li><a href="beleg-scannen/">Beleg scannen</a></li><li><a href="belege-auslesen/">Belege auslesen</a></li><li><a href="eigenbeleg-erstellen/">Belegvorlagen</a></li><li><a href="aufbewahrungsfristen/">Aufbewahrung</a></li><li><a href="kontoauszug-in-excel/">Kontoauszug in Excel</a></li></ul></div>
+        <div><p>Vorlagen</p><ul><li><a href="eigenbeleg-erstellen/">Eigenbeleg erstellen</a></li><li><a href="bewirtungsbeleg-erstellen/">Bewirtungsbeleg erstellen</a></li><li><a href="quittung-erstellen/">Quittung erstellen</a></li></ul></div>
+        <div><p>Ratgeber</p><ul><li><a href="belegpflicht/">Belegpflicht</a></li><li><a href="beleg-vs-quittung/">Beleg, Quittung, Rechnung</a></li><li><a href="beleg-digitalisieren/">Belege digitalisieren</a></li><li><a href="e-rechnungspflicht/">E-Rechnungspflicht</a></li></ul></div>
+        <div><p>Rechtliches</p><ul><li><a href="impressum/">Impressum</a></li><li><a href="datenschutz/">Datenschutz</a></li></ul></div>
+      </nav>
+      <p class="colophon__legal">Keine Steuer- oder Rechtsberatung. Angaben ohne Gewähr.</p>
+    </footer>
+  </main>
+</div>
+</body>
+</html>

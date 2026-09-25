@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Belegwerkstatt: Eigenbeleg, Bewirtungsbeleg, Quittung · beleg.org</title>
+  <meta name="description" content="Eigenbeleg, Bewirtungsbeleg und Quittung online ausfüllen und als PDF drucken. Mit Live-Vorschau, ohne Werbung und ohne Konto.">
+  <meta name="theme-color" content="#0c2582">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/fonts/fonts.css">
+  <link rel="stylesheet" href="../assets/site.css">
+  <link rel="stylesheet" href="../assets/doc.css">
+  <style>
+    .types { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; margin: 36px 0 40px; border: 1px solid var(--rule-strong); background: #fff; }
+    .type { display: block; text-decoration: none; text-align: left; background: #fff; border: 0; border-right: 1px solid var(--rule); padding: 20px 22px 22px; cursor: pointer; position: relative; font: inherit; color: inherit; transition: background .2s; }
+    .type:last-child { border-right: 0; }
+    .type:hover { background: var(--blue-wash); }
+    .type__no { font: 500 11px/1 var(--f-mono); color: var(--blue); letter-spacing: .08em; }
+    .type__t { display: block; font: 400 28px/1.1 var(--f-display); margin: 10px 0 6px; letter-spacing: -.01em; }
+    .type__d { display: block; font-size: 13.5px; color: var(--ink-2); line-height: 1.45; }
+    .type[aria-current="page"] { background: var(--blue); color: #fff; }
+    .type[aria-current="page"] .type__no, .type[aria-current="page"] .type__d { color: #cfdcff; }
+    .type[aria-current="page"]::after { content: ""; position: absolute; left: 50%; bottom: -9px; width: 16px; height: 16px; background: var(--blue); transform: translateX(-50%) rotate(45deg); }
+
+    .bench { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: clamp(24px, 4vw, 56px); align-items: start; }
+    .pane[hidden] { display: none; }
+    .preview { position: sticky; top: 76px; }
+    .preview__bar { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 14px; flex-wrap: wrap; }
+    .stage { background: var(--paper-3); border: 1px solid var(--rule); padding: clamp(12px, 2vw, 28px); overflow: hidden; }
+    .stage__fit { width: 100%; }
+    .stage__fit > .a4 { transform-origin: top left; }
+    .calc { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; border: 1px solid var(--rule); background: #fff; margin-top: 4px; }
+    .calc div { padding: 10px 12px; border-right: 1px solid var(--rule); }
+    .calc div:last-child { border-right: 0; }
+    .calc span { display: block; font: 500 10px/1.2 var(--f-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+    .calc b { font: 500 16px/1.4 var(--f-mono); color: var(--blue-deep); }
+    @media (max-width: 1100px) { .bench { grid-template-columns: minmax(0, 1fr); } .preview { position: static; } }
+    @media (max-width: 700px) { .types { grid-template-columns: minmax(0, 1fr); } .type { border-right: 0; border-bottom: 1px solid var(--rule); } .type[aria-current="page"]::after { display: none; } }
+
+    @media print {
+      @page { size: A4; margin: 0; }
+      body { background: #fff; }
+      .register, .kopf, .intro, .types, .pane, .preview__bar, .colophon, .note { display: none !important; }
+      .shell, .sheet, .wrap, .bench, .preview, .stage, .stage__fit { display: block !important; padding: 0 !important; margin: 0 !important; border: 0 !important; background: #fff !important; box-shadow: none !important; position: static !important; }
+      .sheet::before { display: none; }
+      .stage__fit { height: auto !important; }
+      .stage__fit > .a4 { transform: none !important; box-shadow: none !important; }
+    }
+  </style>
+</head>
+<body data-vtype="{{vtype}}">
+<div class="shell">
+  <aside class="register" aria-label="Werkzeuge">
+    <a class="register__mark" href="../" aria-label="beleg.org Startseite">
+      <svg viewBox="0 0 40 40" fill="none" aria-hidden="true"><path d="M9 4h22v30l-3.67-2.5L23.67 34 20 31.5 16.33 34l-3.66-2.5L9 34V4Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M14 12h12M14 17h12M14 22h7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="28" cy="25" r="5.5" fill="#6ea0ff" stroke="#0c2582" stroke-width="2"/><path d="m25.6 25 1.6 1.6 3-3.2" stroke="#0c2582" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+    <a class="register__word" href="../">beleg<i>.org</i></a>
+    <nav>
+      <a class="tab" href="../"><span class="tab__no">01</span><span class="tab__label">Prüfen</span></a>
+      <a class="tab" href="../erkennen/"><span class="tab__no">02</span><span class="tab__label">Erkennen</span></a>
+      <a class="tab" href="../rechnung/"><span class="tab__no">03</span><span class="tab__label">Schreiben</span></a>
+      <a class="tab" href="../werkstatt/" aria-current="page"><span class="tab__no">04</span><span class="tab__label">Werkstatt</span></a>
+      <a class="tab" href="../fristen/"><span class="tab__no">05</span><span class="tab__label">Fristen</span></a>
+    </nav>
+    <div class="register__foot"><span>Kein Upload</span><span>Kein Konto</span><span>Kein Tracking</span></div>
+  </aside>
+
+  <main class="sheet">
+    <div class="kopf">
+      <div class="kopf__cell"><span class="kopf__k">Blatt</span><span class="kopf__v kopf__v--mono">04 / 05</span></div>
+      <div class="kopf__cell"><span class="kopf__k">Werkzeug</span><span class="kopf__v">Belegwerkstatt</span></div>
+      <div class="kopf__cell"><span class="kopf__k">Ausgabe</span><span class="kopf__v"><span class="dot"></span>Druck / PDF · A4</span></div>
+      <div class="kopf__cell kopf__cell--hide"><span class="kopf__k">Entwurf</span><span class="kopf__v kopf__v--mono">nur auf diesem Gerät</span></div>
+    </div>
+
+    <div class="wrap">
+      <header class="intro">
+        <p class="eyebrow rise">Belegvorlagen · Druck &amp; PDF</p>
+        <h1 class="display rise rise-2">{{h1}}</h1>
+        <p class="lede rise rise-3">{{lede}}</p>
+      </header>
+
+      <nav class="types rise rise-3" aria-label="Belegart">
+        <a class="type" href="{{pre}}eigenbeleg-erstellen/"{{cur_eigen}}><span class="type__no">A</span><span class="type__t">Eigenbeleg</span><span class="type__d">Für Ausgaben ohne Quittung, etwa bei verlorenen Belegen, Parkautomaten oder Trinkgeld.</span></a>
+        <a class="type" href="{{pre}}bewirtungsbeleg-erstellen/"{{cur_bewirtung}}><span class="type__no">B</span><span class="type__t">Bewirtungsbeleg</span><span class="type__d">Für Geschäftsessen: Anlass und Teilnehmende. Die Restaurantrechnung heftest du an.</span></a>
+        <a class="type" href="{{pre}}quittung-erstellen/"{{cur_quittung}}><span class="type__no">C</span><span class="type__t">Quittung</span><span class="type__d">Bestätigung einer Barzahlung mit Umsatzsteuer, Betrag in Worten und Unterschrift.</span></a>
+      </nav>
+
+      <div class="bench">
+        <div>
+{{form}}
+        </div>
+
+        <div class="preview">
+          <div class="preview__bar">
+            <p class="h3" style="margin:0">Vorschau · A4</p>
+            <div class="btnrow">
+              <button class="btn btn--quiet" type="button" id="reset">Leeren</button>
+              <button class="btn" type="button" id="print"><svg viewBox="0 0 16 16" fill="none"><path d="M4 6V1.5h8V6M4 12H2V6h12v6h-2M4 9.5h8v5H4z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>Drucken / als PDF</button>
+            </div>
+          </div>
+          <div class="stage"><div class="stage__fit" id="fit"><div class="a4" id="doc"></div></div></div>
+        </div>
+      </div>
+{{content}}
+    </div>
+
+    <footer class="colophon">
+      <span>beleg.org · Werkzeuge für Belege · kostenlos, ohne Tracking</span>
+      <span><a href="../impressum/">Impressum</a> · <a href="../datenschutz/">Datenschutz</a></span>
+      <span>Keine Steuer- oder Rechtsberatung. Angaben ohne Gewähr.</span>
+    </footer>
+  </main>
+</div>
+<script type="module" src="{{pre}}assets/werkstatt.js"></script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+      <section class="info">
+        <div class="info__head">
+          <p class="eyebrow">Wissen</p>
+          <h2 class="h2">Belege auslesen, <em>ohne abzutippen</em></h2>
+        </div>
+        <div class="prose">
+          <p>Wer Belege für die Buchhaltung oder die Steuererklärung erfasst, tippt meist dieselben Angaben ab: Händler, Datum, Betrag, Umsatzsteuer. Das Werkzeug übernimmt diese Arbeit. Es liest Kassenbons, Rechnungen, Tankquittungen und Handyfotos aus und schreibt die Werte in eine Tabelle, die du prüfst und als Excel- oder CSV-Datei speicherst.</p>
+          <h3>Was erkannt wird</h3>
+          <ul>
+            <li><b>Händler oder Aussteller</b>, meist aus der ersten Zeile des Belegs</li>
+            <li><b>Datum</b>, bevorzugt neben dem Wort „Datum“</li>
+            <li><b>Bruttobetrag</b> aus Zeilen wie „Summe“, „Gesamt“ oder „zu zahlen“</li>
+            <li><b>Umsatzsteuer</b> getrennt nach 19&nbsp;% und 7&nbsp;%, samt Nettobetrag</li>
+            <li><b>Beleg- oder Rechnungsnummer</b>, <b>Zahlungsart</b> und <b>USt-IdNr.</b></li>
+          </ul>
+          <p>Unsicher erkannte Felder sind orange markiert. Mit „Ansehen“ vergleichst du Bild und erkannten Text direkt nebeneinander. Legst du eine E-Rechnung ab (XRechnung oder ZUGFeRD), übernimmt beleg.org die Werte exakt aus den eingebetteten Daten, ganz ohne Texterkennung.</p>
+          <h3>Tipps für gute Ergebnisse</h3>
+          <p>Fotografiere Belege flach, gut ausgeleuchtet und ohne Schatten. Noch besser funktioniert es, wenn du den Beleg vorher mit <a href="{{pre}}beleg-scannen/">Beleg scannen</a> zuschneidest und die Schrift verbesserst. Verblasstes Thermopapier solltest du möglichst früh erfassen.</p>
+          <a class="callout" href="{{pre}}kontoauszug-in-excel/"><div><span>Auch für Kontoauszüge</span><b>Kontoauszug in Excel umwandeln</b></div></a>
+        </div>
+      </section>
+
+      <section class="faq">
+        <p class="eyebrow">Häufige Fragen</p>
+        <h2 class="h2">Fragen zum Auslesen</h2>
+        <div class="faq__list">
+          <details class="faq__item"><summary>Werden meine Belege hochgeladen?</summary>
+            <div><p>Nein. Die Texterkennung (Tesseract) läuft vollständig in deinem Browser. Beim ersten Gebrauch lädt der Browser einmalig das deutsche Sprachmodell von beleg.org, deine Bilder und PDFs verlassen dein Gerät aber nicht.</p></div></details>
+          <details class="faq__item"><summary>Welche Dateien kann ich auslesen?</summary>
+            <div><p>PDF-Dateien (mit oder ohne Textebene), Fotos als JPG oder PNG sowie E-Rechnungen als XML. Du kannst viele Dateien auf einmal ablegen, jede wird zu einer Zeile in der Tabelle.</p></div></details>
+          <details class="faq__item"><summary>Wie genau ist die Texterkennung?</summary>
+            <div><p>Bei sauberen Scans und digitalen PDFs sind die Werte meist korrekt. Bei zerknitterten, schiefen oder verblassten Belegen kann die Erkennung Fehler machen. Prüfe deshalb vor allem Beträge und Datum, bevor du die Tabelle weiterverwendest.</p></div></details>
+          <details class="faq__item"><summary>Kann ich die Tabelle in meine Buchhaltung importieren?</summary>
+            <div><p>Ja. Die CSV-Datei nutzt deutsches Format mit Semikolon und Dezimalkomma, die XLSX-Datei enthält echte Datums- und Zahlenzellen. Beides lässt sich in Excel, Numbers, LibreOffice und die meisten Buchhaltungsprogramme importieren.</p></div></details>
+        </div>
+      </section>

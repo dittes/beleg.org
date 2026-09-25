@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <!-- meta: generiert von tools/site.py -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ratgeber rund um Belege – Belegpflicht, Quittung, Digitalisierung</title>
+  <meta name="description" content="Verständliche Artikel zu Belegen: Belegpflicht, Unterschied zwischen Beleg, Quittung und Rechnung, Belege digitalisieren und E-Rechnungspflicht.">
+  <link rel="canonical" href="https://beleg.org/ratgeber/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="beleg.org">
+  <meta property="og:locale" content="de_DE">
+  <meta property="og:title" content="Ratgeber rund um Belege – Belegpflicht, Quittung, Digitalisierung">
+  <meta property="og:description" content="Verständliche Artikel zu Belegen: Belegpflicht, Unterschied zwischen Beleg, Quittung und Rechnung, Belege digitalisieren und E-Rechnungspflicht.">
+  <meta property="og:url" content="https://beleg.org/ratgeber/">
+  <meta property="og:image" content="https://beleg.org/assets/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#0c2582">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+  <link rel="preload" href="../assets/fonts/Newsreader-normal-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../assets/fonts/fonts.css">
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "beleg.org", "item": "https://beleg.org/"}, {"@type": "ListItem", "position": 2, "name": "Ratgeber", "item": "https://beleg.org/ratgeber/"}]}</script>
+  <!-- /meta -->
+  <link rel="stylesheet" href="../assets/site.css">
+  <style>
+    .articles { list-style: none; margin: 44px 0 0; padding: 0; border-top: 1px solid var(--ink); }
+    .articles a { display: grid; grid-template-columns: 140px minmax(0, 1.2fr) minmax(0, 1fr) 30px; gap: 24px; align-items: baseline; padding: 30px 0; border-bottom: 1px solid var(--rule-strong); color: inherit; text-decoration: none; transition: background .2s, padding .25s; }
+    .articles a:hover { background: linear-gradient(90deg, var(--blue-wash), transparent 80%); padding-left: 14px; }
+    .articles .k { font: 500 11px/1.3 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--blue); }
+    .articles .t { font: 400 clamp(28px, 3.2vw, 42px)/1.05 var(--f-display); letter-spacing: -.015em; }
+    .articles .d { color: var(--ink-2); font-size: 15px; }
+    .articles .d small { display: block; margin-top: 8px; font: 500 11px/1 var(--f-mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+    .articles i { font-style: normal; color: var(--blue); font-size: 22px; justify-self: end; transition: transform .25s; }
+    .articles a:hover i { transform: translateX(6px); }
+    @media (max-width: 860px) { .articles a { grid-template-columns: minmax(0, 1fr) 24px; gap: 8px 16px; } .articles .k, .articles .t, .articles .d { grid-column: 1; } .articles i { grid-row: 1 / span 3; grid-column: 2; align-self: center; } }
+  </style>
+</head>
+<body>
+<div class="shell">
+  <aside class="register" aria-label="Hauptnavigation">
+    <a class="register__mark" href="../" aria-label="beleg.org Startseite">
+      <svg viewBox="0 0 40 40" fill="none" aria-hidden="true"><path d="M9 4h22v30l-3.67-2.5L23.67 34 20 31.5 16.33 34l-3.66-2.5L9 34V4Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M14 12h12M14 17h12M14 22h7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="28" cy="25" r="5.5" fill="#6ea0ff" stroke="#0c2582" stroke-width="2"/><path d="m25.6 25 1.6 1.6 3-3.2" stroke="#0c2582" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span class="register__word">beleg<i>.org</i></span>
+    </a>
+    <nav>
+      <a class="tab" href="../e-rechnung-pruefen/"><svg class="tab__ic" viewBox="0 0 18 18" aria-hidden="true"><path d="M4 1.5h7l3 3v12H4z"/><path d="m6.5 10 2 2 3.5-4"/></svg><span class="tab__label">E-Rechnung prüfen</span></a>
+      <a class="tab" href="../e-rechnung-erstellen/"><svg class="tab__ic" viewBox="0 0 18 18" aria-hidden="true"><path d="M4 1.5h7l3 3v12H4z"/><path d="M9 7.5v6M6 10.5h6"/></svg><span class="tab__label">E-Rechnung erstellen</span></a>
+      <a class="tab" href="../beleg-scannen/"><svg class="tab__ic" viewBox="0 0 18 18" aria-hidden="true"><path d="M1.5 5V1.5H5M13 1.5h3.5V5M16.5 13v3.5H13M5 16.5H1.5V13"/><path d="M4 9h10"/></svg><span class="tab__label">Beleg scannen</span></a>
+      <a class="tab" href="../belege-auslesen/"><svg class="tab__ic" viewBox="0 0 18 18" aria-hidden="true"><rect x="2" y="3" width="14" height="12" rx="1"/><path d="M2 7h14M2 11h14M7 3v12"/></svg><span class="tab__label">Belege auslesen</span></a>
+      <a class="tab" href="../eigenbeleg-erstellen/"><svg class="tab__ic" viewBox="0 0 18 18" aria-hidden="true"><path d="M5.5 4.5h9v12h-9z"/><path d="M3 13.5V2h8.5"/></svg><span class="tab__label">Belegvorlagen</span></a>
+      <a class="tab" href="../aufbewahrungsfristen/"><svg class="tab__ic" viewBox="0 0 18 18" aria-hidden="true"><rect x="1.5" y="2.5" width="15" height="4" rx=".5"/><path d="M3 6.5v9h12v-9M7 10h4"/></svg><span class="tab__label">Aufbewahrung</span></a>
+      <a class="tab" href="../ratgeber/" aria-current="page"><svg class="tab__ic" viewBox="0 0 18 18" aria-hidden="true"><path d="M2 3.5c2.5-1 5-1 7 .5v11c-2-1.5-4.5-1.5-7-.5zM16 3.5c-2.5-1-5-1-7 .5v11c2-1.5 4.5-1.5 7-.5z"/></svg><span class="tab__label">Ratgeber</span></a>
+    </nav>
+    <div class="register__foot"><span>Kein Upload</span><span>Kein Konto</span><span>Kein Tracking</span></div>
+    <script>(function(){var t=document.querySelector('.register .tab[aria-current]');if(t&&t.parentNode.scrollWidth>t.parentNode.clientWidth)t.parentNode.scrollLeft=t.offsetLeft-48;})()</script>
+  </aside>
+
+  <main class="sheet">
+    <div class="kopf">
+      <div class="kopf__cell kopf__cell--hide"><span class="kopf__k">Bereich</span><span class="kopf__v">Ratgeber</span></div>
+      <div class="kopf__cell"><span class="kopf__k">Seite</span><span class="kopf__v">Alle Artikel</span></div>
+      <div class="kopf__cell"><span class="kopf__k">Stand</span><span class="kopf__v"><span class="dot"></span>September 2026</span></div>
+    </div>
+
+    <div class="wrap">
+      <header class="art-head">
+        <p class="eyebrow rise">Ratgeber</p>
+        <h1 class="display rise rise-2">Wissen rund um <em>Belege.</em></h1>
+        <p class="lede rise rise-3">Kurz, verständlich und mit Blick auf die Praxis: was du über Belege, Rechnungen, Quittungen und ihre Aufbewahrung wissen solltest.</p>
+      </header>
+
+      <ol class="articles">
+        <li><a href="../belegpflicht/"><span class="k">Grundlagen</span><span class="t">Belegpflicht</span><span class="d">Keine Buchung ohne Beleg: Belegausgabepflicht an der Kasse, Pflichtangaben auf Rechnungen, Kleinbetragsrechnung und was Privatpersonen aufheben sollten.<small>7 Minuten</small></span><i>→</i></a></li>
+        <li><a href="../beleg-vs-quittung/"><span class="k">Begriffe</span><span class="t">Beleg, Quittung, Rechnung</span><span class="d">Was welches Dokument beweist und was für Steuer und Vorsteuerabzug reicht, mit Übersichtstabelle.<small>6 Minuten</small></span><i>→</i></a></li>
+        <li><a href="../beleg-digitalisieren/"><span class="k">Praxis</span><span class="t">Belege digitalisieren</span><span class="d">Ersetzendes Scannen nach GoBD, richtig fotografieren, sinnvoll ablegen und wann das Papier weg darf.<small>8 Minuten</small></span><i>→</i></a></li>
+        <li><a href="../e-rechnungspflicht/"><span class="k">Recht</span><span class="t">E-Rechnungspflicht</span><span class="d">Empfang seit 2025, Versand ab 2027 und 2028, Ausnahmen und erlaubte Formate.<small>6 Minuten</small></span><i>→</i></a></li>
+      </ol>
+    </div>
+
+    <footer class="colophon">
+      <div class="colophon__brand"><b>beleg<i>.org</i></b><span>Werkzeuge für Belege. Kostenlos, ohne Konto, ohne Tracking. Deine Dateien bleiben auf deinem Gerät.</span></div>
+      <nav class="colophon__cols" aria-label="Fußzeile">
+        <div><p>Werkzeuge</p><ul><li><a href="../e-rechnung-pruefen/">E-Rechnung prüfen</a></li><li><a href="../e-rechnung-erstellen/">E-Rechnung erstellen</a></li><li><a href="../beleg-scannen/">Beleg scannen</a></li><li><a href="../belege-auslesen/">Belege auslesen</a></li><li><a href="../eigenbeleg-erstellen/">Belegvorlagen</a></li><li><a href="../aufbewahrungsfristen/">Aufbewahrung</a></li><li><a href="../kontoauszug-in-excel/">Kontoauszug in Excel</a></li></ul></div>
+        <div><p>Vorlagen</p><ul><li><a href="../eigenbeleg-erstellen/">Eigenbeleg erstellen</a></li><li><a href="../bewirtungsbeleg-erstellen/">Bewirtungsbeleg erstellen</a></li><li><a href="../quittung-erstellen/">Quittung erstellen</a></li></ul></div>
+        <div><p>Ratgeber</p><ul><li><a href="../belegpflicht/">Belegpflicht</a></li><li><a href="../beleg-vs-quittung/">Beleg, Quittung, Rechnung</a></li><li><a href="../beleg-digitalisieren/">Belege digitalisieren</a></li><li><a href="../e-rechnungspflicht/">E-Rechnungspflicht</a></li></ul></div>
+        <div><p>Rechtliches</p><ul><li><a href="../impressum/">Impressum</a></li><li><a href="../datenschutz/">Datenschutz</a></li></ul></div>
+      </nav>
+      <p class="colophon__legal">Keine Steuer- oder Rechtsberatung. Angaben ohne Gewähr.</p>
+    </footer>
+  </main>
+</div>
+</body>
+</html>
