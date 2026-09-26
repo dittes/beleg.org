@@ -1,5 +1,5 @@
 // 02 · Aufbewahrungsfristen
-import { $, $$, esc } from './common.js';
+import { $, $$, esc } from './common.js?v=dd1f3874';
 
 // Stand: Rechtslage ab 1.1.2025 (BEG IV)
 const CATS = [

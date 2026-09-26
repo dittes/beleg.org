@@ -1,0 +1,68 @@
+<!--@eyebrow-->
+PDF-Werkstatt · Datenschutz
+<!--@h1-->
+PDF <em>schwärzen.</em>
+<!--@lede-->
+Kontostand, IBAN, Gehalt oder Namen dauerhaft unkenntlich machen, etwa bevor du einen Kontoauszug für die Wohnungsbewerbung verschickst. Der Text unter den Balken wird wirklich entfernt, nicht nur überdeckt.
+<!--@body-->
+      <div class="dz" id="drop" role="button" tabindex="0" aria-label="PDF auswählen oder hier ablegen">
+        <svg class="dz__ic" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"><path d="M3.5 1.5h7l3 3v12h-10z"/><rect x="5" y="8" width="7" height="2.5" fill="currentColor"/></svg>
+        <div><p class="dz__t">PDF oder Bild hier ablegen</p><p class="dz__s">Danach Bereiche mit der Maus oder dem Finger aufziehen, oder automatisch suchen lassen.</p></div>
+        <div class="btnrow"><button class="btn" type="button" id="pick">Datei wählen</button></div>
+        <input type="file" id="file" accept="application/pdf,.pdf,image/*" hidden>
+      </div>
+
+      <div class="desk" id="desk" hidden>
+        <div class="pview is-place" id="view"></div>
+        <aside class="side">
+          <div class="paper">
+            <p class="h3">Automatisch finden</p>
+            <div class="chips" id="presets" style="margin-top:10px">
+              <button type="button" data-p="iban">IBAN</button>
+              <button type="button" data-p="amount">Beträge</button>
+              <button type="button" data-p="email">E-Mail</button>
+              <button type="button" data-p="phone">Telefon</button>
+              <button type="button" data-p="date">Datum</button>
+            </div>
+            <label class="field"><span>Suchbegriff <small>(z. B. Name, Kundennummer)</small></span><input id="q" placeholder="Max Mustermann"></label>
+            <button class="btn btn--ghost" type="button" id="find">Alle Treffer schwärzen</button>
+            <p class="statusline" id="status" hidden></p>
+          </div>
+          <div class="paper">
+            <p class="h3">Schwärzungen <span class="mono" id="count" style="color:var(--blue)">0</span></p>
+            <label class="field"><span>Qualität der geschwärzten Seiten</span>
+              <select id="dpi"><option value="150">Normal (150 dpi)</option><option value="200" selected>Gut (200 dpi)</option><option value="300">Sehr gut (300 dpi)</option></select></label>
+            <button class="btn" type="button" id="save" disabled>Geschwärztes PDF speichern</button>
+            <button class="btn btn--quiet" type="button" id="clear">Alle Schwärzungen entfernen</button>
+            <div class="note">Seiten mit Schwärzungen werden als Bild gespeichert. Nur so ist sicher, dass der Text darunter weg ist. Seiten ohne Schwärzung bleiben unverändert.</div>
+          </div>
+        </aside>
+      </div>
+<!--@content-->
+      <section class="info">
+        <div class="info__head">
+          <p class="eyebrow">Wissen</p>
+          <h2 class="h2">Richtig schwärzen, <em>nicht nur abdecken</em></h2>
+        </div>
+        <div class="prose">
+          <p>Viele Schwärzungen sind keine: Ein schwarzes Rechteck, das in einem PDF-Programm über den Text gelegt wird, verdeckt ihn nur. Wer den Text markiert und kopiert, hat ihn trotzdem. Solche Pannen sind schon Behörden und Anwaltskanzleien passiert.</p>
+          <p>beleg.org geht deshalb den sicheren Weg: Jede Seite mit Schwärzungen wird als Bild neu erzeugt, die schwarzen Balken werden in das Bild gezeichnet, und die ursprüngliche Textebene fällt weg. Außerdem werden Metadaten wie Autor oder Software nicht übernommen.</p>
+          <h3>Was du bei Kontoauszügen schwärzen kannst</h3>
+          <p>Vermieter und Kreditgeber dürfen meist nur sehen, was sie für ihre Entscheidung brauchen, etwa den Gehaltseingang. Andere Buchungen wie Arztrechnungen, Spenden oder Gewerkschaftsbeiträge darfst du in der Regel schwärzen. Kontostand und Name sollten sichtbar bleiben, wenn sie verlangt sind.</p>
+          <a class="callout" href="../kontoauszug-in-excel/"><div><span>Werkzeug</span><b>Kontoauszug in Excel umwandeln</b></div></a>
+        </div>
+      </section>
+      <section class="faq">
+        <p class="eyebrow">Häufige Fragen</p>
+        <h2 class="h2">Fragen zum Schwärzen</h2>
+        <div class="faq__list">
+          <details class="faq__item"><summary>Kann man die Schwärzung rückgängig machen?</summary>
+            <div><p>Nein. Die geschwärzten Seiten bestehen nur noch aus einem Bild, in dem die Balken fest eingezeichnet sind. Bewahre deshalb das Original auf, falls du es später noch brauchst.</p></div></details>
+          <details class="faq__item"><summary>Warum findet die Suche in meinem Scan nichts?</summary>
+            <div><p>Gescannte PDFs enthalten keinen Text, nur ein Bild. Dann ziehst du die Bereiche von Hand auf, oder du machst das PDF vorher mit <a href="../pdf-durchsuchbar-machen/">PDF durchsuchbar machen</a> durchsuchbar.</p></div></details>
+          <details class="faq__item"><summary>Ist der Text auf den geschwärzten Seiten noch kopierbar?</summary>
+            <div><p>Nein, auf geschwärzten Seiten gibt es keinen Text mehr. Seiten ohne Schwärzung bleiben unverändert und durchsuchbar.</p></div></details>
+        </div>
+      </section>
+<!--@script-->
+<script type="module" src="../assets/pdf-redact.js"></script>

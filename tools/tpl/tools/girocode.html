@@ -1,0 +1,74 @@
+<!--@eyebrow-->
+E-Rechnung · Zahlen mit Code
+<!--@h1-->
+GiroCode <em>erstellen.</em>
+<!--@lede-->
+Ein QR-Code mit IBAN, Betrag und Verwendungszweck. Deine Kundschaft scannt ihn mit der Banking-App, und die Überweisung ist ohne Tippfehler ausgefüllt. Ideal für Rechnungen und Quittungen.
+<!--@style-->
+    .gc { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 380px); gap: 28px; align-items: start; }
+    .gc__card { padding: 26px; text-align: center; position: sticky; top: var(--stick); }
+    .gc__qr { width: 100%; max-width: 280px; margin: 0 auto; aspect-ratio: 1; display: grid; place-items: center; background: #fff; }
+    .gc__qr svg { width: 100%; height: auto; }
+    .gc__cap { margin: 14px 0 0; font: 600 12px/1.4 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--ink); }
+    .gc__sum { margin: 4px 0 0; font-size: 13px; color: var(--muted); }
+    .gc__err { color: var(--err); font-size: 13px; margin: 10px 0 0; }
+    @media (max-width: 860px) { .gc { grid-template-columns: minmax(0, 1fr); } .gc__card { position: static; } }
+<!--@body-->
+      <div class="gc">
+        <form id="form" onsubmit="return false">
+          <fieldset class="fieldset"><legend><span class="no">01</span><span class="t">Empfänger</span></legend>
+            <div class="grid">
+              <label class="field span-6"><span>Name des Kontoinhabers</span><input name="name" maxlength="70" autocomplete="name" placeholder="Studio Nordlicht GmbH"></label>
+              <label class="field span-4"><span>IBAN</span><input name="iban" class="num-in" spellcheck="false" placeholder="DE02 1203 0000 0000 2020 51"></label>
+              <label class="field span-2"><span>BIC <small>(optional)</small></span><input name="bic" class="num-in" spellcheck="false"></label>
+            </div>
+          </fieldset>
+          <fieldset class="fieldset"><legend><span class="no">02</span><span class="t">Zahlung</span></legend>
+            <div class="grid">
+              <label class="field span-2"><span>Betrag (€) <small>(optional)</small></span><input name="amount" class="num-in" inputmode="decimal" placeholder="1.487,50"></label>
+              <label class="field span-4"><span>Verwendungszweck</span><input name="purpose" maxlength="140" placeholder="RE-2026-0142"></label>
+            </div>
+          </fieldset>
+          <div class="note">Ohne Betrag trägt die zahlende Person ihn selbst ein, praktisch für Spendenaufrufe oder Aushänge. Deine Angaben werden nur in diesem Browser gespeichert.</div>
+        </form>
+        <div class="paper gc__card">
+          <div class="gc__qr" id="qr"></div>
+          <p class="gc__cap">Zahlen mit Code</p>
+          <p class="gc__sum" id="sum"></p>
+          <p class="gc__err" id="err" hidden></p>
+          <div class="btnrow" style="justify-content:center;margin-top:16px">
+            <button class="btn" type="button" id="png" disabled>PNG speichern</button>
+            <button class="btn btn--ghost" type="button" id="svg" disabled>SVG</button>
+          </div>
+        </div>
+      </div>
+<!--@content-->
+      <section class="info">
+        <div class="info__head">
+          <p class="eyebrow">Wissen</p>
+          <h2 class="h2">Was im <em>GiroCode</em> steckt</h2>
+        </div>
+        <div class="prose">
+          <p>Der GiroCode ist ein QR-Code nach dem Standard des European Payments Council (EPC). Er enthält die Daten einer SEPA-Überweisung: Empfänger, IBAN, optional BIC, Betrag und Verwendungszweck. Die meisten deutschen Banking-Apps lesen ihn über „Scannen“ oder „Foto-Überweisung“ ein.</p>
+          <ul>
+            <li><b>Keine Tippfehler</b> bei IBAN und Verwendungszweck, deine Zahlungen lassen sich leichter zuordnen.</li>
+            <li><b>Schneller bezahlt</b>, weil die Überweisung mit zwei Klicks erledigt ist.</li>
+            <li><b>Kostenlos</b> und ohne Vertrag mit einem Zahlungsdienstleister.</li>
+          </ul>
+          <p>Mit <a href="../e-rechnung-erstellen/">E-Rechnung erstellen</a> druckt beleg.org den GiroCode automatisch auf die PDF-Rechnung.</p>
+        </div>
+      </section>
+      <section class="faq">
+        <p class="eyebrow">Häufige Fragen</p>
+        <h2 class="h2">Fragen zum GiroCode</h2>
+        <div class="faq__list">
+          <details class="faq__item"><summary>Welche Banking-Apps können GiroCodes lesen?</summary>
+            <div><p>Die Apps fast aller deutschen Banken und Sparkassen sowie viele Banking-Programme. Die Funktion heißt oft „Scan2Bank“, „Foto-Überweisung“ oder „QR-Code scannen“.</p></div></details>
+          <details class="faq__item"><summary>Ist ein GiroCode sicher?</summary>
+            <div><p>Der Code enthält nur Überweisungsdaten, keine Zugangsdaten. Die zahlende Person sieht alle Angaben in der App und muss die Überweisung selbst freigeben.</p></div></details>
+          <details class="faq__item"><summary>Wie groß muss der Code gedruckt werden?</summary>
+            <div><p>Mindestens etwa 2 × 2 cm, besser 3 × 3 cm, mit weißem Rand. Die SVG-Datei lässt sich ohne Qualitätsverlust in jeder Größe drucken.</p></div></details>
+        </div>
+      </section>
+<!--@script-->
+<script type="module" src="../assets/girocode.js"></script>

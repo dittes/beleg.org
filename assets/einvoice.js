@@ -1,7 +1,8 @@
 // E-Rechnung: Lesen (CII + UBL), Prüfen, Darstellen und Erzeugen (CII).
 // Alles läuft im Browser.
 
-import { esc, money, dec, fmtDate, round2, ibanValid, fmtIban } from './common.js';
+import { esc, money, dec, fmtDate, round2, ibanValid, fmtIban } from './common.js?v=dd1f3874';
+import { validate as validateLeitweg, looksLikeLeitweg } from './leitweg.js?v=67765086';
 
 /* ————————————————— XML-Helfer ————————————————— */
 const kids = (el, name) => el ? [...el.children].filter((c) => c.localName === name) : [];
@@ -342,7 +343,10 @@ export function check(m) {
     add(s.endpoint ? 'ok' : 'err', 'BT-34', s.endpoint ? 'Elektronische Adresse des Verkäufers vorhanden' : 'Elektronische Adresse des Verkäufers fehlt');
     add(b.endpoint ? 'ok' : 'err', 'BT-49', b.endpoint ? 'Elektronische Adresse des Käufers vorhanden' : 'Elektronische Adresse des Käufers fehlt');
     add(p.meansCode ? 'ok' : 'err', 'BR-DE-1', p.meansCode ? `Zahlungsart: ${MEANS_CODES[p.meansCode] || p.meansCode}` : 'Zahlungsart fehlt');
-    if (/^\d{2,12}-[A-Za-z0-9]{0,30}-\d{2}$/.test(m.buyerReference) || /^\d{2,12}-\d{2}$/.test(m.buyerReference)) add('ok', 'Leitweg-ID', 'Käuferreferenz hat das Format einer Leitweg-ID (öffentliche Hand)');
+    if (looksLikeLeitweg(m.buyerReference)) {
+      const lw = validateLeitweg(m.buyerReference);
+      add(lw.ok ? 'ok' : 'err', 'Leitweg-ID', lw.ok ? `Leitweg-ID gültig (Prüfziffer stimmt)${lw.region ? ' · ' + lw.region : ''}` : 'Leitweg-ID hat eine falsche Prüfziffer', lw.ok ? '' : lw.errors.join(' '));
+    }
   }
 
   const score = { ok: out.filter((x) => x.level === 'ok').length, warn: out.filter((x) => x.level === 'warn').length, err: out.filter((x) => x.level === 'err').length };
@@ -426,6 +430,7 @@ export function renderInvoice(m, { compact = false } = {}) {
         ${p.iban ? `<p class="num">IBAN ${esc(fmtIban(p.iban))}${p.bic ? ` · BIC ${esc(p.bic)}` : ''}</p>` : ''}
         ${p.reference ? `<p>Verwendungszweck: <span class="num">${esc(p.reference)}</span></p>` : ''}
         ${p.terms ? `<p class="small">${esc(p.terms)}</p>` : ''}
+        ${p.iban && ibanValid(p.iban) && (t.due ?? t.grand) > 0 ? '<div class="inv__qr" data-qr></div>' : ''}
       </div>
       <div><span class="inv__k">Steuer</span>
         ${s.vatId ? `<p>USt-IdNr. <span class="num">${esc(s.vatId)}</span></p>` : ''}

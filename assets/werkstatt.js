@@ -1,5 +1,5 @@
 // 03 · Belegwerkstatt
-import { $, $$, esc, money, parseNum, round2, fmtDate, todayISO, amountInWords, store, formData, fillForm, debounce } from './common.js';
+import { $, $$, esc, money, parseNum, round2, fmtDate, todayISO, amountInWords, store, formData, fillForm, debounce } from './common.js?v=dd1f3874';
 
 const type = document.body.dataset.vtype || 'eigen';
 const KEY = (t) => `beleg:werkstatt:${t}`;

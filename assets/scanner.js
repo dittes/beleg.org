@@ -1,7 +1,7 @@
 // Beleg scannen: Kamera → Zuschneiden → Verbessern → PDF
-import { $, $$, esc, download } from './common.js';
-import { detectCorners, warp, applyFilter, rotate90, toCanvas, FILTERS } from './imaging.js';
-import { handoff } from './handoff.js';
+import { $, $$, esc, download } from './common.js?v=dd1f3874';
+import { detectCorners, warp, applyFilter, rotate90, toCanvas, FILTERS } from './imaging.js?v=062d8b10';
+import { handoff } from './handoff.js?v=e51abca0';
 
 const V = (p) => new URL(`../vendor/${p}`, import.meta.url).href;
 const state = {

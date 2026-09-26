@@ -19,13 +19,13 @@
   <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
   <link rel="preload" href="../assets/fonts/Newsreader-normal-400-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="../assets/fonts/fonts.css">
+  <link rel="stylesheet" href="../assets/fonts/fonts.css?v=831bafce">
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "E-Rechnung prüfen", "url": "https://beleg.org/e-rechnung-pruefen/", "description": "XRechnung, ZUGFeRD und Factur-X kostenlos online öffnen, lesbar anzeigen und prüfen. Summen, Pflichtangaben und IBAN werden kontrolliert – ohne Upload.", "applicationCategory": "BusinessApplication", "operatingSystem": "Web", "inLanguage": "de-DE", "isAccessibleForFree": true, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "EUR"}}</script>
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Wie öffne ich eine XRechnung?", "acceptedAnswer": {"@type": "Answer", "text": "Zieh die XML-Datei in das Ablagefeld oben oder wähle sie über „Datei auswählen“ aus. Die Rechnung erscheint sofort als lesbares Dokument. Du kannst sie drucken oder die Positionen als CSV exportieren."}}, {"@type": "Question", "name": "Ist eine PDF-Rechnung eine E-Rechnung?", "acceptedAnswer": {"@type": "Answer", "text": "Nein. Seit 2025 gilt eine reine PDF-Datei im B2B-Bereich als „sonstige Rechnung“. Eine E-Rechnung enthält strukturierte Daten nach EN 16931. ZUGFeRD ist eine PDF, in der diese Daten als XML eingebettet sind. Legst du eine PDF ab, zeigt dir beleg.org, ob sie solche Daten enthält."}}, {"@type": "Question", "name": "Wird meine Rechnung hochgeladen?", "acceptedAnswer": {"@type": "Answer", "text": "Nein. Die Datei wird ausschließlich in deinem Browser gelesen und geprüft. Es gibt keinen Upload und keine Speicherung auf einem Server."}}, {"@type": "Question", "name": "Was mache ich, wenn die Prüfung Fehler zeigt?", "acceptedAnswer": {"@type": "Answer", "text": "Bei Rechenfehlern oder fehlenden Pflichtangaben bittest du den Absender um eine korrigierte Rechnung. Ohne ordnungsgemäße Rechnung kann der Vorsteuerabzug gefährdet sein. Hinweise (orange) sind oft unkritisch, sollten aber geprüft werden."}}]}</script>
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "beleg.org", "item": "https://beleg.org/"}, {"@type": "ListItem", "position": 2, "name": "E-Rechnung prüfen", "item": "https://beleg.org/e-rechnung-pruefen/"}]}</script>
   <!-- /meta -->
-  <link rel="stylesheet" href="../assets/site.css">
-  <link rel="stylesheet" href="../assets/invoice.css">
+  <link rel="stylesheet" href="../assets/site.css?v=555c4741">
+  <link rel="stylesheet" href="../assets/invoice.css?v=d1a15ce5">
   <style>
     .hero { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); gap: clamp(28px, 5vw, 80px); align-items: start; }
     .formats { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 28px; }
@@ -60,7 +60,7 @@
     .drop-err { margin-top: 22px; }
 
     /* Ergebnis */
-    .result { margin-top: 64px; scroll-margin-top: 80px; }
+    .result { margin-top: 64px; scroll-margin-top: calc(var(--stick) + 8px); }
     .result[hidden] { display: none; }
     .rbar { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 18px; align-items: end; padding-bottom: 18px; border-bottom: 1px solid var(--ink); }
     .rbar__file { font: 500 12px/1.4 var(--f-mono); color: var(--muted); overflow-wrap: anywhere; }
@@ -74,7 +74,7 @@
     .xmlsrc { margin: 0; padding: 20px; max-height: 70vh; overflow: auto; font: 12px/1.6 var(--f-mono); color: var(--ink-2); white-space: pre; tab-size: 2; background: #fff; }
     .xmlsrc .t { color: var(--blue-deep); } .xmlsrc .a { color: #6b5bd6; } .xmlsrc .v { color: #0f7a5a; }
 
-    .proto { position: sticky; top: 76px; }
+    .proto { position: sticky; top: var(--stick); }
     .proto__head { padding: 20px 20px 16px; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px; align-items: center; border-bottom: 1px solid var(--rule); }
     .proto__score { display: flex; gap: 14px; margin-top: 8px; font: 500 12px/1 var(--f-mono); }
     .proto__score span { display: inline-flex; gap: 6px; align-items: center; }
@@ -127,25 +127,52 @@
       <span class="register__word">beleg<i>.org</i></span>
     </a>
     <nav>
+      <p class="register__k">E-Rechnung</p>
       <a class="tab" href="../e-rechnung-pruefen/" aria-current="page"><svg class="tab__ic" viewBox="0 0 18 18" aria-hidden="true"><path d="M4 1.5h7l3 3v12H4z"/><path d="m6.5 10 2 2 3.5-4"/></svg><span class="tab__label">E-Rechnung prüfen</span></a>
       <a class="tab" href="../e-rechnung-erstellen/"><svg class="tab__ic" viewBox="0 0 18 18" aria-hidden="true"><path d="M4 1.5h7l3 3v12H4z"/><path d="M9 7.5v6M6 10.5h6"/></svg><span class="tab__label">E-Rechnung erstellen</span></a>
+      <a class="tab" href="../leitweg-id-pruefen/"><svg class="tab__ic" viewBox="0 0 18 18" aria-hidden="true"><path d="M2 9h10M9 5.5 12.5 9 9 12.5"/><path d="M14.5 3v12"/></svg><span class="tab__label">Leitweg-ID prüfen</span></a>
+      <p class="register__k">Belege</p>
       <a class="tab" href="../beleg-scannen/"><svg class="tab__ic" viewBox="0 0 18 18" aria-hidden="true"><path d="M1.5 5V1.5H5M13 1.5h3.5V5M16.5 13v3.5H13M5 16.5H1.5V13"/><path d="M4 9h10"/></svg><span class="tab__label">Beleg scannen</span></a>
       <a class="tab" href="../belege-auslesen/"><svg class="tab__ic" viewBox="0 0 18 18" aria-hidden="true"><rect x="2" y="3" width="14" height="12" rx="1"/><path d="M2 7h14M2 11h14M7 3v12"/></svg><span class="tab__label">Belege auslesen</span></a>
+      <a class="tab" href="../belege-umbenennen/"><svg class="tab__ic" viewBox="0 0 18 18" aria-hidden="true"><path d="M2.5 4.5h8l3 4.5-3 4.5h-8z"/><circle cx="6" cy="9" r="1"/></svg><span class="tab__label">Belege umbenennen</span></a>
       <a class="tab" href="../eigenbeleg-erstellen/"><svg class="tab__ic" viewBox="0 0 18 18" aria-hidden="true"><path d="M5.5 4.5h9v12h-9z"/><path d="M3 13.5V2h8.5"/></svg><span class="tab__label">Belegvorlagen</span></a>
+      <a class="tab" href="../reisekostenabrechnung/"><svg class="tab__ic" viewBox="0 0 18 18" aria-hidden="true"><rect x="2" y="5.5" width="14" height="10" rx="1"/><path d="M6.5 5.5V3h5v2.5M2 10h14"/></svg><span class="tab__label">Reisekosten</span></a>
       <a class="tab" href="../aufbewahrungsfristen/"><svg class="tab__ic" viewBox="0 0 18 18" aria-hidden="true"><rect x="1.5" y="2.5" width="15" height="4" rx=".5"/><path d="M3 6.5v9h12v-9M7 10h4"/></svg><span class="tab__label">Aufbewahrung</span></a>
+      <p class="register__k">Codes</p>
+      <a class="tab" href="../qr-code-scanner/"><svg class="tab__ic" viewBox="0 0 18 18" aria-hidden="true"><path d="M1.5 5V1.5H5M13 1.5h3.5V5M16.5 13v3.5H13M5 16.5H1.5V13"/><rect x="4.5" y="4.5" width="3.5" height="3.5"/><rect x="10" y="4.5" width="3.5" height="3.5"/><rect x="4.5" y="10" width="3.5" height="3.5"/><path d="M10 10h1.5v1.5H10zM12 12h1.5v1.5H12z"/></svg><span class="tab__label">QR-Code-Scanner</span></a>
+      <a class="tab" href="../barcode-scanner/"><svg class="tab__ic" viewBox="0 0 18 18" aria-hidden="true"><path d="M1.5 5V1.5H5M13 1.5h3.5V5M16.5 13v3.5H13M5 16.5H1.5V13"/><path d="M5 5v8M7 5v8M9.5 5v8M11 5v8M13 5v8"/></svg><span class="tab__label">Barcode-Scanner</span></a>
+      <a class="tab" href="../girocode-erstellen/"><svg class="tab__ic" viewBox="0 0 18 18" aria-hidden="true"><rect x="2" y="2" width="5" height="5"/><rect x="11" y="2" width="5" height="5"/><rect x="2" y="11" width="5" height="5"/><path d="M11 11h2v2h-2zM14 14h2v2h-2zM11 15h1M15 11h1"/></svg><span class="tab__label">GiroCode erstellen</span></a>
+      <p class="register__k">PDF</p>
+      <a class="tab" href="../pdf-werkstatt/"><svg class="tab__ic" viewBox="0 0 18 18" aria-hidden="true"><path d="M3.5 1.5h7l3 3v12h-10z"/><path d="M6 9.5h6M6 12.5h6M6 6.5h2.5"/></svg><span class="tab__label">PDF-Werkstatt</span></a>
+      <p class="register__k">Rechnen</p>
+      <a class="tab" href="../rechner/"><svg class="tab__ic" viewBox="0 0 18 18" aria-hidden="true"><rect x="3" y="1.5" width="12" height="15" rx="1"/><path d="M5.5 4.5h7v2.5h-7zM6 10h.01M9 10h.01M12 10h.01M6 13h.01M9 13h.01M12 13h.01"/></svg><span class="tab__label">Rechner</span></a>
+      <p class="register__k">Wissen</p>
       <a class="tab" href="../ratgeber/"><svg class="tab__ic" viewBox="0 0 18 18" aria-hidden="true"><path d="M2 3.5c2.5-1 5-1 7 .5v11c-2-1.5-4.5-1.5-7-.5zM16 3.5c-2.5-1-5-1-7 .5v11c2-1.5 4.5-1.5 7-.5z"/></svg><span class="tab__label">Ratgeber</span></a>
     </nav>
-    <div class="register__foot"><span>Kein Upload</span><span>Kein Konto</span><span>Kein Tracking</span></div>
-    <script>(function(){var t=document.querySelector('.register .tab[aria-current]');if(t&&t.parentNode.scrollWidth>t.parentNode.clientWidth)t.parentNode.scrollLeft=t.offsetLeft-48;})()</script>
+    <div class="register__foot"><span>Kein Upload · Kein Konto</span><span>Kein Tracking</span></div>
   </aside>
+  <header class="topbar">
+    <a class="topbar__mark" href="../" aria-label="beleg.org Startseite"><svg viewBox="0 0 40 40" fill="none" aria-hidden="true"><path d="M9 4h22v30l-3.67-2.5L23.67 34 20 31.5 16.33 34l-3.66-2.5L9 34V4Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M14 12h12M14 17h12M14 22h7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="28" cy="25" r="5.5" fill="#6ea0ff" stroke="#0c2582" stroke-width="2"/><path d="m25.6 25 1.6 1.6 3-3.2" stroke="#0c2582" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span>beleg<i>.org</i></span></a>
+    <span class="topbar__here">E-Rechnung prüfen</span>
+    <button class="topbar__btn" type="button" aria-haspopup="dialog" aria-controls="menu" onclick="document.getElementById('menu').showModal()"><span>Menü</span><svg viewBox="0 0 18 18" aria-hidden="true"><path d="M2 5h14M2 9h14M2 13h14"/></svg></button>
+  </header>
+  <dialog class="menu" id="menu" aria-label="Menü" onclick="if(event.target===this)this.close()">
+    <div class="menu__in">
+      <div class="menu__head"><a class="topbar__mark" href="../"><svg viewBox="0 0 40 40" fill="none" aria-hidden="true"><path d="M9 4h22v30l-3.67-2.5L23.67 34 20 31.5 16.33 34l-3.66-2.5L9 34V4Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M14 12h12M14 17h12M14 22h7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="28" cy="25" r="5.5" fill="#6ea0ff" stroke="#0c2582" stroke-width="2"/><path d="m25.6 25 1.6 1.6 3-3.2" stroke="#0c2582" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span>beleg<i>.org</i></span></a><button class="topbar__btn" type="button" onclick="this.closest('dialog').close()"><span>Schließen</span><svg viewBox="0 0 18 18" aria-hidden="true"><path d="m4 4 10 10M14 4 4 14"/></svg></button></div>
+      <nav aria-label="Menü">
+        <p class="menu__k">E-Rechnung</p><ul class="menu__tools"><li><a href="../e-rechnung-pruefen/" aria-current="page"><svg class="m__ic" viewBox="0 0 18 18" aria-hidden="true"><path d="M4 1.5h7l3 3v12H4z"/><path d="m6.5 10 2 2 3.5-4"/></svg><span><b>E-Rechnung prüfen</b><small>XRechnung & ZUGFeRD öffnen</small></span></a></li><li><a href="../e-rechnung-erstellen/"><svg class="m__ic" viewBox="0 0 18 18" aria-hidden="true"><path d="M4 1.5h7l3 3v12H4z"/><path d="M9 7.5v6M6 10.5h6"/></svg><span><b>E-Rechnung erstellen</b><small>XML oder PDF schreiben</small></span></a></li><li><a href="../leitweg-id-pruefen/"><svg class="m__ic" viewBox="0 0 18 18" aria-hidden="true"><path d="M2 9h10M9 5.5 12.5 9 9 12.5"/><path d="M14.5 3v12"/></svg><span><b>Leitweg-ID prüfen</b><small>Aufbau & Prüfziffer</small></span></a></li></ul><p class="menu__k">Belege</p><ul class="menu__tools"><li><a href="../beleg-scannen/"><svg class="m__ic" viewBox="0 0 18 18" aria-hidden="true"><path d="M1.5 5V1.5H5M13 1.5h3.5V5M16.5 13v3.5H13M5 16.5H1.5V13"/><path d="M4 9h10"/></svg><span><b>Beleg scannen</b><small>Kamera → PDF</small></span></a></li><li><a href="../belege-auslesen/"><svg class="m__ic" viewBox="0 0 18 18" aria-hidden="true"><rect x="2" y="3" width="14" height="12" rx="1"/><path d="M2 7h14M2 11h14M7 3v12"/></svg><span><b>Belege auslesen</b><small>Texterkennung → Excel</small></span></a></li><li><a href="../belege-umbenennen/"><svg class="m__ic" viewBox="0 0 18 18" aria-hidden="true"><path d="M2.5 4.5h8l3 4.5-3 4.5h-8z"/><circle cx="6" cy="9" r="1"/></svg><span><b>Belege umbenennen</b><small>Datum_Händler_Betrag.pdf</small></span></a></li><li><a href="../eigenbeleg-erstellen/"><svg class="m__ic" viewBox="0 0 18 18" aria-hidden="true"><path d="M5.5 4.5h9v12h-9z"/><path d="M3 13.5V2h8.5"/></svg><span><b>Belegvorlagen</b><small>Eigenbeleg, Bewirtung, Quittung</small></span></a></li><li><a href="../reisekostenabrechnung/"><svg class="m__ic" viewBox="0 0 18 18" aria-hidden="true"><rect x="2" y="5.5" width="14" height="10" rx="1"/><path d="M6.5 5.5V3h5v2.5M2 10h14"/></svg><span><b>Reisekosten</b><small>Abrechnung mit Belegmappe</small></span></a></li><li><a href="../aufbewahrungsfristen/"><svg class="m__ic" viewBox="0 0 18 18" aria-hidden="true"><rect x="1.5" y="2.5" width="15" height="4" rx=".5"/><path d="M3 6.5v9h12v-9M7 10h4"/></svg><span><b>Aufbewahrung</b><small>Darf der Beleg weg?</small></span></a></li></ul><p class="menu__k">Codes</p><ul class="menu__tools"><li><a href="../qr-code-scanner/"><svg class="m__ic" viewBox="0 0 18 18" aria-hidden="true"><path d="M1.5 5V1.5H5M13 1.5h3.5V5M16.5 13v3.5H13M5 16.5H1.5V13"/><rect x="4.5" y="4.5" width="3.5" height="3.5"/><rect x="10" y="4.5" width="3.5" height="3.5"/><rect x="4.5" y="10" width="3.5" height="3.5"/><path d="M10 10h1.5v1.5H10zM12 12h1.5v1.5H12z"/></svg><span><b>QR-Code-Scanner</b><small>Kamera oder Bild, online</small></span></a></li><li><a href="../barcode-scanner/"><svg class="m__ic" viewBox="0 0 18 18" aria-hidden="true"><path d="M1.5 5V1.5H5M13 1.5h3.5V5M16.5 13v3.5H13M5 16.5H1.5V13"/><path d="M5 5v8M7 5v8M9.5 5v8M11 5v8M13 5v8"/></svg><span><b>Barcode-Scanner</b><small>EAN, Code 128 & mehr</small></span></a></li><li><a href="../girocode-erstellen/"><svg class="m__ic" viewBox="0 0 18 18" aria-hidden="true"><rect x="2" y="2" width="5" height="5"/><rect x="11" y="2" width="5" height="5"/><rect x="2" y="11" width="5" height="5"/><path d="M11 11h2v2h-2zM14 14h2v2h-2zM11 15h1M15 11h1"/></svg><span><b>GiroCode erstellen</b><small>QR-Code für Überweisungen</small></span></a></li></ul><p class="menu__k">Rechnen</p><ul class="menu__tools"><li><a href="../rechner/"><svg class="m__ic" viewBox="0 0 18 18" aria-hidden="true"><rect x="3" y="1.5" width="12" height="15" rx="1"/><path d="M5.5 4.5h7v2.5h-7zM6 10h.01M9 10h.01M12 10h.01M6 13h.01M9 13h.01M12 13h.01"/></svg><span><b>Rechner</b><small>MwSt, Skonto, Reise, Kleinunternehmer</small></span></a></li></ul>
+        <p class="menu__k"><a href="../pdf-werkstatt/">PDF-Werkstatt →</a></p>
+        <div class="menu__chips"><a href="../pdf-zusammenfuegen/">Zusammenfügen & teilen</a><a href="../pdf-schwaerzen/">Schwärzen</a><a href="../belegstempel/">Belegstempel</a><a href="../pdf-unterschreiben/">Unterschreiben</a><a href="../pdf-durchsuchbar-machen/">Durchsuchbar machen</a><a href="../pdf-verkleinern/">Verkleinern</a><a href="../bilder-zu-pdf/">Bilder zu PDF</a><a href="../pdf-zu-bildern/">PDF zu Bildern</a><a href="../pdf-metadaten-entfernen/">Metadaten entfernen</a></div>
+        <p class="menu__k">Direkt zu</p>
+        <div class="menu__chips"><a href="../eigenbeleg-erstellen/">Eigenbeleg</a><a href="../bewirtungsbeleg-erstellen/">Bewirtungsbeleg</a><a href="../quittung-erstellen/">Quittung</a><a href="../kontoauszug-in-excel/">Kontoauszug in Excel</a></div>
+        <p class="menu__k">Ratgeber</p>
+        <ul class="menu__arts"><li><a href="../belegpflicht/">Belegpflicht<small>Wann du einen Beleg brauchst – und wann nicht</small></a></li><li><a href="../beleg-vs-quittung/">Beleg, Quittung, Rechnung<small>Die Unterschiede einfach erklärt</small></a></li><li><a href="../beleg-digitalisieren/">Belege digitalisieren<small>Scannen, ablegen, Papier vernichten – GoBD-konform</small></a></li><li><a href="../e-rechnungspflicht/">E-Rechnungspflicht<small>Was ab 2025, 2027 und 2028 gilt</small></a></li><li><a href="../ratgeber/">Alle Artikel<small>Übersicht</small></a></li></ul>
+      </nav>
+      <p class="menu__foot"><a href="../impressum/">Impressum</a> · <a href="../datenschutz/">Datenschutz</a></p>
+    </div>
+  </dialog>
 
   <main class="sheet">
-    <div class="kopf">
-      <div class="kopf__cell kopf__cell--hide"><span class="kopf__k">Bereich</span><span class="kopf__v">Werkzeug</span></div>
-      <div class="kopf__cell"><span class="kopf__k">Seite</span><span class="kopf__v">E-Rechnung prüfen</span></div>
-      <div class="kopf__cell"><span class="kopf__k">Verarbeitung</span><span class="kopf__v"><span class="dot"></span>lokal im Browser</span></div>
-      <div class="kopf__cell kopf__cell--hide"><span class="kopf__k">Formate</span><span class="kopf__v">CII · UBL · PDF</span></div>
-    </div>
 
     <div class="wrap">
       <section class="hero">
@@ -282,15 +309,16 @@
     <footer class="colophon">
       <div class="colophon__brand"><b>beleg<i>.org</i></b><span>Werkzeuge für Belege. Kostenlos, ohne Konto, ohne Tracking. Deine Dateien bleiben auf deinem Gerät.</span></div>
       <nav class="colophon__cols" aria-label="Fußzeile">
-        <div><p>Werkzeuge</p><ul><li><a href="../e-rechnung-pruefen/">E-Rechnung prüfen</a></li><li><a href="../e-rechnung-erstellen/">E-Rechnung erstellen</a></li><li><a href="../beleg-scannen/">Beleg scannen</a></li><li><a href="../belege-auslesen/">Belege auslesen</a></li><li><a href="../eigenbeleg-erstellen/">Belegvorlagen</a></li><li><a href="../aufbewahrungsfristen/">Aufbewahrung</a></li><li><a href="../kontoauszug-in-excel/">Kontoauszug in Excel</a></li></ul></div>
-        <div><p>Vorlagen</p><ul><li><a href="../eigenbeleg-erstellen/">Eigenbeleg erstellen</a></li><li><a href="../bewirtungsbeleg-erstellen/">Bewirtungsbeleg erstellen</a></li><li><a href="../quittung-erstellen/">Quittung erstellen</a></li></ul></div>
-        <div><p>Ratgeber</p><ul><li><a href="../belegpflicht/">Belegpflicht</a></li><li><a href="../beleg-vs-quittung/">Beleg, Quittung, Rechnung</a></li><li><a href="../beleg-digitalisieren/">Belege digitalisieren</a></li><li><a href="../e-rechnungspflicht/">E-Rechnungspflicht</a></li></ul></div>
-        <div><p>Rechtliches</p><ul><li><a href="../impressum/">Impressum</a></li><li><a href="../datenschutz/">Datenschutz</a></li></ul></div>
+        <div><p>E-Rechnung &amp; Codes</p><ul><li><a href="../e-rechnung-pruefen/">E-Rechnung prüfen</a></li><li><a href="../e-rechnung-erstellen/">E-Rechnung erstellen</a></li><li><a href="../leitweg-id-pruefen/">Leitweg-ID prüfen</a></li><li><a href="../qr-code-scanner/">QR-Code-Scanner</a></li><li><a href="../barcode-scanner/">Barcode-Scanner</a></li><li><a href="../girocode-erstellen/">GiroCode erstellen</a></li></ul></div>
+        <div><p>Belege</p><ul><li><a href="../beleg-scannen/">Beleg scannen</a></li><li><a href="../belege-auslesen/">Belege auslesen</a></li><li><a href="../belege-umbenennen/">Belege umbenennen</a></li><li><a href="../eigenbeleg-erstellen/">Belegvorlagen</a></li><li><a href="../reisekostenabrechnung/">Reisekosten</a></li><li><a href="../aufbewahrungsfristen/">Aufbewahrung</a></li><li><a href="../kontoauszug-in-excel/">Kontoauszug in Excel</a></li></ul></div>
+        <div><p>PDF-Werkstatt</p><ul><li><a href="../pdf-zusammenfuegen/">Zusammenfügen & teilen</a></li><li><a href="../pdf-schwaerzen/">Schwärzen</a></li><li><a href="../belegstempel/">Belegstempel</a></li><li><a href="../pdf-unterschreiben/">Unterschreiben</a></li><li><a href="../pdf-durchsuchbar-machen/">Durchsuchbar machen</a></li><li><a href="../pdf-verkleinern/">Verkleinern</a></li><li><a href="../bilder-zu-pdf/">Bilder zu PDF</a></li><li><a href="../pdf-zu-bildern/">PDF zu Bildern</a></li><li><a href="../pdf-metadaten-entfernen/">Metadaten entfernen</a></li></ul></div>
+        <div><p>Vorlagen</p><ul><li><a href="../eigenbeleg-erstellen/">Eigenbeleg erstellen</a></li><li><a href="../bewirtungsbeleg-erstellen/">Bewirtungsbeleg erstellen</a></li><li><a href="../quittung-erstellen/">Quittung erstellen</a></li><li><a href="../rechner/">Rechner</a></li></ul></div>
+        <div><p>Ratgeber</p><ul><li><a href="../belegpflicht/">Belegpflicht</a></li><li><a href="../beleg-vs-quittung/">Beleg, Quittung, Rechnung</a></li><li><a href="../beleg-digitalisieren/">Belege digitalisieren</a></li><li><a href="../e-rechnungspflicht/">E-Rechnungspflicht</a></li><li><a href="../impressum/">Impressum</a></li><li><a href="../datenschutz/">Datenschutz</a></li></ul></div>
       </nav>
       <p class="colophon__legal">Keine Steuer- oder Rechtsberatung. Angaben ohne Gewähr.</p>
     </footer>
   </main>
 </div>
-<script type="module" src="../assets/viewer.js"></script>
+<script type="module" src="../assets/viewer.js?v=acfcfe83"></script>
 </body>
 </html>

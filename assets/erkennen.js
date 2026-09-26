@@ -1,8 +1,8 @@
 // 02 · Belegerkennung: Kontoauszüge → Tabelle, Belege → Felder
-import { $, $$, esc, money, parseNum, fmtDate, download } from './common.js';
-import { itemsToLines, textToLines, parseStatement, parseReceipt, looksLikeStatement } from './recognize.js';
-import { parseXML } from './einvoice.js';
-import { handoff } from './handoff.js';
+import { $, $$, esc, money, parseNum, fmtDate, download } from './common.js?v=dd1f3874';
+import { itemsToLines, textToLines, parseStatement, parseReceipt, looksLikeStatement } from './recognize.js?v=d7b6fd35';
+import { parseXML } from './einvoice.js?v=02638bd2';
+import { handoff } from './handoff.js?v=e51abca0';
 
 const V = (p) => new URL(`../vendor/${p}`, import.meta.url).href;
 let pdfjsP, tessP, xlsxP, workerP;

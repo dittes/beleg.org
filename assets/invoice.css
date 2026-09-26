@@ -37,3 +37,6 @@
   .inv__head { flex-direction: column-reverse; }
   .inv__badge { justify-items: start; text-align: left; }
 }
+.inv__qr { display: inline-grid; justify-items: center; gap: 4px; margin-top: 10px; padding: 8px; border: 1px solid var(--rule); border-radius: 4px; background: #fff; }
+.inv__qr svg { width: 96px; height: 96px; }
+.inv__qr span { font: 600 9px/1 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--ink); }

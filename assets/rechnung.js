@@ -1,6 +1,7 @@
 // 04 · E-Rechnung schreiben
-import { $, $$, esc, money, dec, parseNum, fmtDate, fmtIban, todayISO, addDaysISO, download, store, session, formData, fillForm, debounce } from './common.js';
-import { buildModel, toCII, check, renderInvoice, SAMPLE_FORM, GUIDELINES, UNIT_CODES, TYPE_CODES, MEANS_CODES } from './einvoice.js';
+import { $, $$, esc, money, dec, parseNum, fmtDate, fmtIban, todayISO, addDaysISO, download, store, session, formData, fillForm, debounce } from './common.js?v=dd1f3874';
+import { buildModel, toCII, check, renderInvoice, SAMPLE_FORM, GUIDELINES, UNIT_CODES, TYPE_CODES, MEANS_CODES } from './einvoice.js?v=02638bd2';
+import { fillInvoiceQr, qrMatrix, epcPayload, epcErrors, drawQr } from './qr.js?v=ff898161';
 
 const PDFLIB = new URL('../vendor/pdf-lib/pdf-lib.esm.min.js', import.meta.url).href;
 const KEY = 'beleg:rechnung';
@@ -57,6 +58,7 @@ function update() {
   for (const el of $$('[data-when]')) el.hidden = el.dataset.when !== f.periodMode;
 
   $('#doc').innerHTML = renderInvoice(m, { compact: true });
+  fillInvoiceQr($('#doc'), m);
   const res = check(m);
   const { ok, warn, err } = res.score;
   const live = $('#live');
@@ -224,6 +226,13 @@ async function buildPdf(m) {
   label('Steuer', 320, fy + 12);
   if (s.vatId) text(`USt-IdNr. ${s.vatId}`, 320, fy, { size: 8.5 });
   if (s.taxNo) text(`Steuernr. ${s.taxNo}`, 320, fy - (s.vatId ? 12 : 0), { size: 8.5 });
+  // GiroCode rechts unten
+  const epc = { name: p.accountName || s.name, iban: p.iban, bic: p.bic, amount: m.totals.due, purpose: p.reference || m.number };
+  if (p.iban && m.totals.due > 0 && !epcErrors(epc).length) {
+    const qs = 64;
+    drawQr(page, await qrMatrix(epcPayload(epc), 'M'), R - qs, fy - 46, qs, INK);
+    text('ZAHLEN MIT CODE', R - qs / 2 - mono.widthOfTextAtSize('ZAHLEN MIT CODE', 6) / 2, fy - 54, { f: mono, size: 6, color: MUTED });
+  }
   text('E-Rechnung: strukturierte Daten nach EN 16931 als factur-x.xml eingebettet · erstellt mit beleg.org', L, 40, { f: mono, size: 6.5, color: MUTED });
 
   // XML einbetten

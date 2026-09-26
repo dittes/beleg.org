@@ -1,0 +1,63 @@
+<!--@eyebrow-->
+E-Rechnung · öffentliche Auftraggeber
+<!--@h1-->
+Leitweg-ID <em>prüfen.</em>
+<!--@lede-->
+Rechnungen an Behörden brauchen eine gültige Leitweg-ID, sonst werden sie abgelehnt. Hier prüfst du Aufbau und Prüfziffer oder berechnest die Prüfziffer neu.
+<!--@style-->
+    .lw { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 22px; align-items: start; }
+    .lw__in input { font: 500 clamp(20px, 3vw, 30px)/1.2 var(--f-mono); letter-spacing: .04em; padding: 16px 18px; }
+    .lw__parts { display: grid; grid-template-columns: 1fr 1fr auto; gap: 0; margin-top: 16px; border: 1px solid var(--rule); background: #fff; }
+    .lw__parts div { padding: 12px 14px; border-right: 1px solid var(--rule); min-width: 0; }
+    .lw__parts div:last-child { border-right: 0; }
+    .lw__parts span { display: block; font: 500 10px/1.2 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+    .lw__parts b { display: block; font: 500 20px/1.3 var(--f-mono); color: var(--ink); overflow-wrap: anywhere; margin-top: 4px; }
+    .lw__res { padding: 22px; min-height: 180px; }
+    @media (max-width: 860px) { .lw { grid-template-columns: minmax(0, 1fr); } .lw__parts { grid-template-columns: minmax(0, 1fr); } .lw__parts div { border-right: 0; border-bottom: 1px solid var(--rule); } }
+<!--@body-->
+      <div class="lw">
+        <div>
+          <label class="field lw__in"><span>Leitweg-ID</span><input id="id" placeholder="04011000-1234512345-06" autocomplete="off" spellcheck="false" autofocus></label>
+          <div class="lw__parts"><div><span>Grobadressierung</span><b id="pGrob">–</b></div><div><span>Feinadressierung</span><b id="pFein">–</b></div><div><span>Prüfziffer</span><b id="pPz">–</b></div></div>
+          <div class="btnrow" style="margin-top:12px">
+            <button class="btn btn--ghost" type="button" id="calc">Prüfziffer berechnen</button>
+            <button class="btn btn--quiet" type="button" id="example">Beispiel</button>
+          </div>
+          <p class="small" style="margin-top:8px">Für „Prüfziffer berechnen“ gibst du Grob- und Feinadressierung ein, zum Beispiel <span class="mono">991-01234</span>.</p>
+        </div>
+        <div class="paper lw__res" aria-live="polite" id="res"><p class="small" style="margin:0">Gib eine Leitweg-ID ein.</p></div>
+      </div>
+<!--@content-->
+      <section class="info">
+        <div class="info__head">
+          <p class="eyebrow">Wissen</p>
+          <h2 class="h2">So ist eine Leitweg-ID <em>aufgebaut</em></h2>
+        </div>
+        <div class="prose">
+          <p>Die Leitweg-ID adressiert E-Rechnungen an die richtige Stelle in der öffentlichen Verwaltung. Du bekommst sie von deinem Auftraggeber, meist in der Bestellung oder im Vertrag. In der XRechnung gehört sie in das Feld „Käuferreferenz“ (BT-10).</p>
+          <div class="scroll"><table>
+            <thead><tr><th>Teil</th><th>Inhalt</th><th>Beispiel</th></tr></thead>
+            <tbody>
+              <tr><td>Grobadressierung</td><td>2 bis 12 Ziffern, beginnt mit der Kennung von Bund (99) oder Land (01–16)</td><td class="mono">04011000</td></tr>
+              <tr><td>Feinadressierung</td><td>optional, bis 30 Buchstaben oder Ziffern, bezeichnet die Stelle innerhalb der Behörde</td><td class="mono">1234512345</td></tr>
+              <tr><td>Prüfziffer</td><td>2 Ziffern, berechnet nach ISO/IEC 7064 (Mod 97-10), wie bei der IBAN</td><td class="mono">06</td></tr>
+            </tbody>
+          </table></div>
+          <p>Eine gültige Prüfziffer bedeutet nur, dass die ID korrekt aufgebaut ist, nicht dass es sie tatsächlich gibt. Im Zweifel frag beim Auftraggeber nach.</p>
+          <a class="callout" href="../e-rechnung-erstellen/"><div><span>Werkzeug</span><b>XRechnung mit Leitweg-ID erstellen</b></div></a>
+        </div>
+      </section>
+      <section class="faq">
+        <p class="eyebrow">Häufige Fragen</p>
+        <h2 class="h2">Fragen zur Leitweg-ID</h2>
+        <div class="faq__list">
+          <details class="faq__item"><summary>Wo finde ich die Leitweg-ID?</summary>
+            <div><p>Der öffentliche Auftraggeber muss sie dir mitteilen, meist in der Bestellung, im Auftragsschreiben oder im Vertrag. Frag im Zweifel bei der Beschaffungsstelle nach.</p></div></details>
+          <details class="faq__item"><summary>Brauche ich eine Leitweg-ID bei Rechnungen an Unternehmen?</summary>
+            <div><p>Nein. Zwischen Unternehmen gibt es keine Leitweg-ID. In der XRechnung trägst du stattdessen eine andere Käuferreferenz ein, etwa die Bestell- oder Kundennummer.</p></div></details>
+          <details class="faq__item"><summary>Was bedeutet 991 am Anfang?</summary>
+            <div><p>Kennungen mit 99 gehören zum Bund. Die folgenden Ziffern bezeichnen die jeweilige Bundesbehörde. Länder haben die Kennungen 01 bis 16.</p></div></details>
+        </div>
+      </section>
+<!--@script-->
+<script type="module" src="../assets/leitweg-tool.js"></script>

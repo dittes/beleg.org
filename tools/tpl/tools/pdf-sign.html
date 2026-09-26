@@ -1,0 +1,63 @@
+<!--@eyebrow-->
+PDF-Werkstatt · Unterschrift
+<!--@h1-->
+PDF <em>unterschreiben.</em>
+<!--@lede-->
+Unterschrift mit Maus, Finger oder Stift zeichnen oder als Foto laden, auf der Seite platzieren und das unterschriebene PDF speichern. Ohne Ausdrucken und Einscannen.
+<!--@body-->
+      <div class="dz" id="drop" role="button" tabindex="0" aria-label="PDF auswählen oder hier ablegen">
+        <svg class="dz__ic" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"><path d="M2 13c2-4 3.5-6 4.5-6s-.5 5 1 5 3-4 4.5-4 1 2 3.5 2"/><path d="M2 16h14"/></svg>
+        <div><p class="dz__t">PDF hier ablegen</p><p class="dz__s">Vertrag, Formular, Quittung. Danach unterschreiben und auf die Seite klicken.</p></div>
+        <div class="btnrow"><button class="btn" type="button" id="pick">Datei wählen</button></div>
+        <input type="file" id="file" accept="application/pdf,.pdf,image/*" hidden>
+      </div>
+
+      <div class="desk" id="desk" hidden>
+        <div class="pview is-place" id="view"></div>
+        <aside class="side">
+          <div class="paper">
+            <p class="h3">Unterschrift</p>
+            <div class="sigpad" style="margin-top:10px"><canvas id="pad" aria-label="Hier unterschreiben"></canvas></div>
+            <div class="btnrow" style="justify-content:space-between;margin-top:6px">
+              <div class="chips" id="ink"><button type="button" data-c="#0b2a8a" aria-pressed="true">Blau</button><button type="button" data-c="#111827">Schwarz</button></div>
+              <button class="btn btn--quiet" type="button" id="clearPad">Löschen</button>
+            </div>
+            <button class="btn btn--ghost" type="button" id="loadImg">Unterschrift als Bild laden</button>
+            <input type="file" id="sigFile" accept="image/*" hidden>
+            <label class="field"><span>Ort, Datum darunter <small>(optional)</small></span><input id="line" placeholder="Berlin, 26.09.2026"></label>
+          </div>
+          <div class="paper">
+            <p class="h3">Setzen &amp; speichern</p>
+            <p class="small" style="margin:8px 0 0">Klicke auf die Stelle im Dokument, an der die Unterschrift stehen soll. Verschieben und an der Ecke vergrößern geht danach.</p>
+            <button class="btn" type="button" id="save" disabled>Unterschriebenes PDF speichern</button>
+            <p class="statusline" id="status" hidden></p>
+            <div class="note">Das ist eine einfache elektronische Signatur. Sie reicht für viele Alltagsdokumente, ersetzt aber keine qualifizierte elektronische Signatur, wo das Gesetz die Schriftform verlangt, zum Beispiel bei Kündigungen von Arbeitsverträgen.</div>
+          </div>
+        </aside>
+      </div>
+<!--@content-->
+      <section class="info">
+        <div class="info__head">
+          <p class="eyebrow">Wissen</p>
+          <h2 class="h2">Wann eine eingefügte <em>Unterschrift</em> reicht</h2>
+        </div>
+        <div class="prose">
+          <p>Eine gezeichnete oder eingefügte Unterschrift ist rechtlich eine <b>einfache elektronische Signatur</b>. Für die meisten Verträge gilt keine Formvorschrift, dort genügt sie, zum Beispiel für Angebote, Auftragsbestätigungen, Quittungen, Bewirtungsbelege oder Vollmachten im Alltag.</p>
+          <p>Wo das Gesetz die <b>Schriftform</b> verlangt, reicht sie nicht. Das gilt etwa für die Kündigung eines Arbeitsverhältnisses (§ 623 BGB), Bürgschaften von Privatpersonen oder Verbraucherdarlehen. Dann brauchst du eine eigenhändige Unterschrift auf Papier oder eine qualifizierte elektronische Signatur.</p>
+          <a class="callout" href="../bewirtungsbeleg-erstellen/"><div><span>Vorlage</span><b>Bewirtungsbeleg erstellen und unterschreiben</b></div></a>
+        </div>
+      </section>
+      <section class="faq">
+        <p class="eyebrow">Häufige Fragen</p>
+        <h2 class="h2">Fragen zum Unterschreiben</h2>
+        <div class="faq__list">
+          <details class="faq__item"><summary>Wird meine Unterschrift irgendwo gespeichert?</summary>
+            <div><p>Nein. Die Unterschrift existiert nur in deinem Browser, solange die Seite geöffnet ist. Sie wird nicht hochgeladen und nicht gespeichert.</p></div></details>
+          <details class="faq__item"><summary>Wie lade ich meine echte Unterschrift?</summary>
+            <div><p>Unterschreibe auf weißem Papier, fotografiere sie und lade das Foto über „Unterschrift als Bild laden“. Der weiße Hintergrund wird automatisch durchsichtig.</p></div></details>
+          <details class="faq__item"><summary>Bleibt die PDF durchsuchbar?</summary>
+            <div><p>Ja. Die Unterschrift wird als Bild auf die Seite gelegt, der übrige Inhalt bleibt unverändert.</p></div></details>
+        </div>
+      </section>
+<!--@script-->
+<script type="module" src="../assets/pdf-sign.js"></script>

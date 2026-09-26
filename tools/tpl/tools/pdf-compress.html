@@ -1,0 +1,69 @@
+<!--@eyebrow-->
+PDF-Werkstatt · Dateigröße
+<!--@h1-->
+PDF <em>verkleinern.</em>
+<!--@lede-->
+Große Scans passen oft nicht in E-Mails oder Upload-Formulare von Behörden und Portalen. Hier machst du sie kleiner und siehst vorher, wie viel sich sparen lässt.
+<!--@body-->
+      <div class="dz" id="drop" role="button" tabindex="0" aria-label="PDF auswählen oder hier ablegen">
+        <svg class="dz__ic" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"><path d="M9 1.5v5M6.5 4 9 6.5 11.5 4M9 16.5v-5M6.5 14 9 11.5l2.5 2.5M3 9h12"/></svg>
+        <div><p class="dz__t">PDF hier ablegen</p><p class="dz__s">Am meisten spart es bei gescannten Dokumenten und Fotos.</p></div>
+        <div class="btnrow"><button class="btn" type="button" id="pick">Datei wählen</button></div>
+        <input type="file" id="file" accept="application/pdf,.pdf" hidden>
+      </div>
+
+      <div class="desk" id="desk" hidden>
+        <div class="paper" style="padding:22px">
+          <div class="calcs" style="grid-template-columns:repeat(3,minmax(0,1fr))">
+            <div><span class="small">Original</span><div class="big-num" id="sizeIn">–</div></div>
+            <div><span class="small">Verkleinert</span><div class="big-num" id="sizeOut">–</div></div>
+            <div><span class="small">Ersparnis</span><div class="big-num" id="saved">–</div></div>
+          </div>
+          <div class="pgrid" id="grid" style="margin-top:18px"></div>
+        </div>
+        <aside class="side">
+          <div class="paper">
+            <p class="h3">Einstellungen</p>
+            <div class="chips" id="level" style="margin-top:10px">
+              <button type="button" data-l="strong">Stark</button><button type="button" data-l="medium" aria-pressed="true">Mittel</button><button type="button" data-l="light">Leicht</button><button type="button" data-l="lossless">Verlustfrei</button>
+            </div>
+            <p class="small" id="levelInfo" style="margin:8px 0 0"></p>
+            <label class="switch" style="margin-top:12px"><input type="checkbox" id="gray"><span><b>Graustufen</b><small>noch kleiner, ideal für Belege</small></span></label>
+            <label class="switch" style="margin-top:8px"><input type="checkbox" id="keepText" checked><span><b>Textseiten nicht verändern</b><small>Seiten mit Text bleiben durchsuchbar</small></span></label>
+            <button class="btn" type="button" id="run">Verkleinern</button>
+            <button class="btn btn--ghost" type="button" id="save" disabled>Kleines PDF speichern</button>
+            <p class="statusline" id="status" hidden></p>
+          </div>
+        </aside>
+      </div>
+<!--@content-->
+      <section class="info">
+        <div class="info__head">
+          <p class="eyebrow">Wissen</p>
+          <h2 class="h2">Warum Scans <em>so groß</em> sind</h2>
+        </div>
+        <div class="prose">
+          <p>Scanner und Handys speichern Seiten oft in hoher Auflösung und Farbe, auch wenn nur schwarzer Text auf weißem Papier steht. Eine einzige Seite kann so mehrere Megabyte groß werden. Zum Lesen und Aufbewahren reichen 150 dpi in Graustufen fast immer.</p>
+          <ul>
+            <li><b>Stark:</b> 110 dpi, stärkere Kompression, für E-Mail-Anhänge und Upload-Grenzen</li>
+            <li><b>Mittel:</b> 150 dpi, guter Kompromiss für Belege und Formulare</li>
+            <li><b>Leicht:</b> 200 dpi, wenn kleine Schrift gut lesbar bleiben muss</li>
+            <li><b>Verlustfrei:</b> nur die innere Struktur der PDF wird optimiert, der Inhalt bleibt unverändert</li>
+          </ul>
+          <p>Seiten, die echten Text enthalten, lässt das Werkzeug standardmäßig unverändert. So bleibt Text durchsuchbar und scharf. Verkleinert werden die gescannten Seiten.</p>
+        </div>
+      </section>
+      <section class="faq">
+        <p class="eyebrow">Häufige Fragen</p>
+        <h2 class="h2">Fragen zum Verkleinern</h2>
+        <div class="faq__list">
+          <details class="faq__item"><summary>Warum wird meine PDF kaum kleiner?</summary>
+            <div><p>Wenn sie hauptsächlich aus Text besteht, ist sie schon effizient gespeichert. Große Einsparungen gibt es vor allem bei Scans und Fotos.</p></div></details>
+          <details class="faq__item"><summary>Bleibt der Text durchsuchbar?</summary>
+            <div><p>Mit „Textseiten nicht verändern“ ja. Gescannte Seiten waren schon vorher nicht durchsuchbar. Das kannst du mit <a href="../pdf-durchsuchbar-machen/">PDF durchsuchbar machen</a> nachholen.</p></div></details>
+          <details class="faq__item"><summary>Darf ich eine verkleinerte Rechnung aufbewahren statt des Originals?</summary>
+            <div><p>Bei elektronisch erhaltenen Rechnungen nicht, dort muss das Original aufbewahrt werden. Für die Weitergabe per E-Mail oder für eigene Scans ist das Verkleinern unproblematisch, solange alles lesbar bleibt.</p></div></details>
+        </div>
+      </section>
+<!--@script-->
+<script type="module" src="../assets/pdf-compress.js"></script>

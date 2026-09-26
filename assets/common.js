@@ -19,6 +19,7 @@ export function parseNum(v) {
   let s = String(v ?? '').trim().replace(/\s|€/g, '');
   if (!s) return 0;
   if (s.includes(',')) s = s.replace(/\./g, '').replace(',', '.');
+  else if (/^-?\d{1,3}(\.\d{3})+$/.test(s)) s = s.replace(/\./g, ''); // 31.000 = einunddreißigtausend
   const n = Number(s);
   return Number.isFinite(n) ? n : 0;
 }
@@ -135,3 +136,6 @@ export function fillForm(form, data) {
     else el.value = data[el.name];
   }
 }
+
+// Reisekosten-Pauschalen Inland (Stand 2026)
+export const PAUSCHALE = { day: 14, full: 28, breakfast: 5.6, meal: 11.2, km: 0.3 };

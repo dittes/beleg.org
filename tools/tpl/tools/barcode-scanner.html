@@ -1,0 +1,89 @@
+<!--@eyebrow-->
+Barcode Scanner · kostenlos &amp; online
+<!--@h1-->
+Barcode Scanner <em>online.</em>
+<!--@lede-->
+EAN, UPC, Code 128, Code 39, ITF, Data Matrix und PDF417 mit der Kamera oder aus Bildern scannen. Jeder Code landet in einer Liste mit Menge und Notiz, die du als CSV für Excel exportierst. Kostenlos und ohne App.
+<!--@body-->
+      <div class="scan-ui">
+        <div>
+          <div class="cam-box is-off is-bar" id="cam">
+            <video id="video" playsinline muted></video>
+            <div class="cam-frame" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+            <div class="cam-start" id="camStart">
+              <div>
+                <h2>Barcode scannen</h2>
+                <p>Kamera starten und den Strichcode waagerecht in den Rahmen halten, oder ein Bild wählen.</p>
+                <div class="btnrow">
+                  <button class="btn" type="button" id="start"><svg viewBox="0 0 16 16" fill="none"><path d="M1.5 5h3l1.5-2h4l1.5 2h3v8.5h-13z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><circle cx="8" cy="8.7" r="2.6" stroke="currentColor" stroke-width="1.4"/></svg>Kamera starten</button>
+                  <button class="btn btn--ghost" type="button" id="pick">Bild wählen</button>
+                </div>
+                <p class="small" id="camNote" style="margin:16px 0 0;color:#8ea3dc">Das Kamerabild bleibt auf deinem Gerät.</p>
+              </div>
+            </div>
+            <div class="cam-tools" id="camTools" hidden><button type="button" id="torch" aria-pressed="false" hidden>Licht</button><button type="button" id="switch" hidden>Kamera wechseln</button><button type="button" id="stop">Stopp</button></div>
+            <p class="cam-hint" id="camHint" hidden>Barcode waagerecht in den Rahmen halten</p>
+          </div>
+          <input type="file" id="file" accept="image/*" multiple hidden>
+          <div class="scan-bar"><span class="small" id="engine"></span><span class="small">Bilder ablegen oder mit ⌘/Strg + V einfügen</span></div>
+        </div>
+        <aside class="side" style="position:static">
+          <div class="paper qr-card" id="last" aria-live="polite"><p class="qr-empty">Noch kein Barcode gescannt.</p></div>
+          <div class="paper">
+            <p class="h3">Einstellungen</p>
+            <label class="switch" style="margin-top:10px"><input type="checkbox" id="merge" checked><span><b>Gleiche Codes zusammenzählen</b><small>erhöht die Menge statt neuer Zeile</small></span></label>
+            <label class="switch" style="margin-top:8px"><input type="checkbox" id="sound" checked><span><b>Ton bei Treffer</b></span></label>
+            <label class="field"><span>Code von Hand eingeben / prüfen</span><input id="manual" class="num-in" inputmode="numeric" placeholder="4006381333931"></label>
+          </div>
+        </aside>
+      </div>
+
+      <section style="margin-top:34px">
+        <div style="display:flex;justify-content:space-between;align-items:end;gap:12px;flex-wrap:wrap">
+          <div><p class="eyebrow">Scanliste</p><h2 class="h2" style="margin:0">Gescannte Codes <em id="count">0</em></h2></div>
+          <div class="btnrow"><button class="btn btn--ghost" type="button" id="copy">Alle kopieren</button><button class="btn" type="button" id="csv">CSV für Excel</button><button class="btn btn--quiet" type="button" id="clear">Liste leeren</button></div>
+        </div>
+        <div class="codes-wrap"><table class="codes"><thead><tr><th>#</th><th>Format</th><th>Code</th><th>Info</th><th>Menge</th><th>Notiz</th><th></th></tr></thead><tbody id="rows"></tbody></table></div>
+      </section>
+<!--@content-->
+      <section class="info">
+        <div class="info__head">
+          <p class="eyebrow">Wissen</p>
+          <h2 class="h2">Welche Barcodes <em>erkannt werden</em></h2>
+        </div>
+        <div class="prose">
+          <p>Der kostenlose Barcode Scanner liest online die gängigen Strich- und 2D-Codes aus Handel, Logistik und Verwaltung:</p>
+          <div class="scroll"><table>
+            <thead><tr><th>Code</th><th>Typischer Einsatz</th></tr></thead>
+            <tbody>
+              <tr><td>EAN-13, EAN-8 (GTIN)</td><td>Produkte im Einzelhandel, auch Bücher (ISBN) und Zeitschriften (ISSN)</td></tr>
+              <tr><td>UPC-A, UPC-E</td><td>Produkte aus Nordamerika</td></tr>
+              <tr><td>Code 128, Code 39, Code 93</td><td>Versandetiketten, Lager, Inventarnummern</td></tr>
+              <tr><td>ITF</td><td>Umkartons und Paletten</td></tr>
+              <tr><td>Codabar</td><td>Bibliotheken, Labore</td></tr>
+              <tr><td>Data Matrix, PDF417, Aztec</td><td>Pakete, Tickets, Arzneimittel, Ausweise</td></tr>
+            </tbody>
+          </table></div>
+          <p>Bei EAN- und UPC-Codes prüft beleg.org die <b>Prüfziffer</b> und zeigt das <b>GS1-Präfix</b> an, also das Land, in dem die Nummer vergeben wurde. Das ist nicht unbedingt das Herkunftsland der Ware. Codes mit 978 oder 979 sind Bücher, deren ISBN wird automatisch angezeigt.</p>
+          <h3>Praktisch für Inventur und Wareneingang</h3>
+          <p>Mit „Gleiche Codes zusammenzählen“ scannst du einfach jedes Teil ab, die Liste zählt mit. Mengen und Notizen lassen sich anpassen, die CSV-Datei öffnest du direkt in Excel, Numbers oder deiner Warenwirtschaft.</p>
+        </div>
+      </section>
+      <section class="faq">
+        <p class="eyebrow">Häufige Fragen</p>
+        <h2 class="h2">Fragen zum Barcode Scanner</h2>
+        <div class="faq__list">
+          <details class="faq__item"><summary>Ist der Barcode Scanner kostenlos?</summary>
+            <div><p>Ja, der Barcode Scanner ist online und kostenlos nutzbar, ohne Anmeldung, ohne App und ohne Begrenzung.</p></div></details>
+          <details class="faq__item"><summary>Kann ich mit dem Handy Barcodes scannen?</summary>
+            <div><p>Ja. Öffne die Seite im Browser deines Smartphones, tippe auf „Kamera starten“ und halte den Strichcode waagerecht in den Rahmen. Bei schlechtem Licht hilft die Taschenlampe, sofern dein Handy sie unterstützt.</p></div></details>
+          <details class="faq__item"><summary>Zeigt der Scanner auch den Produktnamen an?</summary>
+            <div><p>Nein. Dafür müsste der Code an eine Produktdatenbank im Internet geschickt werden. beleg.org verarbeitet alles lokal und zeigt deshalb Code, Format, Prüfziffer und Präfix, aber keine Produktdaten.</p></div></details>
+          <details class="faq__item"><summary>Kann ich Barcodes aus einem Foto lesen?</summary>
+            <div><p>Ja. Wähle ein oder mehrere Bilder aus oder zieh sie auf die Seite. Pro Bild wird ein Code erkannt.</p></div></details>
+          <details class="faq__item"><summary>Wie exportiere ich die Scanliste nach Excel?</summary>
+            <div><p>Klicke auf „CSV für Excel“. Die Datei nutzt Semikolon und deutsche Zahlenformate und öffnet sich per Doppelklick in Excel. Codes werden als Text gespeichert, damit führende Nullen erhalten bleiben.</p></div></details>
+        </div>
+      </section>
+<!--@script-->
+<script type="module" src="../assets/barcode-scanner.js"></script>

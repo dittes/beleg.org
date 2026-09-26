@@ -1,0 +1,95 @@
+<!--@eyebrow-->
+Rechner für Selbstständige
+<!--@h1-->
+Schnell <em>nachgerechnet.</em>
+<!--@lede-->
+Umsatzsteuer herausrechnen, Skonto bewerten, Reisepauschalen ermitteln und prüfen, ob du 2026 Kleinunternehmer bleiben kannst. Alles sofort beim Tippen berechnet.
+<!--@style-->
+    .jump { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 22px; }
+    .jump a { padding: 9px 13px; border: 1px solid var(--rule-strong); border-radius: 20px; background: #fff; color: var(--ink-2); text-decoration: none; font: 500 13px/1 var(--f-label); }
+    .jump a:hover { border-color: var(--blue); color: var(--blue); }
+<!--@body-->
+      <nav class="jump" aria-label="Rechner"><a href="#mwst">MwSt-Rechner</a><a href="#skonto">Skonto-Rechner</a><a href="#reise">Reisepauschalen</a><a href="#ku">Kleinunternehmer-Check</a></nav>
+      <div class="calcs">
+        <form class="calc-card" id="mwst" onsubmit="return false">
+          <h2>MwSt-Rechner</h2>
+          <p>Brutto in Netto umrechnen und umgekehrt.</p>
+          <div class="grid">
+            <label class="field span-3"><span>Betrag (€)</span><input name="amount" class="num-in" inputmode="decimal" value="119,00"></label>
+            <label class="field span-3"><span>Steuersatz</span><select name="rate"><option value="19">19 %</option><option value="7">7 %</option><option value="0">0 %</option><option value="x">anderer …</option></select></label>
+            <label class="field span-3" data-other hidden><span>Satz (%)</span><input name="other" class="num-in" inputmode="decimal" value="16"></label>
+            <div class="span-6 chips" data-dir><button type="button" data-v="gross" aria-pressed="true">Betrag ist brutto</button><button type="button" data-v="net">Betrag ist netto</button></div>
+          </div>
+          <div class="calc-out" data-out></div>
+        </form>
+
+        <form class="calc-card" id="skonto" onsubmit="return false">
+          <h2>Skonto-Rechner</h2>
+          <p>Lohnt es sich, früher zu zahlen? Mit effektivem Jahreszins.</p>
+          <div class="grid">
+            <label class="field span-3"><span>Rechnungsbetrag (€)</span><input name="amount" class="num-in" inputmode="decimal" value="1.487,50"></label>
+            <label class="field span-3"><span>Skonto (%)</span><input name="pct" class="num-in" inputmode="decimal" value="2"></label>
+            <label class="field span-3"><span>Skontofrist (Tage)</span><input name="fast" type="number" min="0" value="10"></label>
+            <label class="field span-3"><span>Zahlungsziel (Tage)</span><input name="due" type="number" min="1" value="30"></label>
+          </div>
+          <div class="calc-out" data-out></div>
+        </form>
+
+        <form class="calc-card" id="reise" onsubmit="return false">
+          <h2>Reisepauschalen 2026</h2>
+          <p>Verpflegungsmehraufwand und Fahrtkosten für eine Dienstreise im Inland.</p>
+          <div class="grid">
+            <div class="span-6 chips" data-kind><button type="button" data-v="day" aria-pressed="true">Eintägig</button><button type="button" data-v="multi">Mehrtägig</button></div>
+            <label class="field span-3" data-day><span>Abwesenheit (Stunden)</span><input name="hours" type="number" min="0" max="24" step="0.5" value="10"></label>
+            <label class="field span-3" data-multi hidden><span>Reisetage gesamt</span><input name="days" type="number" min="2" value="3"></label>
+            <label class="field span-3"><span>Gefahrene km (Pkw)</span><input name="km" type="number" min="0" value="180"></label>
+            <label class="field span-2"><span>Frühstück gestellt</span><input name="b" type="number" min="0" value="0"></label>
+            <label class="field span-2"><span>Mittagessen gestellt</span><input name="l" type="number" min="0" value="0"></label>
+            <label class="field span-2"><span>Abendessen gestellt</span><input name="d" type="number" min="0" value="0"></label>
+          </div>
+          <div class="calc-out" data-out></div>
+          <p class="small" style="margin:12px 0 0">Mit Belegen und PDF-Mappe: <a href="../reisekostenabrechnung/">Reisekostenabrechnung erstellen →</a></p>
+        </form>
+
+        <form class="calc-card" id="ku" onsubmit="return false">
+          <h2>Kleinunternehmer-Check</h2>
+          <p>Grenzen nach § 19 UStG seit 2025: 25.000 € im Vorjahr, 100.000 € im laufenden Jahr.</p>
+          <div class="grid">
+            <label class="field span-3"><span>Umsatz Vorjahr (€)</span><input name="prev" class="num-in" inputmode="decimal" value="22.000"></label>
+            <label class="field span-3"><span>Umsatz dieses Jahr (€, voraussichtlich)</span><input name="cur" class="num-in" inputmode="decimal" value="31.000"></label>
+            <label class="switch span-6"><input type="checkbox" name="new"><span><b>Gründungsjahr</b><small>Ich habe mein Unternehmen dieses Jahr gegründet</small></span></label>
+          </div>
+          <div data-out></div>
+        </form>
+      </div>
+<!--@content-->
+      <section class="info">
+        <div class="info__head">
+          <p class="eyebrow">Wissen</p>
+          <h2 class="h2">Die Zahlen <em>dahinter</em></h2>
+        </div>
+        <div class="prose">
+          <h3>Umsatzsteuer</h3>
+          <p>Der Regelsatz beträgt 19 %, der ermäßigte Satz 7 %, etwa für Lebensmittel, Bücher, Zeitungen und Übernachtungen. Aus einem Bruttobetrag rechnest du die Steuer mit Brutto × Satz ÷ (100 + Satz) heraus.</p>
+          <h3>Skonto</h3>
+          <p>Wer 2 % Skonto bei Zahlung in 10 statt 30 Tagen bekommt, „verdient“ auf die 20 Tage Vorfinanzierung umgerechnet über 36 % Jahreszins. Skonto zu ziehen lohnt sich deshalb fast immer, selbst wenn du dafür den Dispokredit nutzt.</p>
+          <h3>Reisekosten</h3>
+          <p>Für Dienstreisen im Inland gelten 14 € Verpflegungspauschale ab mehr als 8 Stunden Abwesenheit sowie für An- und Abreisetag, 28 € für volle Kalendertage. Gestellte Mahlzeiten mindern die Pauschale: Frühstück um 5,60 €, Mittag- und Abendessen um je 11,20 €. Fahrten mit dem eigenen Pkw werden mit 0,30 € je Kilometer angesetzt.</p>
+          <h3>Kleinunternehmer</h3>
+          <p>Seit 2025 bist du Kleinunternehmer, wenn dein Umsatz im Vorjahr höchstens 25.000 € betrug und im laufenden Jahr 100.000 € nicht übersteigt. Wird die 100.000-€-Grenze im Laufe des Jahres überschritten, gilt ab genau diesem Umsatz die Regelbesteuerung. Im Gründungsjahr liegt die Grenze bei 25.000 €.</p>
+        </div>
+      </section>
+      <section class="faq">
+        <p class="eyebrow">Häufige Fragen</p>
+        <h2 class="h2">Fragen zu den Rechnern</h2>
+        <div class="faq__list">
+          <details class="faq__item"><summary>Wie rechne ich 19 % Mehrwertsteuer heraus?</summary>
+            <div><p>Teile den Bruttobetrag durch 1,19. Das Ergebnis ist der Nettobetrag, die Differenz ist die Umsatzsteuer. Beispiel: 119 € ÷ 1,19 = 100 € netto und 19 € Steuer.</p></div></details>
+          <details class="faq__item"><summary>Zählt beim Kleinunternehmer der Brutto- oder Nettoumsatz?</summary>
+            <div><p>Maßgeblich ist der Gesamtumsatz ohne Umsatzsteuer. Als Kleinunternehmer weist du ohnehin keine Umsatzsteuer aus, dein Umsatz ist also das, was du einnimmst.</p></div></details>
+          <details class="faq__item"><summary>Gelten die Pauschalen auch für Auslandsreisen?</summary>
+            <div><p>Nein, für Auslandsreisen gibt es länderspezifische Pauschalen, die das Bundesfinanzministerium jährlich veröffentlicht. Die Rechner hier gelten für Reisen im Inland.</p></div></details>
+        </div>
+      </section>
+<!--@script-->
+<script type="module" src="../assets/rechner.js"></script>

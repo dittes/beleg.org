@@ -1,0 +1,46 @@
+<!--@eyebrow-->
+PDF-Werkstatt · Umwandeln
+<!--@h1-->
+Bilder zu <em>PDF.</em>
+<!--@lede-->
+Fotos von Belegen, Screenshots oder gescannte Seiten als JPG, PNG oder WebP zu einem PDF zusammenfassen: sortieren, Seitenformat wählen, speichern.
+<!--@body-->
+      <div class="dz" id="drop" role="button" tabindex="0" aria-label="Bilder auswählen oder hier ablegen">
+        <svg class="dz__ic" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"><rect x="1.5" y="3" width="8" height="7" rx=".5"/><path d="m1.5 8.5 2.5-2 2 1.5 1.5-1 2 1.5"/><path d="M11 7.5h2.5l3 3v6h-5.5z"/></svg>
+        <div><p class="dz__t">Bilder hier ablegen</p><p class="dz__s">JPG, PNG, WebP. Beliebig viele, die Reihenfolge änderst du danach.</p></div>
+        <div class="btnrow"><button class="btn" type="button" id="pick">Bilder wählen</button></div>
+        <input type="file" id="file" accept="image/*" multiple hidden>
+      </div>
+
+      <div class="desk" id="desk" hidden>
+        <ol class="flist" id="list"></ol>
+        <aside class="side">
+          <div class="paper">
+            <p class="h3">Seiten</p>
+            <label class="field"><span>Seitenformat</span>
+              <select id="size"><option value="a4-auto">A4, Ausrichtung automatisch</option><option value="a4">A4 hoch</option><option value="a4-land">A4 quer</option><option value="image">Wie das Bild</option></select></label>
+            <label class="field"><span>Rand</span>
+              <select id="margin"><option value="0">Kein Rand</option><option value="20" selected>Schmal</option><option value="42">Normal</option></select></label>
+            <label class="field"><span>Qualität</span>
+              <select id="quality"><option value="0.65">Kleine Datei</option><option value="0.82" selected>Ausgewogen</option><option value="0.93">Hohe Qualität</option></select></label>
+            <label class="field"><span>Dateiname</span><input id="fname" value="bilder"></label>
+            <button class="btn" type="button" id="save" disabled>Als PDF speichern</button>
+            <p class="statusline" id="status" hidden></p>
+          </div>
+        </aside>
+      </div>
+<!--@content-->
+      <section class="faq">
+        <p class="eyebrow">Häufige Fragen</p>
+        <h2 class="h2">Fragen zu Bildern und PDF</h2>
+        <div class="faq__list">
+          <details class="faq__item"><summary>Kann ich Fotos vom Handy direkt verwenden?</summary>
+            <div><p>Ja. Für Belege lohnt es sich aber, sie vorher mit <a href="../beleg-scannen/">Beleg scannen</a> zuzuschneiden und die Schrift zu verbessern. Dort kannst du auch direkt ein PDF speichern.</p></div></details>
+          <details class="faq__item"><summary>Werden die Bilder verkleinert?</summary>
+            <div><p>Sehr große Fotos werden auf höchstens 3000 Pixel Kantenlänge begrenzt. Das reicht für eine A4-Seite mit rund 250 dpi. Mit „Kleine Datei“ wird zusätzlich stärker komprimiert.</p></div></details>
+          <details class="faq__item"><summary>Funktionieren HEIC-Fotos vom iPhone?</summary>
+            <div><p>Das hängt vom Browser ab. Safari kann HEIC lesen, andere Browser meist nicht. Stelle im Zweifel in den iPhone-Einstellungen unter Kamera → Formate auf „Maximale Kompatibilität“ (JPG) um.</p></div></details>
+        </div>
+      </section>
+<!--@script-->
+<script type="module" src="../assets/pdf-img2pdf.js"></script>

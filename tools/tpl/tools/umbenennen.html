@@ -1,0 +1,71 @@
+<!--@eyebrow-->
+Belege · Ordnung
+<!--@h1-->
+Belege <em>umbenennen.</em>
+<!--@lede-->
+Aus IMG_4711.jpg und scan0023.pdf wird 2026-09-19_Cafe-Hafenblick_27-40.pdf. Datum, Händler und Betrag erkennt beleg.org automatisch, du prüfst und lädst alles als ZIP herunter.
+<!--@style-->
+    .rn-row { grid-template-columns: 54px minmax(0, 1fr) auto; }
+    .rn-row .fitem__info b { color: var(--ink); font-weight: 500; }
+    .rn-row.is-busy .fitem__th { opacity: .5; }
+    .tokens { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
+    .tokens button { border: 1px solid var(--rule); background: var(--paper-2); color: var(--ink-2); border-radius: 3px; padding: 4px 6px; font: 500 11px/1 var(--f-mono); cursor: pointer; }
+    .tokens button:hover { border-color: var(--blue); color: var(--blue); }
+<!--@body-->
+      <div class="dz" id="drop" role="button" tabindex="0" aria-label="Belege auswählen oder hier ablegen">
+        <svg class="dz__ic" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"><path d="M2.5 4.5h8l3 4.5-3 4.5h-8z"/><circle cx="6" cy="9" r="1"/></svg>
+        <div><p class="dz__t">Belege hier ablegen</p><p class="dz__s">PDFs und Fotos, gern viele auf einmal. Die Texterkennung läuft in deinem Browser.</p></div>
+        <div class="btnrow"><button class="btn" type="button" id="pick">Dateien wählen</button></div>
+        <input type="file" id="file" accept="application/pdf,.pdf,image/*,.xml" multiple hidden>
+      </div>
+
+      <div class="desk" id="desk" hidden>
+        <ol class="flist" id="list"></ol>
+        <aside class="side">
+          <div class="paper">
+            <p class="h3">Namensschema</p>
+            <label class="field"><span>Vorlage</span><input id="tpl" value="{datum}_{haendler}_{betrag}" spellcheck="false"></label>
+            <div class="tokens" id="tokens"><button type="button">{datum}</button><button type="button">{haendler}</button><button type="button">{betrag}</button><button type="button">{nr}</button><button type="button">{original}</button></div>
+            <label class="switch" style="margin-top:12px"><input type="checkbox" id="toPdf"><span><b>Fotos als PDF speichern</b><small>JPG/PNG werden zu PDF-Dateien</small></span></label>
+            <div class="progress"><i id="bar"></i></div>
+            <p class="statusline" id="status" hidden></p>
+            <button class="btn" type="button" id="zip" disabled>Alle als ZIP herunterladen</button>
+            <button class="btn btn--ghost" type="button" id="csv" disabled>Liste als CSV</button>
+          </div>
+        </aside>
+      </div>
+<!--@content-->
+      <section class="info">
+        <div class="info__head">
+          <p class="eyebrow">Wissen</p>
+          <h2 class="h2">Ein Dateiname, <em>der Suchen erspart</em></h2>
+        </div>
+        <div class="prose">
+          <p>Mit dem Datum am Anfang sortieren sich Belege im Ordner automatisch chronologisch. Händler und Betrag im Namen machen die Suche einfach, auch Jahre später bei einer Rückfrage vom Finanzamt.</p>
+          <div class="scroll"><table>
+            <thead><tr><th>Platzhalter</th><th>Wird zu</th></tr></thead>
+            <tbody>
+              <tr><td class="mono">{datum}</td><td>Belegdatum als 2026-09-19</td></tr>
+              <tr><td class="mono">{haendler}</td><td>Händler oder Aussteller, z. B. Cafe-Hafenblick</td></tr>
+              <tr><td class="mono">{betrag}</td><td>Bruttobetrag, z. B. 27-40</td></tr>
+              <tr><td class="mono">{nr}</td><td>Beleg- oder Rechnungsnummer</td></tr>
+              <tr><td class="mono">{original}</td><td>bisheriger Dateiname</td></tr>
+            </tbody>
+          </table></div>
+          <p>Mehr zur Ablage im Ratgeber <a href="../beleg-digitalisieren/">Belege digitalisieren</a>.</p>
+        </div>
+      </section>
+      <section class="faq">
+        <p class="eyebrow">Häufige Fragen</p>
+        <h2 class="h2">Fragen zum Umbenennen</h2>
+        <div class="faq__list">
+          <details class="faq__item"><summary>Werden meine Dateien verändert?</summary>
+            <div><p>Nein. Die ZIP-Datei enthält deine Originaldateien unverändert unter neuem Namen. Nur mit „Fotos als PDF speichern“ werden Bilder in PDFs umgewandelt.</p></div></details>
+          <details class="faq__item"><summary>Was, wenn etwas falsch erkannt wurde?</summary>
+            <div><p>Jeder Dateiname lässt sich vor dem Herunterladen von Hand ändern. Fehlt ein Wert, bleibt der Platzhalter einfach leer.</p></div></details>
+          <details class="faq__item"><summary>Warum sind Umlaute im Dateinamen umgeschrieben?</summary>
+            <div><p>Ä, Ö, Ü und ß werden zu ae, oe, ue und ss, Sonderzeichen entfallen. So funktionieren die Namen auf jedem System, in jeder Cloud und in jedem Buchhaltungsprogramm.</p></div></details>
+        </div>
+      </section>
+<!--@script-->
+<script type="module" src="../assets/umbenennen.js"></script>

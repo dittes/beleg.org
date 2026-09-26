@@ -1,6 +1,7 @@
 // 01 · E-Rechnung lesen & prüfen
-import { $, $$, esc, download, session } from './common.js';
-import { parseXML, check, renderInvoice, toCII, buildModel, SAMPLE_FORM, TYPE_CODES, UNIT_CODES, describeProfile } from './einvoice.js';
+import { $, $$, esc, download, session } from './common.js?v=dd1f3874';
+import { parseXML, check, renderInvoice, toCII, buildModel, SAMPLE_FORM, TYPE_CODES, UNIT_CODES, describeProfile } from './einvoice.js?v=02638bd2';
+import { fillInvoiceQr } from './qr.js?v=ff898161';
 
 const PDFJS = new URL('../vendor/pdfjs/pdf.min.mjs', import.meta.url).href;
 const PDFJS_WORKER = new URL('../vendor/pdfjs/pdf.worker.min.mjs', import.meta.url).href;
@@ -60,6 +61,7 @@ function show(xml, name, pdf) {
   $('#rTitle').innerHTML = `${esc(TYPE_CODES[model.typeCode] || 'Rechnung')} <em>${esc(model.number || '')}</em>`;
   $('#rFile').textContent = `${name} · ${prof.name} · ${model.syntax}`;
   $('#vDoc').innerHTML = renderInvoice(model);
+  fillInvoiceQr($('#vDoc'), model);
   $('#xmlSrc').innerHTML = highlight(xml);
 
   const { ok, warn, err } = res.score;
