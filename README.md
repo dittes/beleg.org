@@ -23,6 +23,19 @@ Werkzeuge für Belege – statisch, ohne Build-Schritt für die Laufzeit, alles 
 | `/ratgeber/` + `/belegpflicht/`, `/beleg-vs-quittung/`, `/beleg-digitalisieren/`, `/e-rechnungspflicht/` | Ratgeber |
 | `/impressum/`, `/datenschutz/`, `/404.html` | Rechtliches |
 
+## Informationsarchitektur
+
+Sechs Bereiche mit Übersichtsseite; die Werkzeug-URLs bleiben flach (keyword-stark), die Hierarchie steht in Brotkrumen und BreadcrumbList:
+
+- **E-Rechnung** `/e-rechnung/` – prüfen, erstellen, Leitweg-ID, GiroCode
+- **Scanner** `/scanner/` – Beleg scannen, QR-Code-Scanner, Barcode-Scanner
+- **Belege** `/belege/` – auslesen, Kontoauszug in Excel, umbenennen, Vorlagen, Reisekosten, Aufbewahrung
+- **PDF-Werkstatt** `/pdf-werkstatt/` – 9 PDF-Werkzeuge
+- **Rechner** `/rechner/` – MwSt, Skonto, Reise, Kleinunternehmer
+- **Ratgeber** `/ratgeber/` – Artikel
+
+Desktop: Seitenleiste mit 6 Punkten, der aktuelle Bereich klappt seine Unterseiten auf (andere per Pfeil). Mobil: Kopfleiste + Menü als Akkordeon, auf jeder Seite ein Bereichswechsler. Die Struktur steht zentral in `SECTIONS` in `tools/site.py`.
+
 ## Seiten erzeugen
 
 Navigation, Kopfzeile, Fußzeile, Meta-Tags (Title, Description, Canonical, Open Graph, JSON-LD inkl. FAQPage aus den sichtbaren FAQs), `sitemap.xml` und `robots.txt` schreibt ein Generator:
